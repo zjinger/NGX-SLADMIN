@@ -1,11 +1,11 @@
-// AdminLTE 2 Variables.less
+// NGX-SHENLAN variables less
+//基于Bootstrap3.3.7 使用
+//参考 LTE-ADMIN UI
 // =========================
 
 // PATHS
 // --------------------------------------------------------
-
 @boxed-layout-bg-image-path: "../../assets/img/boxed-bg.jpg";
-
 // COLORS
 // --------------------------------------------------------
 // Primary
@@ -29,29 +29,37 @@
 @maroon: #D81B60;
 @black: #111;
 @gray-lte: #d2d6de;
-
+//== Media queries breakpoints
+@screen-xs: 480px;
+@screen-xs-min: @screen-xs;
+@screen-xs-max: (@screen-sm-min - 1);
+@screen-sm: 768px;
+@screen-sm-min: @screen-sm;
+@screen-sm-max: (@screen-md-min - 1);
+@screen-md: 992px;
+@screen-md-min: @screen-md;
+@screen-md-max: (@screen-lg-min - 1);
+@screen-lg: 1200px;
+@screen-lg-min: @screen-lg;
 // LAYOUT
 // --------------------------------------------------------
-
-// Side bar and logo width
+// 侧边导航栏宽度
 @sidebar-width: 230px;
-// Boxed layout maximum width
+//头部高度
+@navbar-height: 50px;
+// 盒子模型最大宽度
 @boxed-layout-max-width: 1024px;
-// When the logo should go to the top of the screen
+//当页面小于@screen-xs-max，头部出现收缩
 @screen-header-collapse: @screen-xs-max;
-
-// Link colors (Aka: <a> tags)
+// 链接的颜色
 @link-color: @light-blue;
 @link-hover-color: lighten(@link-color, 15%);
-
-// Body background (Affects main content background only)
+// body背景色
 @body-bg: #ecf0f5; // DEPRECATED
 @content-bg: #ecf0f5;
-
 // SIDEBAR SKINS
 // --------------------------------------------------------
-
-// Dark sidebar
+// 深色导航栏主题色
 @sidebar-dark-bg: #222d32;
 @sidebar-dark-hover-bg: darken(@sidebar-dark-bg, 2%);
 @sidebar-dark-color: lighten(@sidebar-dark-bg, 60%);
@@ -59,8 +67,7 @@
 @sidebar-dark-submenu-bg: lighten(@sidebar-dark-bg, 5%);
 @sidebar-dark-submenu-color: lighten(@sidebar-dark-submenu-bg, 40%);
 @sidebar-dark-submenu-hover-color: #fff;
-
-// Light sidebar
+// 浅色导航栏主题色
 @sidebar-light-bg: #f9fafc;
 @sidebar-light-hover-bg: lighten(#f0f0f1, 1.5%);
 @sidebar-light-color: #444;
@@ -68,59 +75,37 @@
 @sidebar-light-submenu-bg: @sidebar-light-hover-bg;
 @sidebar-light-submenu-color: #777;
 @sidebar-light-submenu-hover-color: #000;
-
-// sidebar-expanded-on-hover
-@sidebar-expanded-shadow: 3px 0 8px rgba(0,0,0,.125);
-
-// CONTROL SIDEBAR
+// 导航栏展开后悬浮背景
+@sidebar-expanded-shadow: 3px 0 8px rgba(0, 0, 0, .125);
+// 控制面板导航栏
 // --------------------------------------------------------
 @control-sidebar-width: @sidebar-width;
-
-// BOXES
+// 盒子
 // --------------------------------------------------------
 @box-border-color: #f4f4f4;
 @box-border-radius: 3px;
 @box-footer-bg: #fff;
 @box-boxshadow: 0 1px 1px rgba(0, 0, 0, .1);
 @box-padding: 10px;
-
-// Box variants
+//盒子（div）默认头部边框颜色
 @box-default-border-top-color: #d2d6de;
-
-// BUTTONS
-// --------------------------------------------------------
-@btn-boxshadow: none;
-
-// PROGRESS BARS
+// 进度条
 // --------------------------------------------------------
 @progress-bar-border-radius: 1px;
 @progress-bar-sm-border-radius: 1px;
 @progress-bar-xs-border-radius: 1px;
-
-// FORMS
+// 表单
 // --------------------------------------------------------
 @input-radius: 0;
-
-// BUTTONS
+// 按钮
 // --------------------------------------------------------
-
 // Border radius for non flat buttons
 @btn-border-radius: 3px;
-
-// DIRECT CHAT
-// --------------------------------------------------------
-@direct-chat-height: 250px;
-@direct-chat-default-msg-bg: @gray-lte;
-@direct-chat-default-font-color: #444;
-@direct-chat-default-msg-border-color: @gray-lte;
-
-// CHAT WIDGET
-// --------------------------------------------------------
-@attachment-border-radius: 3px;
-
+@btn-boxshadow: none;
 // TRANSITIONS SETTINGS
 // --------------------------------------------------------
-
 // Transition global options
 @transition-speed: .3s;
 @transition-fn: ease-in-out;
+
+

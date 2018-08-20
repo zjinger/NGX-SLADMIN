@@ -14,6 +14,7 @@ import { MenuItemComponent } from './components/sidebar/menu/menu-item/menu-item
 import { SlSlimScrollDirective } from './directives/sl-slim-scroll.directive';
 import { LayoutComponent } from './layout.component';
 import { SharedModule } from '../shared/shared.module';
+import { TabNavComponent } from './components/content-header/tab-nav/tab-nav.component';
 
 const COMPONENTS = [
   HeaderComponent,
@@ -40,6 +41,7 @@ const DIRECTIVES = [
   declarations: [
     ...COMPONENTS,
     ...DIRECTIVES,
+    TabNavComponent,
   ],
   exports: []
 })

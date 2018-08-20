@@ -7,11 +7,16 @@ import 'jquery';
 export class SlSlimScrollDirective implements OnChanges {
 
   @Input() public slimScrollOptions: Object;
-  
+  @Input() public isDestroy: boolean;
+
   constructor(private _elementRef: ElementRef) { }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this._scroll();
+    if (this.isDestroy) {
+      this._destroy();
+    } else {
+      this._scroll();
+    }
   }
 
   private _scroll() {

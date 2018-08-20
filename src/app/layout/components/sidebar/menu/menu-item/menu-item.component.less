@@ -1,4 +1,3 @@
-@import "src/styles/bootstrap-less/mixins";
 li {
     position: relative;
     margin: 0;
@@ -20,6 +19,12 @@ li {
     .badge {
         margin-top: 3px;
     }
+}
+
+@import 'src/styles/bootstrap-less/bootstrap';
+li.header {
+    padding: 10px 25px 10px 15px;
+    font-size: 12px;
 }
 
 li>a>.fa-angle-left,
@@ -47,4 +52,36 @@ li>a>.fa-angle-left {
 
 .active>.treeview-menu {
     display: block;
+}
+
+// Tree view menu
+.treeview-menu {
+    display: none;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    padding-left: 5px;
+    .treeview-menu {
+        padding-left: 20px;
+    }
+    >li {
+        margin: 0;
+        >a {
+            padding: 5px 5px 5px 15px;
+            display: block;
+            font-size: 14px;
+            cursor: pointer;
+            >.fa,
+            >.glyphicon,
+            >.ion {
+                width: 20px;
+            }
+            >.pull-right-container>.fa-angle-left,
+            >.pull-right-container>.fa-angle-down,
+            >.fa-angle-left,
+            >.fa-angle-down {
+                width: auto;
+            }
+        }
+    }
 }

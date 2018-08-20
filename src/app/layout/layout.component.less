@@ -1,0 +1,28 @@
+@import 'src/styles/conf/conf';
+@import 'src/styles/bootstrap-less/bootstrap';
+.wrapper {
+    .clearfix();
+    height: 100%;
+    position: relative;
+    overflow-x: hidden;
+    overflow-y: auto;
+    .layout-boxed & {
+        max-width: 1250px;
+        margin: 0 auto;
+        min-height: 100%;
+        box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+        position: relative;
+    }
+}
+
+.content-wrapper {
+    min-height: 100%;
+    background-color: @content-bg;
+    z-index: 800;
+}
+
+.content {
+    min-height: 250px;
+    padding: 15px;
+    .container-fixed(@grid-gutter-width);
+}

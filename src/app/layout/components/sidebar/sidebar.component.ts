@@ -37,7 +37,7 @@ export class SidebarComponent implements OnInit, AfterViewInit {
 
   public updateSidebarHeight(): void {
     this.menuHeight = $(window).height() - $(this.Selector.mainHeader).height()
-    console.log(this.menuHeight)
+    // console.log(this.menuHeight)
   }
   ngAfterViewInit() {
     setTimeout(() => this.updateSidebarHeight());

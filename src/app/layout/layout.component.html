@@ -4,7 +4,7 @@
     <layout-sidebar></layout-sidebar>
     <div class="content-wrapper">
         <layout-content-header></layout-content-header>
-        <section class="content">
+        <section class="content" slSlimScroll [isDestroy]="isDestroy" [slimScrollOptions]="{height:contentHeight}">
             <reuse-tab></reuse-tab>
             <router-outlet></router-outlet>
         </section>

@@ -14,6 +14,7 @@ export const SYSTEM_MENU: any[] = [
                         title: 'Dashboard11',
                         icon: 'fa fa-circle-o',
                         selected: true,
+                        link: 'dashboard'
                     },
                     {
                         title: 'Dashboard12',
@@ -31,18 +32,17 @@ export const SYSTEM_MENU: any[] = [
     ,
     {
         header: true,
-        title: 'MAIN NAVIGATION',
+        title: 'THIRD PLUGIN',
         items: [
             {
-                title: 'Dashboard',
+                title: 'Third Plugin',
                 icon: 'fa fa-dashboard',
                 // selectedIcon: 'task-menu',
-                expanded: false,
                 children: [
                     {
-                        title: 'Dashboard11',
+                        title: 'leafjs',
                         icon: 'fa fa-circle-o',
-                        selected: false,
+                        link: '/third/leaft'
                     },
                     {
                         title: 'Dashboard12',

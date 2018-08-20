@@ -1,0 +1,26 @@
+<li class="dropdown {{className}}">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+    <i class="{{iconClass}}"></i>
+    <span class="{{labelClass}}">{{badge}}</span>
+  </a>
+  <ul class="dropdown-menu">
+    <li class="header">{{title}}</li>
+    <li>
+      <ul class="menu">
+        <li *ngFor="let item of list;">
+          <a [href]="item.link?item.link:'javascript:void(0)'">
+            <div class="pull-left">
+              <img [src]="item.imgUrl | appPicture" class="img-circle" [alt]="item.alt">
+            </div>
+            <h4>
+              {{item.title}}
+              <small><i class="{{item.className}}"></i> {{item.time}}</small>
+            </h4>
+            <p>{{item.description}}</p>
+          </a>
+        </li>
+      </ul>
+    </li>
+    <li class="footer"><a [href]="footerLink?footerLink:'javascript:void(0)'">{{footerTip}}</a></li>
+  </ul>
+</li>

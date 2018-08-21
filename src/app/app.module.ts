@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { LayoutModule } from './layout/layout.module';
 import { WorkspaceModule } from './workspace/workspace.module';
 import { routing } from './app.routing';
+import { PagesModule } from './pages/pages.module';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { routing } from './app.routing';
     BrowserModule,
     LayoutModule,
     WorkspaceModule,
+    PagesModule,
     routing
   ],
   providers: [],

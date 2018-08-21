@@ -1,7 +1,7 @@
 export const SYSTEM_MENU: any[] = [
     {
         header: true,
-        title: 'MAIN NAVIGATION',
+        title: 'COMPONENTS',
         items: [
             {
                 title: 'Dashboard',
@@ -11,33 +11,36 @@ export const SYSTEM_MENU: any[] = [
                 selected: true,
                 children: [
                     {
-                        title: 'Dashboard11',
+                        title: 'Dashboard',
                         icon: 'fa fa-circle-o',
                         selected: true,
                         link: 'dashboard'
                     },
                     {
-                        title: 'Dashboard12',
+                        title: 'Dashboard2',
                         icon: 'fa fa-circle-o',
                     }
                 ]
             },
             {
-                title: 'Documentation',
-                label: 'Documentation',
+                title: 'Forms',
+                label: 'forms',
                 icon: 'fa fa-book'
+            },
+            {
+                title: 'Box',
+                label: 'box',
+                icon: 'fa fa-archive'
             }
         ]
-    }
-    ,
+    },
     {
         header: true,
         title: 'THIRD PLUGIN',
         items: [
             {
-                title: 'Third Plugin',
+                title: '第三方扩展',
                 icon: 'fa fa-dashboard',
-                // selectedIcon: 'task-menu',
                 children: [
                     {
                         title: 'leafjs',
@@ -45,15 +48,16 @@ export const SYSTEM_MENU: any[] = [
                         link: '/third/leaft'
                     },
                     {
-                        title: 'Dashboard12',
+                        title: 'treeview',
                         icon: 'fa fa-circle-o',
+                        link: '/third/treeview'
+                    },
+                    {
+                        title: 'ckeditor',
+                        icon: 'fa fa-circle-o',
+                        link: '/third/ckeditor'
                     }
                 ]
-            },
-            {
-                title: 'Documentation',
-                label: 'Documentation',
-                icon: 'fa fa-book'
             }
         ]
     }

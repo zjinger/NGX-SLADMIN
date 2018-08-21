@@ -9,7 +9,7 @@ export const routes: Routes = [
     children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       { path: 'dashboard', component: DashboardComponent },
-      { path: 'third', loadChildren: './workspace/third-plugin/third-plugin.module#ThirdPluginModule' },
+      { path: 'third', loadChildren: './pages/third-plugin/third-plugin.module#ThirdPluginModule' },
     ]
   },
   {

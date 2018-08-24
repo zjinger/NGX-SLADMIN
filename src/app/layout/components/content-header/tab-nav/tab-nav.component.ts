@@ -40,6 +40,7 @@ export class TabNavComponent implements OnInit, AfterContentChecked, OnDestroy, 
   private _selectedIndex: number = null;//已选择的tab index
 
   @ContentChildren(TabLabelDirective) listTabLabelDirective: QueryList<TabLabelDirective>;
+  
   @ContentChildren(PaneDirective) topLevelPanes: QueryList<PaneDirective>;
 
   @ViewChild('tabsContainer') navContainerElement: ElementRef;

@@ -1,8 +1,7 @@
 import { NgModule } from '@angular/core';
-import { SlSlimScrollDirective } from './directives/sl-slim-scroll.directive';
-import { LayoutComponent } from './layout.component';
 import { SharedModule } from '../shared/shared.module';
 import { LayoutRoutingModule } from './layout-routing.module';
+import { LayoutComponent } from './layout.component';
 import {
   HeaderComponent,
   SidebarComponent,
@@ -16,8 +15,12 @@ import {
   SearchFormComponent,
   UserPanelComponent,
   TabNavComponent,
-} from './components'
-
+  TabItemComponent
+} from './components';
+import {
+  SlSlimScrollDirective,
+  TabLabelDirective
+} from './directives';
 
 const COMPONENTS = [
   HeaderComponent,
@@ -32,10 +35,12 @@ const COMPONENTS = [
   SearchFormComponent,
   UserPanelComponent,
   TabNavComponent,
-  LayoutComponent
+  LayoutComponent,
+  TabItemComponent
 ]
 const DIRECTIVES = [
-  SlSlimScrollDirective
+  SlSlimScrollDirective,
+  TabLabelDirective
 ]
 @NgModule({
   imports: [
@@ -45,7 +50,6 @@ const DIRECTIVES = [
   declarations: [
     ...COMPONENTS,
     ...DIRECTIVES,
-
   ],
   exports: []
 })

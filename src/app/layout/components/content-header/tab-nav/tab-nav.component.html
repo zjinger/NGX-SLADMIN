@@ -1,24 +1,31 @@
 <div class="tabs tabs-no-animation">
-  <div role="tablist" tabindex="0" class="tabs-bar">
-    <div class="tabs-nav-container tabs-nav-container-scrolling" #tabsContainer>
-      <span class="tabs-tab-prev tabs-tab-btn-disabled tabs-tab-arrow-show">
+  <div role="tablist" tabindex="0" class="tabs-bar" (scroll)="onScroll($event)">
+    <div class="tabs-nav-container" [class.tabs-nav-container-scrolling]="showPaginationControls" #tabsContainer>
+      <span class="tabs-tab-prev " [class.tabs-tab-arrow-show]="showPaginationControls" [class.tabs-tab-btn-disabled]="disableScrollBefore"
+        (click)=" scrollHeader( 'before') ">
         <i class="fa fa-angle-left tabs-tab-prev-icon"></i>
       </span>
-      <span class="tabs-tab-next tabs-tab-arrow-show">
+      <span class="tabs-tab-next" [class.tabs-tab-arrow-show]="showPaginationControls" [class.tabs-tab-btn-disabled]="disableScrollAfter"
+        (click)=" scrollHeader( 'before') ">
         <i class="fa fa-angle-right tabs-tab-next-icon"></i>
       </span>
       <div class="tabs-nav-wrap">
         <div class="tabs-nav-scroll">
-          <div class="tabs-nav">
+          <div class="tabs-nav" #navListElement (cdkObserveContent)="onContentChanges()">
+
             <!-- <div nz-tabs-ink-bar="" style="display: none; visibility: visible; transform: translate3d(139px, 0px, 0px); width: 75px;"
                 class="tabs-ink-bar tabs-ink-bar-no-animated">
               </div> -->
-            <ng-container *ngFor="let item of tabList;index as i">
-              <div class="tabs-tab" [ngClass]="{'tabs-tab-active':item.active}">
-                <span class="name">{{item.name}}</span>
-                <i class="fa fa-times-circle close-icon"></i>
-              </div>
-            </ng-container>
+            <div role="tab" nav-tab-label *ngFor="let tab of tabList;index as i" (click)="clickLabel(i,tab.disabled)" [class.tabs-tab-active]="(selectedIndex == i)">
+              <span class="name">{{tab.title}}</span>
+              <i class="fa fa-times-circle close-icon"></i>
+            </div>
+            <!-- <app-tab-item *ngFor="let tab of tabList;index as i" (onClickLabel)="clickLabel($event)" [isActive]="(selectedIndex == i)"
+              [tabItem]="tab"></app-tab-item> -->
+            <!-- <div role="tab" nav-tab-label>
+              <span class="name">固定模块</span>
+              <i class="fa fa-times-circle close-icon"></i>
+            </div> -->
           </div>
         </div>
       </div>

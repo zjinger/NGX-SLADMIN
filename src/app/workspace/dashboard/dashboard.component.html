@@ -1,3 +1,12 @@
-<p>
-  dashboard works!
-</p>
+<app-tab-dashboard>
+  <div appPane id="1"></div>
+  <div appPane id="2"></div>
+  <div appPane id="3" *ngIf="shouldShow">
+    <app-tab-dashboard>
+      <div appPane id="3_1"></div>
+      <div appPane id="3_2"></div>
+    </app-tab-dashboard>
+  </div>
+</app-tab-dashboard>
+
+<button (click)="show()">Show 3</button>

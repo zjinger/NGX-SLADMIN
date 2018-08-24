@@ -1,5 +1,5 @@
 import { UpdateHostClassService } from './../../../shared/services';
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'layout-content-header',
@@ -8,46 +8,40 @@ import { Component, OnInit} from '@angular/core';
   providers: [UpdateHostClassService]
 })
 export class ContentHeaderComponent implements OnInit {
-  
-  
-  
+
   tabList: Array<any>;
-  
   constructor(
   ) {
     
-
   }
-
-  
   ngOnInit() {
     this.tabList = [
       {
-        name: 'tab1',
+        title: 'tab1',
         active: true
       }, {
-        name: 'tab2'
+        title: 'tab2'
       }, {
-        name: 'tab3'
+        title: 'tab3'
       }, {
-        name: 'tab4'
+        title: 'tab4'
       },
       {
-        name: 'tab5'
+        title: 'tab5'
       }, {
-        name: 'tab6'
+        title: 'tab6'
       }, {
-        name: 'tab7'
+        title: 'tab7'
       }, {
-        name: 'tab8'
+        title: 'tab8'
       }, {
-        name: 'tab9'
+        title: 'tab9'
       }, {
-        name: 'tab10'
+        title: 'tab10'
       }, {
-        name: 'tab11'
+        title: 'tab11'
       }, {
-        name: 'tab12'
+        title: 'tab12'
       }
     ]
   }

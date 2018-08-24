@@ -56,6 +56,10 @@ export const SYSTEM_MENU: any[] = [
                         title: 'ckeditor',
                         icon: 'fa fa-circle-o',
                         link: '/third/ckeditor'
+                    }, {
+                        title: 'select2',
+                        icon: 'fa fa-circle-o',
+                        link: '/third/select2'
                     }
                 ]
             }

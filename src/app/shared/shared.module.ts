@@ -1,28 +1,43 @@
-import { NgModule } from '@angular/core';
+import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { AppPicturePipe } from './pipes/app-picture.pipe';
-// const DIRECTIVES = [
-  
-// ]
-const PIPES = [
+import {
+  UpdateHostClassService
+} from './services'
+
+const SHARED_DIRECTIVES = [
+
+]
+const SHARED_PIPES = [
   AppPicturePipe
+]
+const SHARED_SERVICES = [
+  UpdateHostClassService
 ]
 @NgModule({
   imports: [
     CommonModule
   ],
   declarations: [
-    // ...DIRECTIVES,
-    ...PIPES
+    ...SHARED_PIPES
   ],
   exports: [
+    CommonModule,
     ReactiveFormsModule,
     FormsModule,
     RouterModule,
-    // ...DIRECTIVES,
-    ...PIPES
+    ...SHARED_PIPES
   ]
 })
-export class SharedModule { }
+export class SharedModule {
+  static forRoot(): ModuleWithProviders {
+    return <ModuleWithProviders>{
+      ngModule: SharedModule,
+      providers: [
+        ...SHARED_SERVICES
+      ]
+    };
+  }
+}

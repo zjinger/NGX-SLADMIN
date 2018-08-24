@@ -1,11 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppComponent } from './app.component';
-import { LayoutModule } from './layout/layout.module';
-import { WorkspaceModule } from './workspace/workspace.module';
 import { routing } from './app.routing';
-import { PagesModule } from './pages/pages.module';
+import { LayoutModule } from './layout/layout.module';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -14,8 +12,7 @@ import { PagesModule } from './pages/pages.module';
   imports: [
     BrowserModule,
     LayoutModule,
-    WorkspaceModule,
-    PagesModule,
+    SharedModule.forRoot(),
     routing
   ],
   providers: [],

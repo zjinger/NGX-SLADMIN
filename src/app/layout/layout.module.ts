@@ -4,6 +4,7 @@ import { LayoutRoutingModule } from './layout-routing.module';
 import { LayoutComponent } from './layout.component';
 import {
   HeaderComponent,
+  HeaderItemComponent,
   SidebarComponent,
   FooterComponent,
   FullscreenComponent,
@@ -24,6 +25,7 @@ import {
 
 const COMPONENTS = [
   HeaderComponent,
+  HeaderItemComponent,
   SidebarComponent,
   FooterComponent,
   FullscreenComponent,

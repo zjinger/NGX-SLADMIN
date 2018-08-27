@@ -29,7 +29,9 @@
               "./node_modules/jquery/dist/jquery.min.js",
               "./node_modules/bootstrap/dist/js/bootstrap.min.js",
               "./node_modules/jquery-slimscroll/jquery.slimscroll.min.js",
-              "./node_modules/leaflet/dist/leaflet.js"
+              "./node_modules/leaflet/dist/leaflet.js",
+              "./node_modules/leaflet.label/dist/leaflet.label.js",
+              "./node_modules/leaflet-mouse-position/src/L.Control.MousePosition.js"
             ]
           },
           "configurations": {

@@ -12,14 +12,15 @@
       <div class="tabs-nav-wrap">
         <div class="tabs-nav-scroll">
           <div class="tabs-nav" #navListElement (cdkObserveContent)="onContentChanges()">
-
             <!-- <div nz-tabs-ink-bar="" style="display: none; visibility: visible; transform: translate3d(139px, 0px, 0px); width: 75px;"
                 class="tabs-ink-bar tabs-ink-bar-no-animated">
               </div> -->
-            <div role="tab" nav-tab-label *ngFor="let tab of tabList;index as i" (click)="clickLabel(i,tab.disabled)" [class.tabs-tab-active]="(selectedIndex == i)">
-              <span class="name">{{tab.title}}</span>
-              <i class="fa fa-times-circle close-icon"></i>
-            </div>
+            <app-tab-item>
+              <div role="tab" nav-tab-label *ngFor="let tab of tabList;index as i" (click)="clickLabel(i,tab.disabled)" [class.tabs-tab-active]="(selectedIndex == i)">
+                <span class="name">{{tab.title}}</span>
+                <i class="fa fa-times-circle close-icon"></i>
+              </div>
+            </app-tab-item>
             <!-- <app-tab-item *ngFor="let tab of tabList;index as i" (onClickLabel)="clickLabel($event)" [isActive]="(selectedIndex == i)"
               [tabItem]="tab"></app-tab-item> -->
             <!-- <div role="tab" nav-tab-label>

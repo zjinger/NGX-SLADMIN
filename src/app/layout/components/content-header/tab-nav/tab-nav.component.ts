@@ -2,7 +2,6 @@ import { Component, OnInit, Input, TemplateRef, Inject, Optional, ElementRef, Vi
 import { Direction, Directionality } from '@angular/cdk/bidi';
 import { UpdateHostClassService } from './../../../../shared/services/update-host-class.service';
 import { DOCUMENT } from '@angular/common';
-import { isNotNil } from '../../../../shared/util/check';
 import { TabLabelDirective } from '../../../directives';
 import { fromEvent, merge, of as observableOf, Subscription } from 'rxjs';
 import { auditTime, startWith } from 'rxjs/operators';
@@ -87,7 +86,7 @@ export class TabNavComponent implements OnInit, AfterContentChecked, OnDestroy, 
    * 更新滚动条状态
    */
   updatePagination(): void {
-    console.log('更新 Pagination');
+    // console.log('更新 Pagination');
     this.checkPaginationEnabled();
     this.checkScrollingControls();
     this.updateTabScrollPosition();
@@ -97,8 +96,8 @@ export class TabNavComponent implements OnInit, AfterContentChecked, OnDestroy, 
    * 是否需要加载滚动条
    */
   checkPaginationEnabled(): void {
-    console.log('是否需要打开Pagination');
-    console.log("scrollWidthHeight:" + this.tabListScrollWidthHeightPix + ",offsetWidth:" + this.elementRefOffSetWidthHeight);
+    // console.log('是否需要打开Pagination');
+    // console.log("scrollWidthHeight:" + this.tabListScrollWidthHeightPix + ",offsetWidth:" + this.elementRefOffSetWidthHeight);
     this.showPaginationControls =
       this.tabListScrollWidthHeightPix > this.elementRefOffSetWidthHeight;
     if (!this.showPaginationControls) {
@@ -173,11 +172,11 @@ export class TabNavComponent implements OnInit, AfterContentChecked, OnDestroy, 
   }
 
   ngAfterContentChecked() {
-    console.log("this.tabLabelCount:" + this.tabLabelCount);
-    console.log("this.listTabLabelDirective:" + this.listTabLabelDirective.length);
+    // console.log("this.tabLabelCount:" + this.tabLabelCount);
+    // console.log("this.listTabLabelDirective:" + this.listTabLabelDirective.length);
     if (this.tabLabelCount !== this.listTabLabelDirective.length) {
       if (this.showPagination) {
-        console.log('this.showPagination:' + this.showPagination);
+        // console.log('this.showPagination:' + this.showPagination);
         this.updatePagination();
       }
       this.tabLabelCount = this.listTabLabelDirective.length;
@@ -199,8 +198,8 @@ export class TabNavComponent implements OnInit, AfterContentChecked, OnDestroy, 
   }
 
   ngAfterContentInit(): void {
-    console.log(this.topLevelPanes);
-    console.log(this.listTabLabelDirective.length)
+    // console.log(this.topLevelPanes);
+    // console.log(this.listTabLabelDirective.length)
     this.realignInkBar = this.ngZone.runOutsideAngular(() => {
       const dirChange = this.dir ? this.dir.change : observableOf(null);
       const resize = typeof window !== 'undefined' ?

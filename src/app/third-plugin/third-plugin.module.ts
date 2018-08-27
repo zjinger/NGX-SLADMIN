@@ -1,3 +1,4 @@
+// import { InMemoryDataService } from './leafjs/in-memory-data.service';
 import { NgModule } from '@angular/core';
 import { ThirdPluginRoutingModule } from './third-plugin-routing.module';
 import {
@@ -7,6 +8,8 @@ import {
   InputSelect2Component
 } from './index';
 import { SharedModule } from '../shared/shared.module';
+import { HttpClientModule } from '@angular/common/http';
+import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 
 const COMPONENTS = [
   CkeditorComponent,
@@ -17,7 +20,11 @@ const COMPONENTS = [
 @NgModule({
   imports: [
     SharedModule.forRoot(),
-    ThirdPluginRoutingModule
+    ThirdPluginRoutingModule,
+    HttpClientModule,
+    // HttpClientInMemoryWebApiModule.forRoot(
+    //   InMemoryDataService, { dataEncapsulation: false }
+    // )
   ],
   declarations: [
     ...COMPONENTS

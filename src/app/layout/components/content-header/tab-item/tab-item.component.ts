@@ -9,21 +9,20 @@ import { PaneDirective } from '../../../../shared/directives';
 export class TabItemComponent implements OnInit {
     constructor() { }
     ngOnInit(): void {
-        console.log(this.tabHost2);
     }
     @Input() tabItem: any;
     @Input() isActive: boolean;
     @Input() currentIndex: number;
+    
     @Output() onClickLabel: EventEmitter<any> = new EventEmitter<any>();
+    
     clickLabel(index: number, disabled: boolean) {
         this.onClickLabel.emit({ index: index, disabled: disabled });
     }
-    @ViewChild(TabLabelDirective) tabHost: TabLabelDirective;
-    @ViewChild(PaneDirective) tabHost2: PaneDirective;
+
     @ContentChildren(TabLabelDirective) tabListDirective: QueryList<TabLabelDirective>;
 
-    @ContentChildren(PaneDirective) topLevelPanes: QueryList<PaneDirective>;
     ngAfterContentInit() {
-        console.log(this.topLevelPanes);
+        console.log(this.tabListDirective);
     }
 }

@@ -43,9 +43,14 @@ export const SYSTEM_MENU: any[] = [
                 icon: 'fa fa-dashboard',
                 children: [
                     {
-                        title: 'leafjs',
+                        title: 'leafletjs',
                         icon: 'fa fa-circle-o',
-                        link: '/third/leaft'
+                        link: '/third/leaflet'
+                    },
+                    {
+                        title: 'leafletjs-test',
+                        icon: 'fa fa-circle-o',
+                        link: '/third/leaflet-test'
                     },
                     {
                         title: 'treeview',

@@ -5,17 +5,19 @@ import {
   CkeditorComponent,
   LeafjsComponent,
   TreeviewComponent,
-  InputSelect2Component
+  InputSelect2Component,
+  LeafletComponent
 } from './index';
 import { SharedModule } from '../shared/shared.module';
 import { HttpClientModule } from '@angular/common/http';
-import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+// import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 
 const COMPONENTS = [
   CkeditorComponent,
   LeafjsComponent,
   TreeviewComponent,
-  InputSelect2Component
+  InputSelect2Component,
+  LeafletComponent
 ]
 @NgModule({
   imports: [
@@ -27,7 +29,7 @@ const COMPONENTS = [
     // )
   ],
   declarations: [
-    ...COMPONENTS
+    ...COMPONENTS,
   ]
 })
 export class ThirdPluginModule { }

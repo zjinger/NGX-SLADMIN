@@ -41,7 +41,6 @@ export class LeafjsComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.init();
-
   }
 
   /**
@@ -67,7 +66,7 @@ export class LeafjsComponent implements OnInit, OnDestroy {
   control(mymap) {
     L.control.zoom({ position: "topright", zoomInTitle: '放大', zoomOutTitle: '缩小' }).addTo(mymap);
     //显示鼠标指针在地图上移动时的地理坐标
-    L.control.mousePosition({ position: "bottomright" }).addTo(mymap);
+    // L.control.mousePosition({ position: "bottomright" }).addTo(mymap);
     L.control.layers(this.baseMaps).addTo(mymap);
     L.control.scale().addTo(mymap);
   }
@@ -98,7 +97,8 @@ export class LeafjsComponent implements OnInit, OnDestroy {
               icon: this.getIcon(element.isRepair),
               zIndexOffset: 152
             }
-          ).bindLabel(element.deviceName)
+          )
+          // .bindLabel(element.deviceName)
         );
       })
       L.featureGroup(this.markerList).addTo(mymap);

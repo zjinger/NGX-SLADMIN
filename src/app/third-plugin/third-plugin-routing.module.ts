@@ -4,11 +4,16 @@ import {
   LeafjsComponent,
   CkeditorComponent,
   TreeviewComponent,
-  InputSelect2Component
+  InputSelect2Component,
+  LeafletComponent
 } from './index';
 const routes: Routes = [
   {
-    path: 'leaft',
+    path: 'leaflet-test',
+    component: LeafletComponent
+  },
+  {
+    path: 'leaflet',
     component: LeafjsComponent
   },
   {

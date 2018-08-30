@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, ViewChild, TemplateRef, ViewContainerRef } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, TemplateRef, ViewContainerRef, Injector } from '@angular/core';
 
 @Component({
   selector: 'app-view-container-ref',
@@ -10,8 +10,9 @@ export class ViewContainerRefComponent implements OnInit, AfterViewInit {
   @ViewChild('tpl', { read: TemplateRef }) tpl: TemplateRef<void>;
 
   @ViewChild('vc', { read: ViewContainerRef }) viewContainer: ViewContainerRef;
-
-  constructor() { }
+  @ViewChild('vc', { read: ViewContainerRef }) componentContainer: ViewContainerRef;
+  constructor(
+  ) { }
 
   ngOnInit() {
 
@@ -25,4 +26,9 @@ export class ViewContainerRefComponent implements OnInit, AfterViewInit {
     // this.viewContainer.insert(view);
   }
 
+
+  dynamicComponent() {
+    this.componentContainer.clear();
+    // this.componentContainer.insert()
+  }
 }

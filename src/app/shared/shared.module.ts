@@ -7,11 +7,13 @@ import {
   UpdateHostClassService
 } from './services';
 import {
-  PaneDirective
-} from './directives'
+  PaneDirective,
+  HostDirective
+} from './directives';
 
 const SHARED_DIRECTIVES = [
-  PaneDirective
+  PaneDirective,
+  HostDirective
 ]
 const SHARED_PIPES = [
   AppPicturePipe
@@ -25,7 +27,7 @@ const SHARED_SERVICES = [
   ],
   declarations: [
     ...SHARED_PIPES,
-    ...SHARED_DIRECTIVES
+    ...SHARED_DIRECTIVES,
   ],
   exports: [
     CommonModule,

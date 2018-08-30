@@ -81,22 +81,44 @@ export const SYSTEM_MENU: any[] = [
                     {
                         title: 'dom',
                         icon: 'fa fa-circle-o',
-                        link: '/demo/dom',
+                        children: [
+                            {
+                                title: 'TemplateRef',
+                                icon: 'fa fa-circle-o',
+                                link: '/demo/dom/template',
+                            },
+                            {
+                                title: 'ElementRef',
+                                icon: 'fa fa-circle-o',
+                                link: '/demo/dom/element',
+                            },
+                            {
+                                title: 'ViewContainerRef',
+                                icon: 'fa fa-circle-o',
+                                link: '/demo/dom/container',
+                            },
+                            {
+                                title: 'DynamicComponent',
+                                icon: 'fa fa-circle-o',
+                                link: '/demo/dom/dynamic',
+                            }
+                        ]
                     },
                     {
-                        title: 'template',
+                        title: 'decorator',
                         icon: 'fa fa-circle-o',
-                        link: '/demo/template',
-                    },
-                    {
-                        title: 'viewchild',
-                        icon: 'fa fa-circle-o',
-                        link: '/demo/element',
-                    },
-                    {
-                        title: 'container',
-                        icon: 'fa fa-circle-o',
-                        link: '/demo/container',
+                        children: [
+                            {
+                                title: '@ContentChild&ContentChildren',
+                                icon: 'fa fa-circle-o',
+                                link: '/demo/decorator/contentc'
+                            },
+                            {
+                                title: '@ViewChild&ViewChildren',
+                                icon: 'fa fa-circle-o',
+                                link: '/demo/decorator/viewc'
+                            }
+                        ]
                     }
                 ]
             }

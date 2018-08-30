@@ -1,18 +1,37 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { SharedModule } from '../shared/shared.module';
 import { AngularDemoRoutingModule } from './angular-demo-routing.module';
 import { DomComponent } from './dom/dom.component';
 import {
   TemplateRefComponent,
   ViewContainerRefComponent,
-  EelementRefComponent
+  EelementRefComponent,
+  DynamicComComponent
 } from './dom';
+
+import {
+  DecoratorComponent,
+  ContentChildComponent,
+  ViewChildComponent
+} from './decorator';
 
 @NgModule({
   imports: [
-    CommonModule,
+    SharedModule.forRoot(),
     AngularDemoRoutingModule
   ],
-  declarations: [DomComponent, TemplateRefComponent, EelementRefComponent, ViewContainerRefComponent]
+  declarations: [
+    DomComponent,
+    TemplateRefComponent,
+    EelementRefComponent,
+    ViewContainerRefComponent,
+    DynamicComComponent,
+    DecoratorComponent,
+    ContentChildComponent,
+    ViewChildComponent
+  ],
+  entryComponents: [
+    TemplateRefComponent, EelementRefComponent, ViewContainerRefComponent
+  ]
 })
 export class AngularDemoModule { }

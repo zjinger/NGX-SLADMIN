@@ -3,6 +3,14 @@ li {
     margin: 0;
     padding: 0;
     >a {
+        word-break: keep-all;
+        /* 不换行 */
+        white-space: nowrap;
+        /* 不换行 */
+        overflow: hidden;
+        /* 内容超出宽度时隐藏超出部分的内容 */
+        text-overflow: ellipsis;
+        /* 当对象内文本溢出时显示省略标记(...) ；需与overflow:hidden;一起使用。*/
         cursor: pointer;
         padding: 12px 5px 12px 15px;
         display: block;

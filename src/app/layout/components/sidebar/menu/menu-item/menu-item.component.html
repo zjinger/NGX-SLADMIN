@@ -1,5 +1,5 @@
 <li *ngIf="!menuItem.children" [ngClass]="{'active':menuItem.selected}">
-  <a [routerLink]="menuItem.link">
+  <a [routerLink]="menuItem.link" [title]="menuItem.title">
     <i *ngIf="menuItem.icon" class="{{menuItem.icon}}"></i>
     <span>{{menuItem.title}}</span>
   </a>

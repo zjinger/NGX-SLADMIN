@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, TemplateRef } from '@angular/core';
 import * as L from 'leaflet';
 @Component({
   selector: 'app-leaflet',
@@ -13,10 +13,8 @@ export class LeafletComponent implements OnInit {
   standardMap = L.tileLayer(`http://${this.baseUrl}/MapService?service=wmts&request=gettile&tilematrixset=advsea&tilematrix={z}&tilerow={y}&tilecol={x}&format=image/png&layer=default&style=default&version=1.0.0`);
   basicMap = L.tileLayer(`http://${this.baseUrl}/MapService?service=wmts&request=gettile&tilematrixset=basicsearoad&tilematrix={z}&tilerow={y}&tilecol={x}&format=image/png&layer=default&style=default&version=1.0.0`);
   advancedMap = L.tileLayer(`http://${this.baseUrl}/MapService?service=wmts&request=gettile&tilematrixset=advsearoad&tilematrix={z}&tilerow={y}&tilecol={x}&format=image/png&layer=default&style=default&version=1.0.0`);
-  // littleton = L.marker([38.94681, 117.85171], { icon: this.createCustomIcon() }).bindPopup('上海');
-  // denver = L.marker([38.94682, 117.85172]).bindPopup('北京');
-  // aurora = L.marker([38.94683, 117.85173]).bindPopup('深圳');
-  // golden = L.marker([38.94684, 117.85174]).bindPopup('广州');
+
+  @ViewChild('popup') popup: TemplateRef<any>;
 
   private baseIconPath = 'assets/img/marker';
 
@@ -32,7 +30,7 @@ export class LeafletComponent implements OnInit {
       this.markerBindPopup([38.81674, 117.81144], '广州'),
       this.markerBindPopup([38.54631, 117.83161], '深圳'),
       this.markerBindPopup([38.66612, 117.84192], '北京'),
-      this.markerBindPopup([38.79653, 117.89103], '上海')
+      this.markerBindPopup([38.79653, 117.89103], '上海'),
     ]);
 
     this.overlayerMaps = {
@@ -41,6 +39,7 @@ export class LeafletComponent implements OnInit {
   }
 
   ngOnInit() {
+
     this.mymap = L.map('mapid', {
       zoomControl: false,
       center: L.latLng(38.94686, 117.85172),
@@ -52,7 +51,9 @@ export class LeafletComponent implements OnInit {
     });
     this.control();
     // let circle = this.addCircle();
-    this.addMarkers().bindPopup("<b>HI!</b><br>I am a 弹出框.").openPopup();
+    this.addMarker().bindPopup("<b>HI!</b><br>I am a 弹出框.").openPopup();
+
+    this.markerBindPopup2([38.82674, 117.81144], this.popup);
     //画圆
     // circle.bindPopup("我是一个圆.");
     //弹出层
@@ -90,7 +91,7 @@ export class LeafletComponent implements OnInit {
    * @param latlng 经纬度
    * @param icon 自定义图标
    */
-  addMarkers(latlng?, icon?): L.Marker {
+  addMarker(latlng?, icon?): L.Marker {
     return L.marker(latlng ? latlng : [38.94689, 117.85175], {
       icon: this.createCustomIcon()
     }).addTo(this.mymap);
@@ -99,12 +100,24 @@ export class LeafletComponent implements OnInit {
   /**
    * 标记添加弹出框
    * @param latlng 
-   * @param title 
+   * @param title 标题
    */
-  markerBindPopup(latlng, title) {
+  markerBindPopup(latlng, title: string) {
     return L.marker(latlng, {
       icon: this.createCustomIcon()
     }).bindPopup(title);
+  }
+
+  /**
+   * 添加弹出框
+   * @param latlng 
+   * @param element 
+   */
+  markerBindPopup2(latlng, element: TemplateRef<any>) {
+    console.log(element);
+    return L.marker(latlng, {
+      icon: this.createCustomIcon()
+    }).addTo(this.mymap).bindPopup(element.elementRef.nativeElement).openPopup();
   }
 
   /**
@@ -140,5 +153,7 @@ export class LeafletComponent implements OnInit {
       popupAnchor: [0, -24] // point from which the popup should open relative to the iconAnchor
     });
   }
+
+
 
 }

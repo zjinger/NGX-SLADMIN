@@ -1,0 +1,38 @@
+<ul>
+  <li>
+    <p>用于一个视图容器，可以添加一个或者多个视图</p>
+  </li>
+  <li>
+    <p>视图可以是 Template模板元素（Embedded Views），以及Component 组件（Host Views ）</p>
+  </li>
+  <li>
+    <p>创建Embedded Views</p>
+    <div>
+      <textarea rows="4" cols="100" style="resize: none;">
+        ngAfterViewInit() {
+          let view = this.tpl.createEmbeddedView(null);
+      }
+      </textarea>
+    </div>
+  </li>
+  <li>
+    <p>创建Host Views</p>
+    <div>
+      <textarea rows="7" cols="100" style="resize: none;">
+        constructor(private injector: Injector,
+          private r: ComponentFactoryResolver) {
+          let factory = this.r.resolveComponentFactory(AppComponent);
+          let componentRef = factory.create(injector);
+          let view = componentRef.hostView;
+      }
+      </textarea>
+    </div>
+  </li>
+</ul>
+
+<ng-container #vc>
+  
+</ng-container>
+<ng-template #tpl>
+  我是TemplateRef 里面的内容
+</ng-template>

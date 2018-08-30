@@ -69,6 +69,38 @@ export const SYSTEM_MENU: any[] = [
                 ]
             }
         ]
+    },
+    {
+        header: true,
+        title: 'ANGULAR-DEMO',
+        items: [
+            {
+                title: 'DEMO',
+                icon: 'fa fa-dashboard',
+                children: [
+                    {
+                        title: 'dom',
+                        icon: 'fa fa-circle-o',
+                        link: '/demo/dom',
+                    },
+                    {
+                        title: 'template',
+                        icon: 'fa fa-circle-o',
+                        link: '/demo/template',
+                    },
+                    {
+                        title: 'viewchild',
+                        icon: 'fa fa-circle-o',
+                        link: '/demo/element',
+                    },
+                    {
+                        title: 'container',
+                        icon: 'fa fa-circle-o',
+                        link: '/demo/container',
+                    }
+                ]
+            }
+        ]
     }
 ]
 

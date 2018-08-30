@@ -10,7 +10,8 @@ const routes: Routes = [
             { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
             { path: 'dashboard', loadChildren: '../workspace/dashboard/dashboard.module#DashboardModule' },
             { path: 'sys', loadChildren: '../workspace/system/system.module#SystemModule' },
-            { path: 'third', loadChildren: '../third-plugin/third-plugin.module#ThirdPluginModule' }
+            { path: 'third', loadChildren: '../third-plugin/third-plugin.module#ThirdPluginModule' },
+            { path: 'demo', loadChildren: '../angular-demo/angular-demo.module#AngularDemoModule' }
         ]
     }
 ];

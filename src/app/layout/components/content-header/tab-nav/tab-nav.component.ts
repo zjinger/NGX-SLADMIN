@@ -1,21 +1,21 @@
-import { Component, OnInit, Input, TemplateRef, Inject, Optional, ElementRef, ViewChild, OnDestroy, AfterContentChecked, Output, EventEmitter, Renderer2, QueryList, AfterContentInit, NgZone, ContentChildren } from '@angular/core';
+import { Component, OnInit, Input, TemplateRef, Inject, Optional, ElementRef, ViewChild, OnDestroy, AfterContentChecked, Output, EventEmitter, Renderer2, QueryList, AfterContentInit, NgZone, ContentChildren, ContentChild } from '@angular/core';
 import { Direction, Directionality } from '@angular/cdk/bidi';
 import { UpdateHostClassService } from './../../../../shared/services/update-host-class.service';
 import { DOCUMENT } from '@angular/common';
 import { TabLabelDirective } from '../../../directives';
 import { fromEvent, merge, of as observableOf, Subscription } from 'rxjs';
 import { auditTime, startWith } from 'rxjs/operators';
-import { PaneDirective } from '../../../../shared/directives';
+
 export type ScrollDirection = 'after' | 'before';
-export class TabChangeEvent {
-  index: number;
-  tab: any;
-}
+
 const EXAGGERATED_OVERSCROLL = 64;
 @Component({
   selector: 'header-tab-nav',
   templateUrl: './tab-nav.component.html',
   styleUrls: ['./tab-nav.component.less'],
+  host: {
+    '(scroll)': 'onScroll($event)'
+  },
   // host: {
   // '(scroll)': 'onScroll($event)',
   // 'class': 'tabs tabs-top tabs-no-animation tabs-line'
@@ -24,62 +24,70 @@ const EXAGGERATED_OVERSCROLL = 64;
     UpdateHostClassService
   ]
 })
-export class TabNavComponent implements OnInit, AfterContentChecked, OnDestroy, AfterContentInit {
+export class TabNavComponent implements OnInit, AfterContentChecked, OnDestroy {
+  el: HTMLElement;
+  showPaginationControls = false;//滚动条样式控制
+  disableScrollAfter = true;//向右滑动按钮
+  disableScrollBefore = true;//想做滑动按钮
 
-  showPaginationControls = false;//是否显示滚动
-  disableScrollAfter = true;
-  disableScrollBefore = true;
-  scrollDistanceChanged: boolean;
-  tabLabelCount: number;
-  selectedIndexChanged = false;
+  scrollDistanceChanged: boolean;//滚动条距离发生改变
+
+  tabLabelCount: number;//tabs 的总数目
+
+  selectedIndexChanged = false;//当前选中的index 发生改变
+
   realignInkBar: Subscription | null = null;
+
   private _scrollDistance = 0;
-  private _indexToSelect: number = 0;//即将选中的tab index
-  private _showPagination = true;
+
   private _selectedIndex: number = null;//已选择的tab index
 
-  @ContentChildren(TabLabelDirective) listTabLabelDirective: QueryList<TabLabelDirective>;
-  
-  @ContentChildren(PaneDirective) topLevelPanes: QueryList<PaneDirective>;
+  @ContentChildren(TabLabelDirective)
+  listTabLabelDirective: QueryList<TabLabelDirective>;
 
-  @ViewChild('tabsContainer') navContainerElement: ElementRef;
-  @ViewChild('navListElement') navListElement: ElementRef;
+  @ViewChild('tabsContainer', { read: ElementRef })
+  navContainerElement: ElementRef;
 
-  @Output() selectChange: EventEmitter<any> = new EventEmitter<any>(true);
-  @Output() onPrevClick = new EventEmitter<void>();//向左滑动触发
-  @Output() onNextClick = new EventEmitter<void>();//向右滑动触发
-  @Input() TabBarExtraContent: TemplateRef<void>;//额外操作模块
-  @Input() tabList: Array<any>;
+  @ViewChild('navListElement', { read: ElementRef })
+  navListElement: ElementRef;
+
+  // @Output() selectChange: EventEmitter<any> = new EventEmitter<any>(true);
+
+  @Output() onPrevClick = new EventEmitter<void>();//触发向左滑动
+  @Output() onNextClick = new EventEmitter<void>();//触发向右滑动
+
+  // @Input() TabBarExtraContent: TemplateRef<void>;//额外操作区域模块
+
+
+
   @Input()
-  set showPagination(value: boolean) {
-    this._showPagination = value;
+  set selectedIndex(value: number) {
+    //父组件传入的index和当前的index 作比较，如果不相等说明index 发生了改变
+    this.selectedIndexChanged = this._selectedIndex !== value;
+    this._selectedIndex = value;
   }
-  get showPagination(): boolean {
-    return this._showPagination;
+  get selectedIndex(): number {
+    return this._selectedIndex;
   }
-
-  // el: HTMLElement;
-
   constructor(
     private renderer: Renderer2,
     private elementRef: ElementRef,
     private ngZone: NgZone,
-    private updateHostClassService: UpdateHostClassService,
     @Optional() @Inject(DOCUMENT) private document: any,
     @Optional() private dir: Directionality,
   ) {
-    // this.el = this.elementRef.nativeElement;
+    this.el = this.elementRef.nativeElement;
   }
   ngOnInit() {
-    this.setClassMap();
-    // console.log(this.navContainerElement.nativeElement);
+    console.log(this.dir.value);
   }
 
+  /**
+   * 监听到ng-content 内部的变化
+   */
   onContentChanges() {
-    if (this.showPagination) {
-      this.updatePagination();
-    }
-    this.alignInkBarToSelectedTab();
+    console.log('onContentChanges');
+    this.updatePagination();
   }
 
   /**
@@ -94,47 +102,26 @@ export class TabNavComponent implements OnInit, AfterContentChecked, OnDestroy, 
 
   /**
    * 是否需要加载滚动条
+   * 如果tabs的长度大于外部的长度需要加载滚动条
    */
   checkPaginationEnabled(): void {
-    // console.log('是否需要打开Pagination');
-    // console.log("scrollWidthHeight:" + this.tabListScrollWidthHeightPix + ",offsetWidth:" + this.elementRefOffSetWidthHeight);
     this.showPaginationControls =
-      this.tabListScrollWidthHeightPix > this.elementRefOffSetWidthHeight;
+      this.tabListScrollWidthPix > this.elementRefOffSetWidth;
     if (!this.showPaginationControls) {
       this.scrollDistance = 0;
     }
   }
 
   /**
-   * 更新滚动条位置
+   * 滚动起来
    */
   updateTabScrollPosition(): void {
     const scrollDistance = this.scrollDistance;
-    const translateX = this.getLayoutDirection() === 'ltr' ? -scrollDistance : scrollDistance;
+    const translateX = -scrollDistance;
     this.renderer.setStyle(this.navListElement.nativeElement, 'transform', `translate3d(${translateX}px, 0, 0)`);
 
   }
-  //todo
-  getLayoutDirection(): Direction {
-    return this.dir && this.dir.value === 'rtl' ? 'rtl' : 'ltr';
-  }
-  setClassMap(): void {
-    const classMap = {
-      ['tabs-nav-container-scrolling']: true//显示滚动条
-    };
-    this.updateHostClassService.updateHostClass(this.navContainerElement.nativeElement, classMap);
-  }
 
-  alignInkBarToSelectedTab(): void {
-    // if (this.nzType === 'line') {
-    //   const selectedLabelWrapper = this.listOfNzTabLabelDirective && this.listOfNzTabLabelDirective.length
-    //     ? this.listOfNzTabLabelDirective.toArray()[this.selectedIndex].elementRef.nativeElement
-    //     : null;
-    //   if (this.nzTabsInkBarDirective) {
-    //     this.nzTabsInkBarDirective.alignToElement(selectedLabelWrapper);
-    //   }
-    // }
-  }
   checkScrollingControls(): void {
     // Check if the pagination arrows should be activated.
     this.disableScrollBefore = this.scrollDistance === 0;
@@ -151,89 +138,51 @@ export class TabNavComponent implements OnInit, AfterContentChecked, OnDestroy, 
     }
   }
 
-  clickLabel($event): void {
-    // if (!disabled) {
-    //   this.selectedIndex = index;
-    //   console.log(this.selectedIndex);
-    //   // this.tabList[index].nzClick.emit();
-    // }
-    console.log($event);
-  }
-
   getMaxScrollDistance(): number {
-    return (this.tabListScrollWidthHeightPix - this.viewWidthHeightPix) || 0;
-  }
-  @Input()
-  set selectedIndex(value: number) {
-    this._indexToSelect = value;
-  }
-  get selectedIndex(): number {
-    return this._selectedIndex;
+    return (this.tabListScrollWidthPix - this.viewWidthPix) || 0;
   }
 
   ngAfterContentChecked() {
-    // console.log("this.tabLabelCount:" + this.tabLabelCount);
-    // console.log("this.listTabLabelDirective:" + this.listTabLabelDirective.length);
     if (this.tabLabelCount !== this.listTabLabelDirective.length) {
-      if (this.showPagination) {
-        // console.log('this.showPagination:' + this.showPagination);
-        this.updatePagination();
-      }
+      this.updatePagination();
       this.tabLabelCount = this.listTabLabelDirective.length;
     }
     if (this.selectedIndexChanged) {
       this.scrollToLabel(this._selectedIndex);
-      if (this.showPagination) {
-        this.checkScrollingControls();
-      }
-      this.alignInkBarToSelectedTab();
+      this.checkScrollingControls();
       this.selectedIndexChanged = false;
     }
     if (this.scrollDistanceChanged) {
-      if (this.showPagination) {
-        this.updateTabScrollPosition();
-      }
+      this.updateTabScrollPosition();
       this.scrollDistanceChanged = false;
     }
   }
 
   ngAfterContentInit(): void {
-    // console.log(this.topLevelPanes);
-    // console.log(this.listTabLabelDirective.length)
+    // console.log(this.listTabLabelDirective.length);
     this.realignInkBar = this.ngZone.runOutsideAngular(() => {
-      const dirChange = this.dir ? this.dir.change : observableOf(null);
       const resize = typeof window !== 'undefined' ?
         fromEvent(window, 'resize').pipe(auditTime(10)) :
         observableOf(null);
-      return merge(dirChange, resize).pipe(startWith(null)).subscribe(() => {
-        if (this.showPagination) {
-          this.updatePagination();
-        }
-        this.alignInkBarToSelectedTab();
+      return merge(observableOf(null), resize).pipe(startWith(null)).subscribe(() => {
+        this.updatePagination();
       });
     });
   }
-
   scrollToLabel(labelIndex: number): void {
     const selectedLabel = this.listTabLabelDirective
       ? this.listTabLabelDirective.toArray()[labelIndex]
       : null;
-
     if (selectedLabel) {
-      // The view length is the visible width of the tab labels.
-
       let labelBeforePos: number;
       let labelAfterPos: number;
-      if (this.getLayoutDirection() === 'ltr') {
-        labelBeforePos = selectedLabel.getOffsetLeft();
-        labelAfterPos = labelBeforePos + selectedLabel.getOffsetWidth();
-      } else {
-        labelAfterPos = this.navListElement.nativeElement.offsetWidth - selectedLabel.getOffsetLeft();
-        labelBeforePos = labelAfterPos - selectedLabel.getOffsetWidth();
-      }
+      //计算当前tab标签页前面的tabs长度
+      labelBeforePos = selectedLabel.getOffsetLeft();
+      //计算当前tab标签页后面的tabs长度
+      //selectedLabel.getOffsetWidth() 单个tab宽
+      labelAfterPos = labelBeforePos + selectedLabel.getOffsetWidth();
       const beforeVisiblePos = this.scrollDistance;
-      const afterVisiblePos = this.scrollDistance + this.viewWidthHeightPix;
-
+      const afterVisiblePos = this.scrollDistance + this.viewWidthPix;
       if (labelBeforePos < beforeVisiblePos) {
         // Scroll header to move label to the before direction
         this.scrollDistance -= beforeVisiblePos - labelBeforePos + EXAGGERATED_OVERSCROLL;
@@ -243,35 +192,23 @@ export class TabNavComponent implements OnInit, AfterContentChecked, OnDestroy, 
       }
     }
   }
-  createChangeEvent(index: number): TabChangeEvent {
-    const event = new TabChangeEvent();
-    event.index = index;
-    if (this.tabList && this.tabList.length) {
-      event.tab = this.tabList[index];
-      this.tabList.forEach((item, i) => {
-        if (i !== index) {
-          // item.nzDeselect.emit();
-        }
-      });
-      // event.tab.nzSelect.emit();
-    }
-    return event;
-  }
 
+  /**
+   * 左右滑动
+   * @param scrollDir 
+   */
   scrollHeader(scrollDir: ScrollDirection): void {
     if (scrollDir === 'before' && !this.disableScrollBefore) {
       this.onPrevClick.emit();
     } else if (scrollDir === 'after' && !this.disableScrollAfter) {
       this.onNextClick.emit();
     }
-    // Move the scroll distance one-third the length of the tab list's viewport.
-    this.scrollDistance += (scrollDir === 'before' ? -1 : 1) * this.viewWidthHeightPix / 3;
+    this.scrollDistance += (scrollDir === 'before' ? -1 : 1) * this.viewWidthPix / 3;
   }
+
 
   set scrollDistance(v: number) {
     this._scrollDistance = Math.max(0, Math.min(this.getMaxScrollDistance(), v));
-    // Mark that the scroll distance has changed so that after the view is checked, the CSS
-    // transformation can move the header.
     this.scrollDistanceChanged = true;
     this.checkScrollingControls();
   }
@@ -280,23 +217,28 @@ export class TabNavComponent implements OnInit, AfterContentChecked, OnDestroy, 
     return this._scrollDistance;
   }
 
-  get viewWidthHeightPix(): number {
+  get viewWidthPix(): number {
     let PAGINATION_PIX = 0;
     if (this.showPaginationControls) {
-      PAGINATION_PIX = 64;
+      PAGINATION_PIX = 64;//32+32
     }
     return this.navContainerElement.nativeElement.offsetWidth - PAGINATION_PIX;
   }
 
-  get elementRefOffSetWidthHeight(): number {
-    return this.elementRef.nativeElement.offsetWidth;
+  get elementRefOffSetWidth(): number {
+    // console.log(this.el.offsetWidth);//需要在样式加上 :host{display:block},不然返回0
+    return this.el.offsetWidth;
   }
 
-  get tabListScrollWidthHeightPix(): number {
+  /**
+   * 获取tabs-nav scrollwidth
+   * 所有的 tab 所占用的宽
+   */
+  get tabListScrollWidthPix(): number {
+    // console.log("tabs-nav scrollwidth:" + this.navListElement.nativeElement.scrollWidth)
     return this.navListElement.nativeElement.scrollWidth;
   }
 
   ngOnDestroy(): void {
-
   }
 }

@@ -1,21 +1,23 @@
-<!--div 实现垂直居中-->
-<h1>垂直居中实现</h1>
-<div class="container-0 container-{{type}}" #view>
-  <div class="center" *ngIf="type==1 || type==2">
-    垂直居中
+<ul>
+  <li>ViewChild就是选择元素用的</li>
+  <li>参数是一个指令或一个类型</li>
+  <div>
+    <textarea cols="80" rows="6" style="resize: none">
+        <app-test></app-test>
+        <div #childEle></div>
+        <ng-template #childTpl></ng-template>
+        <!--使用指令的方式-->
+        <div appTest></div>
+    </textarea>
+    <textarea cols="80" rows="6" style="resize: none">
+        @ViewChild(TestComponent) test:TestComponent;
+        @ViewChild('childEle',{read:ElementRef}) child:ElementRef
+        @ViewChild('childTpl' ,{read:TemplateRef}) child2:TemplateRef
+        @ViewChild(TestDirective):testD:TestDirective;
+      </textarea>
   </div>
-  <span class="center" *ngIf="type==3 || type==4 || type==5">
-    垂直居中
-  </span>
-</div>
-<p>已知高宽</p>
-<div>
-  <button class="btn btn-primary btn-sm" (click)="type=1">已知高宽</button>
-  <button class="btn btn-primary btn-sm" (click)="type=2">已知高宽2</button>
-</div>
-<p>未知高宽</p>
-<div>
-  <button class="btn btn-primary btn-sm" (click)="type=4">table</button>
-  <button class="btn btn-primary btn-sm" (click)="type=3">CSS3实现</button>
-  <button class="btn btn-primary btn-sm" (click)="type=5">flex布局</button>
-</div>
+  <li>ViewChild会在ngAfterViewInit()回调函数之前做完工作，也就是说你不能在构造函数中使用这个元素</li>
+</ul>
+
+<div #child>nihao</div>
+<ng-template #tpl>hha</ng-template>

@@ -79,6 +79,11 @@ export const SYSTEM_MENU: any[] = [
                 icon: 'fa fa-dashboard',
                 children: [
                     {
+                        title: 'demo',
+                        icon: 'fa fa-circle-o',
+                        link: '/demo/common'
+                    },
+                    {
                         title: 'dom',
                         icon: 'fa fa-circle-o',
                         children: [
@@ -119,6 +124,10 @@ export const SYSTEM_MENU: any[] = [
                                 link: '/demo/decorator/viewc'
                             }
                         ]
+                    }, {
+                        title: 'LifeCycle',
+                        icon: 'fa fa-circle-o',
+                        link: '/demo/lifecycle',
                     }
                 ]
             }

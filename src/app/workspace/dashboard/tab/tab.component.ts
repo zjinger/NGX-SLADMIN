@@ -24,7 +24,7 @@ export class TabComponent implements OnInit {
   }
 
   ngAfterContentInit() {
-    console.log(this.topLevelPanes);
+    // console.log(this.topLevelPanes);
   }
 
   ngAfterContentChecked() {

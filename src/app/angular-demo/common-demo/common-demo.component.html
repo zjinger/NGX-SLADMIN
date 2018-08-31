@@ -1,0 +1,9 @@
+<div>
+  <div class="btn-group">
+    <button class="btn btn-sm btn-success" (click)="loadComponent('hv')">垂直居中解决方案</button>
+    <button class="btn btn-sm btn-success" (click)="loadComponent('vc')">ViewChild</button>
+    <button class="btn btn-sm btn-success" (click)="loadComponent('cc')">ContentChild</button>
+    <button class="btn btn-sm btn-success" (click)="loadComponent('ch')">ContentChildren</button>
+  </div>
+  <app-dynamic-component-item [item]="comItem"></app-dynamic-component-item>
+</div>

@@ -16,12 +16,16 @@ import {
   SearchFormComponent,
   UserPanelComponent,
   TabNavComponent,
-  TabItemComponent
+  TabsetComponent,
 } from './components';
 import {
   SlSlimScrollDirective,
   TabLabelDirective
 } from './directives';
+import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { InMemoryDataService } from './services/in-memory-data.service';
+import { TabsetService } from './services/tabset.service';
+import { HttpClientModule } from '@angular/common/http';
 
 const COMPONENTS = [
   HeaderComponent,
@@ -38,7 +42,7 @@ const COMPONENTS = [
   UserPanelComponent,
   TabNavComponent,
   LayoutComponent,
-  TabItemComponent
+  TabsetComponent,
 ]
 const DIRECTIVES = [
   SlSlimScrollDirective,
@@ -48,10 +52,17 @@ const DIRECTIVES = [
   imports: [
     SharedModule.forRoot(),
     LayoutRoutingModule,
+    HttpClientModule,
+    HttpClientInMemoryWebApiModule.forRoot(
+      InMemoryDataService, { dataEncapsulation: false }
+    )
   ],
   declarations: [
     ...COMPONENTS,
     ...DIRECTIVES,
+  ],
+  providers: [
+    TabsetService
   ],
   exports: []
 })

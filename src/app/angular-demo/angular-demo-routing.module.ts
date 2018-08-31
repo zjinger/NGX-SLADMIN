@@ -9,10 +9,16 @@ import {
 } from './dom';
 import {
   ViewChildComponent,
-  ContentChildComponent
+  ContentChildComponent,
+  DecoratorComponent
 } from './decorator';
-import { DecoratorComponent } from './decorator';
+import { CommonDemoComponent } from './common-demo';
+import { LifeCycleComponent } from './life-cycle';
+
 const routes: Routes = [
+  {
+    path: 'common', component: CommonDemoComponent
+  },
   {
     path: 'dom', component: DomComponent, children: [
       { path: 'template', component: TemplateRefComponent },
@@ -25,6 +31,8 @@ const routes: Routes = [
       { path: 'contentc', component: ContentChildComponent },
       { path: 'viewc', component: ViewChildComponent }
     ]
+  }, {
+    path: 'lifecycle', component: LifeCycleComponent
   }
 ];
 

@@ -12,8 +12,19 @@ import {
 import {
   DecoratorComponent,
   ContentChildComponent,
-  ViewChildComponent
+  ViewChildComponent,
+  ContentChildrenComponent,
+  SubComponentComponent
 } from './decorator';
+
+import {
+  LifeCycleComponent
+} from './life-cycle';
+
+import {
+  CenterHVComponent,
+  CommonDemoComponent
+} from './common-demo';
 
 @NgModule({
   imports: [
@@ -28,10 +39,21 @@ import {
     DynamicComComponent,
     DecoratorComponent,
     ContentChildComponent,
-    ViewChildComponent
+    ViewChildComponent,
+    LifeCycleComponent,
+    CommonDemoComponent,
+    CenterHVComponent,
+    SubComponentComponent,
+    ContentChildrenComponent,
   ],
   entryComponents: [
-    TemplateRefComponent, EelementRefComponent, ViewContainerRefComponent
+    TemplateRefComponent,
+    EelementRefComponent,
+    ViewContainerRefComponent,
+    CenterHVComponent,
+    ContentChildComponent,
+    ViewChildComponent,
+    ContentChildrenComponent
   ]
 })
 export class AngularDemoModule { }

@@ -10,7 +10,13 @@ import {
   PaneDirective,
   HostDirective
 } from './directives';
+import {
+  DynamicComponentItemComponent
+} from './components';
 
+const SHARED_COMPONENTS = [
+  DynamicComponentItemComponent
+]
 const SHARED_DIRECTIVES = [
   PaneDirective,
   HostDirective
@@ -28,6 +34,7 @@ const SHARED_SERVICES = [
   declarations: [
     ...SHARED_PIPES,
     ...SHARED_DIRECTIVES,
+    ...SHARED_COMPONENTS
   ],
   exports: [
     CommonModule,
@@ -35,7 +42,8 @@ const SHARED_SERVICES = [
     FormsModule,
     RouterModule,
     ...SHARED_PIPES,
-    ...SHARED_DIRECTIVES
+    ...SHARED_DIRECTIVES,
+    ...SHARED_COMPONENTS
   ]
 })
 export class SharedModule {

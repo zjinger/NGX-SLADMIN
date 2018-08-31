@@ -1,11 +1,12 @@
-import { Component, OnInit, Input, ElementRef, ViewChild, Output, EventEmitter, Renderer2, Optional, Inject } from '@angular/core';
+import { Component, OnInit, Input, ElementRef, ViewChild, Output, EventEmitter, Renderer2, Optional, Inject, AfterContentChecked, AfterViewInit } from '@angular/core';
 import { toNumber } from '../../../../shared/util/convert';
 import { TabsetService } from '../../../services/tabset.service';
 import { UpdateHostClassService } from '../../../../shared/services';
 import { Direction, Directionality } from '@angular/cdk/bidi';
 import { DOCUMENT } from '@angular/common';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { TabComponent } from '../../../models';
 export class TabChangeEvent {
   index: number;
   tab: any;
@@ -18,23 +19,11 @@ export class TabChangeEvent {
     '(scroll)': 'onScroll($event)'
   },
 })
-export class TabsetComponent implements OnInit {
-  tabList: Array<any>;
-  private _indexToSelect: number | null = 0;
-  private _selectedIndex: number | null = null;
-
-  selectedIndex: number;
-
+export class TabsetComponent implements OnInit, AfterContentChecked, AfterViewInit {
+  tabList: Array<TabComponent>;
+  selectedIndex: number = 0;
   el: HTMLElement;
-
-  // @Input()
-  // set selectedIndex(value: number | null) {
-  //   this._indexToSelect = toNumber(value, null);
-  // }
-  // get selectedIndex(): number | null {
-  //   return this._selectedIndex;
-  // }
-
+  tabSourceSubscription: Subscription;
   @Output()
   get selectedIndexChange(): Observable<number> {
     return this.selectChange.pipe(map(event => event.index));
@@ -49,7 +38,11 @@ export class TabsetComponent implements OnInit {
 
   ) {
     this.el = this.elementRef.nativeElement;
-
+    this.tabSourceSubscription = this.tabsetService.clickTab$.subscribe(tab => {
+      if (tab) {
+        this.addTab(tab);
+      }
+    })
   }
 
   ngOnInit() {
@@ -58,6 +51,13 @@ export class TabsetComponent implements OnInit {
       this.tabList = tabs;
     })
   }
+
+  ngAfterContentChecked() {
+    //Called after every check of the component's or directive's content.
+    //Add 'implements AfterContentChecked' to the class.
+
+  }
+
 
   createChangeEvent(index: number): TabChangeEvent {
     const event = new TabChangeEvent();
@@ -96,10 +96,23 @@ export class TabsetComponent implements OnInit {
    * 右滑回调事件
    */
   nextClick() {
-
   }
   /**
    * 左滑回调事件
    */
   prevClick() { }
+
+  addTab(value: TabComponent): void {
+    this.tabList.push(value);
+  }
+
+  removeTab(value: TabComponent): void {
+    this.tabList.splice(this.tabList.indexOf(value), 1);
+  }
+
+  ngAfterViewInit() {
+    //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
+    //Add 'implements AfterViewInit' to the class.
+
+  }
 }

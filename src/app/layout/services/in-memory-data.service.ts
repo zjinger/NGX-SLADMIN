@@ -1,8 +1,9 @@
+import { TabComponent } from '../models/tab-component';
 import { InMemoryDbService } from "angular-in-memory-web-api";
 
 export class InMemoryDataService implements InMemoryDbService {
     createDb() {
-        const tabs = [
+        const tabs: TabComponent[] = [
             {
                 title: 'tab1',
                 active: true

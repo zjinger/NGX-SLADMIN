@@ -20,7 +20,7 @@ export class TabChangeEvent {
   },
 })
 export class TabsetComponent implements OnInit, AfterContentChecked, AfterViewInit {
-  tabList: Array<TabComponent>;
+  @Input() tabList: Array<TabComponent>;
   selectedIndex: number = 0;
   el: HTMLElement;
   tabSourceSubscription: Subscription;
@@ -30,6 +30,7 @@ export class TabsetComponent implements OnInit, AfterContentChecked, AfterViewIn
   }
 
   @Output() selectChange: EventEmitter<any> = new EventEmitter<any>(true);
+  @Output() goto: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(
     private tabsetService: TabsetService,
@@ -47,9 +48,9 @@ export class TabsetComponent implements OnInit, AfterContentChecked, AfterViewIn
 
   ngOnInit() {
     this.setClassMap();
-    this.tabsetService.getTabs().subscribe(tabs => {
-      this.tabList = tabs;
-    })
+    // this.tabsetService.getTabs().subscribe(tabs => {
+    //   this.tabList = tabs;
+    // })
   }
 
   ngAfterContentChecked() {
@@ -58,6 +59,9 @@ export class TabsetComponent implements OnInit, AfterContentChecked, AfterViewIn
 
   }
 
+  to($event, index) {
+    this.goto.emit({ event: $event, index: index });
+  }
 
   createChangeEvent(index: number): TabChangeEvent {
     const event = new TabChangeEvent();

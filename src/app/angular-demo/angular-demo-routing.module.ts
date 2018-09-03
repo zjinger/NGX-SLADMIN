@@ -21,7 +21,7 @@ const routes: Routes = [
   },
   {
     path: 'dom', component: DomComponent, children: [
-      { path: 'template', component: TemplateRefComponent },
+      { path: 'template', component: TemplateRefComponent , data: { title: 'R-title', reuseTitle: 'R-reuseTitle' } },
       { path: 'element', component: EelementRefComponent },
       { path: 'container', component: ViewContainerRefComponent },
       { path: 'dynamic', component: DynamicComComponent }

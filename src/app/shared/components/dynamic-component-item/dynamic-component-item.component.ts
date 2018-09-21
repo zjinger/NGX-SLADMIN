@@ -28,7 +28,7 @@ export class DynamicComponentItemComponent implements OnInit, OnDestroy,OnChange
     //Called before any other lifecycle hook. Use it to inject dependencies, but avoid any serious work here.
     //Add '${implements OnChanges}' to the class.
     if(this.item){
-      console.log('dynamic add');
+      //console.log('dynamic add');
       this.loadComponent();
     }
   }
@@ -49,7 +49,7 @@ export class DynamicComponentItemComponent implements OnInit, OnDestroy,OnChange
 
   }
   ngOnDestroy(): void {
-    console.log("shared dyanmic destory");
+    //console.log("shared dyanmic destory");
     if (this.currentComponent) {
       this.currentComponent.destroy();
     }

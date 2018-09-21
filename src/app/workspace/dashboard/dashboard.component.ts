@@ -6,11 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./dashboard.component.less']
 })
 export class DashboardComponent implements OnInit {
-  shouldShow = false;
-
-  show() { this.shouldShow = true; }
+  userName: string;
   constructor() { }
-
   ngOnInit() {
   }
 

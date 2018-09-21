@@ -12,21 +12,21 @@ export class ViewChildComponent implements OnInit, AfterViewInit, AfterContentIn
   constructor(private renderer2: Renderer2) { }
 
   ngOnInit() {
-    console.log(this.child);
+    // //console.log(this.child);
   }
   ngAfterViewInit() {
     //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
     //Add 'implements AfterViewInit' to the class.
-    console.log(this.child);
+    // //console.log(this.child);
     let embeddedView = this.tpl.createEmbeddedView(this.child);
     let commentElement = this.tpl.elementRef.nativeElement;
-    console.log(embeddedView.context);
+    // //console.log(embeddedView.context);
    
 
   }
   ngAfterContentInit() {
     //Called after ngOnInit when the component's or directive's content has been initialized.
     //Add 'implements AfterContentInit' to the class.
-    console.log(this.child);
+    //console.log(this.child);
   }
 }

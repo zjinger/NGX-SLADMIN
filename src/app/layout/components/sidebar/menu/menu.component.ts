@@ -37,7 +37,7 @@ export class MenuComponent implements OnInit, OnDestroy {
   }
   ngOnInit() {
     this._menuItemsSub = this._service.menuItems.subscribe((items) => {
-      // console.log(items);
+      // //console.log(items);
       this.menuItems = items;
     });
   }
@@ -46,7 +46,7 @@ export class MenuComponent implements OnInit, OnDestroy {
   }
 
   public toggleSubMenu($event: any): boolean {
-    // console.log($event);
+    // //console.log($event);
     let link = jQuery($event.currentTarget);
     $event.item.expanded = !$event.item.expanded;
 

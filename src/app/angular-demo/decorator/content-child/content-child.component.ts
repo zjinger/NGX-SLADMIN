@@ -14,8 +14,8 @@ export class ContentChildComponent implements OnInit, AfterContentInit {
   ngOnInit() {
   }
   ngAfterContentInit() {
-    console.log(this.subCom);
-    console.log(this.subComList.length);
+    // //console.log(this.subCom);
+    // //console.log(this.subComList.length);
   }
-
+  
 }

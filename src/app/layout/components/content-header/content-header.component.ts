@@ -1,5 +1,6 @@
 import { UpdateHostClassService } from './../../../shared/services';
 import { Component, OnInit } from '@angular/core';
+import { TabComponent } from '../../models';
 
 @Component({
   selector: 'layout-content-header',
@@ -8,12 +9,13 @@ import { Component, OnInit } from '@angular/core';
   providers: [UpdateHostClassService]
 })
 export class ContentHeaderComponent implements OnInit {
-  constructor(
-  ) {
 
-  }
+  constructor() { }
+
   ngOnInit() {
-
   }
 
+  tabChange($event) {
+    console.log($event);
+  }
 }

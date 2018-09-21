@@ -4,14 +4,10 @@ import { ReuseTabContextComponent } from '../components';
 
 export interface ReuseTabCached {
   title: string;
-
   url: string;
-
   /** 是否可关闭，默认：`true` */
   closable?: boolean;
-
   _snapshot: ActivatedRouteSnapshot;
-
   _handle: any;
 }
 

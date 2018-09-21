@@ -1,8 +1,8 @@
 import { Component, OnInit, Input, TemplateRef, Inject, Optional, ElementRef, ViewChild, OnDestroy, AfterContentChecked, Output, EventEmitter, Renderer2, QueryList, AfterContentInit, NgZone, ContentChildren, ContentChild } from '@angular/core';
 import { Direction, Directionality } from '@angular/cdk/bidi';
-import { UpdateHostClassService } from './../../../../shared/services/update-host-class.service';
+import { UpdateHostClassService } from './../../../../../shared/services/update-host-class.service';
 import { DOCUMENT } from '@angular/common';
-import { TabLabelDirective } from '../../../directives';
+import { TabLabelDirective } from '../../../../directives';
 import { fromEvent, merge, of as observableOf, Subscription } from 'rxjs';
 import { auditTime, startWith } from 'rxjs/operators';
 
@@ -79,14 +79,14 @@ export class TabNavComponent implements OnInit, AfterContentChecked, OnDestroy {
     this.el = this.elementRef.nativeElement;
   }
   ngOnInit() {
-    console.log(this.dir.value);
+    // //console.log(this.dir.value);
   }
 
   /**
    * 监听到ng-content 内部的变化
    */
   onContentChanges() {
-    console.log('onContentChanges');
+    //console.log('onContentChanges');
     this.updatePagination();
   }
 
@@ -94,7 +94,7 @@ export class TabNavComponent implements OnInit, AfterContentChecked, OnDestroy {
    * 更新滚动条状态
    */
   updatePagination(): void {
-    // console.log('更新 Pagination');
+    // //console.log('更新 Pagination');
     this.checkPaginationEnabled();
     this.checkScrollingControls();
     this.updateTabScrollPosition();
@@ -127,6 +127,8 @@ export class TabNavComponent implements OnInit, AfterContentChecked, OnDestroy {
     this.disableScrollBefore = this.scrollDistance === 0;
     this.disableScrollAfter = this.scrollDistance === this.getMaxScrollDistance();
   }
+
+  
   onScroll($event: Event): void {
     console.log('scroll');
     const target: Element = $event.target as Element;
@@ -159,7 +161,7 @@ export class TabNavComponent implements OnInit, AfterContentChecked, OnDestroy {
   }
 
   ngAfterContentInit(): void {
-    // console.log(this.listTabLabelDirective.length);
+    // //console.log(this.listTabLabelDirective.length);
     this.realignInkBar = this.ngZone.runOutsideAngular(() => {
       const resize = typeof window !== 'undefined' ?
         fromEvent(window, 'resize').pipe(auditTime(10)) :
@@ -226,7 +228,7 @@ export class TabNavComponent implements OnInit, AfterContentChecked, OnDestroy {
   }
 
   get elementRefOffSetWidth(): number {
-    // console.log(this.el.offsetWidth);//需要在样式加上 :host{display:block},不然返回0
+    // //console.log(this.el.offsetWidth);//需要在样式加上 :host{display:block},不然返回0
     return this.el.offsetWidth;
   }
 
@@ -235,7 +237,7 @@ export class TabNavComponent implements OnInit, AfterContentChecked, OnDestroy {
    * 所有的 tab 所占用的宽
    */
   get tabListScrollWidthPix(): number {
-    // console.log("tabs-nav scrollwidth:" + this.navListElement.nativeElement.scrollWidth)
+    // //console.log("tabs-nav scrollwidth:" + this.navListElement.nativeElement.scrollWidth)
     return this.navListElement.nativeElement.scrollWidth;
   }
 

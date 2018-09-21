@@ -17,22 +17,22 @@ import { LifeCycleComponent } from './life-cycle';
 
 const routes: Routes = [
   {
-    path: 'common', component: CommonDemoComponent
+    path: 'common', component: CommonDemoComponent, data: { title: 'Demo', reuseTitle: 'Demo' }
   },
   {
     path: 'dom', component: DomComponent, children: [
-      { path: 'template', component: TemplateRefComponent , data: { title: 'R-title', reuseTitle: 'R-reuseTitle' } },
-      { path: 'element', component: EelementRefComponent },
-      { path: 'container', component: ViewContainerRefComponent },
-      { path: 'dynamic', component: DynamicComComponent }
+      { path: 'template', component: TemplateRefComponent, data: { title: 'TemplateRef', reuseTitle: 'TemplateRef' } },
+      { path: 'element', component: EelementRefComponent, data: { title: 'ElementRef', reuseTitle: 'ElementRef' } },
+      { path: 'container', component: ViewContainerRefComponent, data: { title: 'ViewContainerRef', reuseTitle: 'ViewContainerRef' } },
+      { path: 'dynamic', component: DynamicComComponent, data: { title: '动态加载组件', reuseTitle: '动态加载组件' } }
     ]
   }, {
     path: 'decorator', component: DecoratorComponent, children: [
-      { path: 'contentc', component: ContentChildComponent },
-      { path: 'viewc', component: ViewChildComponent }
+      { path: 'contentc', component: ContentChildComponent, data: { title: 'ContentChild', reuseTitle: 'ContentChild' } },
+      { path: 'viewc', component: ViewChildComponent, data: { title: 'ViewChild', reuseTitle: 'ViewChild' } }
     ]
   }, {
-    path: 'lifecycle', component: LifeCycleComponent
+    path: 'lifecycle', component: LifeCycleComponent, data: { title: '生命周期', reuseTitle: '生命周期' }
   }
 ];
 

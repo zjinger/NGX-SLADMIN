@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, TemplateRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-ckeditor',
@@ -6,11 +6,9 @@ import { Component, OnInit, ViewChild, ElementRef, TemplateRef } from '@angular/
   styleUrls: ['./ckeditor.component.less']
 })
 export class CkeditorComponent implements OnInit {
-  @ViewChild('popup') popup: TemplateRef<any>;
   constructor() { }
 
   ngOnInit() {
-    console.log(this.popup);
   }
 
 }

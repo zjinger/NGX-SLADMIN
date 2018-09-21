@@ -52,7 +52,7 @@ export class CommonDemoComponent implements OnInit {
 
   ngOnInit() {
     //:host {display:block}
-    // console.log(this.el.offsetWidth);
+    // //console.log(this.el.offsetWidth);
   }
 
   loadComponent(type: string) {

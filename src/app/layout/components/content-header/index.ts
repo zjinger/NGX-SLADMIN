@@ -1,4 +1,4 @@
-export * from './tab-nav/tab-nav.component';
+export * from './tabset/tab-nav/tab-nav.component';
 export * from './content-header.component';
 export * from './tabset/tabset.component';
 export * from './reuse-tab/reuse-tab.component';

@@ -7,8 +7,8 @@ export class LoggerService {
 
   log(...args: any[]): void {
     if (this._loggerState) {
-      // console.log(...args);
-      console.log.apply(console, arguments);
+      // //console.log(...args);
+      //console.log.apply(console, arguments);
     }
   }
 
@@ -28,16 +28,16 @@ export class LoggerService {
 
   info(...args: any[]): void {
     if (this._loggerState) {
-      // console.log(...args);
-      console.log.apply(console, arguments);
+      // //console.log(...args);
+      //console.log.apply(console, arguments);
     }
   }
 
   debug(...args: any[]): void {
     if (this._loggerState) {
-      // console.log('[NG-ZORRO-DEBUG]', ...args);
+      // //console.log('[NG-ZORRO-DEBUG]', ...args);
       const arrs = Array.prototype.slice.call(arguments);
-      console.log.apply(console, ['[NG-ZORRO-DEBUG]'].concat(arrs));
+      //console.log.apply(console, ['[NG-ZORRO-DEBUG]'].concat(arrs));
     }
   }
 }

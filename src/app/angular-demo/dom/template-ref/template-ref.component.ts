@@ -12,9 +12,9 @@ export class TemplateRefComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log(this.tpl.elementRef);
+    //console.log(this.tpl.elementRef);
     let embeddedView = this.tpl.createEmbeddedView(null);
-    console.log(embeddedView);
+    //console.log(embeddedView);
   }
 
   ngAfterViewInit() {

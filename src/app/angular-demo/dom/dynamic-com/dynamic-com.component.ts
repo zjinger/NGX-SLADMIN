@@ -26,7 +26,7 @@ export class DynamicComComponent implements OnInit {
     // let viewContainerRef = this.comHost.viewContainerRef;
     this.containerHost.clear();
     let componentRef = this.containerHost.createComponent(componentFactory);
-    console.log(componentRef.instance);
+    //console.log(componentRef.instance);
   }
 
   getComponent(type: string): Type<{}> {

@@ -1,25 +1,24 @@
-import { ReuseTabCached, ReuseContextCloseEvent } from './../../../models/reuse-tab';
+import { ReuseTabCached } from './../../../models/reuse-tab';
 import { Component, OnInit, OnChanges, OnDestroy, SimpleChanges, Input, SimpleChange, ChangeDetectorRef, Renderer2, ElementRef, Output, EventEmitter } from '@angular/core';
-import { Subscription, Observable, combineLatest } from 'rxjs';
+import { Subscription, combineLatest } from 'rxjs';
 import { TabComponent } from '../../../models';
 import { toNumber, toBoolean } from '../../../../shared/util/convert';
-import { ReuseTabService } from '../../../services/reuse-tab.service';
 import { ReuseTabNotify } from '../../../models/reuse-tab';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
-import { filter, debounceTime } from 'rxjs/operators';
+import { filter } from 'rxjs/operators';
+import { ReuseTabService } from '../../../services';
 
 @Component({
   selector: 'reuse-tab',
-  templateUrl: './reuse-tab.component.html',
-  styleUrls: ['./reuse-tab.component.less']
+  template: `
+  <header-tabset [selectedIndex]="pos" [tabList]="tabList" (tabClick)="to($event)"></header-tabset>
+  `
 })
 export class ReuseTabComponent implements OnInit, OnChanges, OnDestroy {
-  list: TabComponent[] = [];
-  item: TabComponent;
-  pos = 0;
-  private sub$: Subscription;
-  /**tab 最大数量 */
-  private _max: number;
+  tabList: TabComponent[] = [];//页面上所有的tab 数组
+  tabItem: TabComponent;
+  pos = 0;//当前tab 下标
+  private sub$: Subscription;//缓存变更通知
   /** 总是显示当前页 */
   private _showCurrent = true;
   @Input()
@@ -29,18 +28,12 @@ export class ReuseTabComponent implements OnInit, OnChanges, OnDestroy {
   set showCurrent(value: any) {
     this._showCurrent = toBoolean(value);
   }
-
-  @Input()
-  get max() {
-    return this._max;
-  }
-  set max(value: any) {
-    this._max = toNumber(value, null);
-  }
-  /** 切换时回调 */
+  /** tab切换时回调 */
   @Output() change: EventEmitter<TabComponent> = new EventEmitter<TabComponent>();
+  
   /** 关闭回调 */
   @Output() close: EventEmitter<TabComponent> = new EventEmitter<TabComponent>();
+ 
   constructor(
     private reuseService: ReuseTabService,
     private cd: ChangeDetectorRef,
@@ -49,13 +42,11 @@ export class ReuseTabComponent implements OnInit, OnChanges, OnDestroy {
     private el: ElementRef,
     private router: Router
   ) {
-
     const route$ = this.router.events.pipe(
       filter(evt => evt instanceof NavigationEnd),
     );
-    console.log(route$);
     this.sub$ = combineLatest(this.reuseService.change, route$).subscribe(([res, e]) =>
-      this.genList(res as any),
+      this.genList(res as any)
     );
   }
 
@@ -64,12 +55,15 @@ export class ReuseTabComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   private genList(notify?: ReuseTabNotify) {
-    console.log(notify);
-    const isClosed = notify && notify.active === 'close';
+
+    console.log('notify', notify);
+
+    const isClosed = notify && notify.active === 'close';//是否是关闭tab 操作
+
     const beforeClosePos = isClosed
-      ? this.list.findIndex(w => w.url === notify.url)
+      ? this.tabList.findIndex(w => w.url === notify.url)
       : -1;
-    const ls = this.reuseService.items.map((item: ReuseTabCached, index: number) => {
+    const ls = this.reuseService.reuseTabList.map((item: ReuseTabCached, index: number) => {
       return {
         url: item.url,
         title: item.title,
@@ -77,12 +71,15 @@ export class ReuseTabComponent implements OnInit, OnChanges, OnDestroy {
         index: index,
         active: false,
         last: false,
-      }
+      };
     });
+
     if (this.showCurrent) {
       const snapshot = this.route.snapshot;
-      const url: string = this.reuseService.getUrl(snapshot);
+      const url = this.reuseService.getUrl(snapshot);
       const idx = ls.findIndex(w => w.url === url);
+      // jump directly when the current exists in the list
+      // or create a new current item and jump
       if (idx !== -1 || (isClosed && notify.url === url)) {
         this.pos = isClosed
           ? idx >= beforeClosePos
@@ -92,7 +89,7 @@ export class ReuseTabComponent implements OnInit, OnChanges, OnDestroy {
       } else {
         const snapshotTrue = this.reuseService.getTruthRoute(snapshot);
         ls.push({
-          url,
+          url: url,
           title: this.reuseService.getTitle(url, snapshotTrue),
           closable: true,
           index: ls.length,
@@ -101,87 +98,57 @@ export class ReuseTabComponent implements OnInit, OnChanges, OnDestroy {
         });
         this.pos = ls.length - 1;
       }
+      // 只剩最后一个tab 时不能关闭
       if (ls.length <= 1) ls[0].closable = false;
     }
-    this.list = ls;
-
+    this.tabList = ls;
     if (ls.length && isClosed) {
-      this.to({ event: null, index: this.pos });
+      this.to(null, this.pos);
     }
-
     this.refStatus(false);
     this.visibility();
     this.cd.detectChanges();
+    console.log(this.tabList);
   }
+
   private visibility() {
     if (this.showCurrent) return;
     this.render.setStyle(
       this.el.nativeElement,
       'display',
-      this.list.length === 0 ? 'none' : 'block',
+      this.tabList.length === 0 ? 'none' : 'block',
     );
   }
 
-  to($event) {
-    let index = $event.index;
-    let e = $event.event;
+  to($event: any, index?) {
+    console.log($event);
+    let e: Event = $event.e;
+    if (!index) {
+      index = $event.index;
+    }
     if (e) {
       e.preventDefault();
       e.stopPropagation();
     }
-    index = Math.max(0, Math.min(index, this.list.length - 1));
-    const item = this.list[index];
+    index = Math.max(0, Math.min(index, this.tabList.length - 1));
+    const item = this.tabList[index];
     this.router.navigateByUrl(item.url).then(res => {
       if (!res) return;
       this.pos = index;
-      this.item = item;
+      this.tabItem = item;
       this.refStatus();
       this.change.emit(item);
     });
   }
-
   refStatus(dc = true) {
-    if (this.list.length) {
-      this.list[this.list.length - 1].last = true;
-      this.list.forEach((i, idx) => (i.active = this.pos === idx));
+    if (this.tabList.length) {
+      this.tabList[this.tabList.length - 1].last = true;
+      this.tabList.forEach((i, idx) => (i.active = this.pos === idx));
     }
     if (dc) this.cd.detectChanges();
   }
-  cmChange(res: ReuseContextCloseEvent) {
-    switch (res.type) {
-      case 'close':
-        this._close(null, res.item.index, res.includeNonCloseable);
-        break;
-      case 'closeRight':
-        this.reuseService.closeRight(res.item.url, res.includeNonCloseable);
-        this.close.emit(null);
-        break;
-      case 'clear':
-      case 'closeOther':
-        this.reuseService.clear(res.includeNonCloseable);
-        this.close.emit(null);
-        break;
-    }
-  }
-
-  _close(e: Event, idx: number, includeNonCloseable: boolean) {
-    if (e) {
-      e.preventDefault();
-      e.stopPropagation();
-    }
-    const item = this.list[idx];
-    this.reuseService.close(item.url, includeNonCloseable);
-    this.close.emit(item);
-    this.cd.detectChanges();
-    return false;
-  }
 
   ngOnChanges(changes: { [P in keyof this]?: SimpleChange } & SimpleChanges, ): void {
-    if (changes.max) this.reuseService.max = this.max;
-    // if (changes.excludes) this.reuseService.excludes = this.excludes;
-    // if (changes.mode) this.reuseService.mode = this.mode;
-    // this.reuseService.debug = this.debug;
-    // this.setClass();
     this.cd.detectChanges();
   }
 

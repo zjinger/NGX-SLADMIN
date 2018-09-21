@@ -32,9 +32,11 @@ import {
 import {
   TabsetService,
   MenuService,
-  ReuseTabService,
-  ReuseTabContextService
+  ReuseTabContextService,
+  ReuseTabService
 } from './services';
+import { RouteReuseStrategy } from '@angular/router';
+import { CustomeRouteReuseStrategy } from './route-reuse-strategy';
 
 const COMPONENTS = [
   HeaderComponent,
@@ -64,8 +66,8 @@ const DIRECTIVES = [
 const SERVICES = [
   TabsetService,
   MenuService,
-  ReuseTabService,
-  ReuseTabContextService
+  ReuseTabContextService,
+  ReuseTabService
 ]
 @NgModule({
   imports: [
@@ -82,7 +84,12 @@ const SERVICES = [
     ...DIRECTIVES,
   ],
   providers: [
-    
+    ReuseTabService,
+    {
+      provide: RouteReuseStrategy,
+      useClass: CustomeRouteReuseStrategy,
+      deps: [ReuseTabService]
+    }
   ],
   entryComponents: [
     ReuseTabContextMenuComponent

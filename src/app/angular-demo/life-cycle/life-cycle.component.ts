@@ -17,7 +17,7 @@ export class LifeCycleComponent implements OnInit, DoCheck, OnChanges, AfterCont
    */
   ngOnChanges(changes: SimpleChanges): void {
     debugger
-    console.log('ngOnChanges');
+    //console.log('ngOnChanges');
   }
 
   /**
@@ -26,20 +26,20 @@ export class LifeCycleComponent implements OnInit, DoCheck, OnChanges, AfterCont
    * 第一轮 ngOnChanges() 完成之后调用，只调用一次。
    */
   ngOnInit() {
-    console.log('ngOnInit');
+    //console.log('ngOnInit');
   }
   /**
    * 
    */
   ngDoCheck() {
-    // console.log('ngDoCheck');
+    // //console.log('ngDoCheck');
   }
 
   /**
    * 第一次 ngDoCheck() 之后调用，只调用一次。
    */
   ngAfterContentInit() {
-    console.log('ngAfterContentInit');
+    //console.log('ngAfterContentInit');
   }
 
   /**
@@ -48,7 +48,7 @@ export class LifeCycleComponent implements OnInit, DoCheck, OnChanges, AfterCont
    */
   ngAfterContentChecked() {
     //Called after every check of the component's or directive's content.
-    // console.log('ngAfterContentChecked');
+    // //console.log('ngAfterContentChecked');
   }
 
   /**
@@ -57,7 +57,7 @@ export class LifeCycleComponent implements OnInit, DoCheck, OnChanges, AfterCont
    * 只调用一次
    */
   ngAfterViewInit() {
-    console.log('ngAfterViewInit');
+    //console.log('ngAfterViewInit');
   }
 
   /**
@@ -65,10 +65,10 @@ export class LifeCycleComponent implements OnInit, DoCheck, OnChanges, AfterCont
    * ngAfterViewInit() 和每次 ngAfterContentChecked() 之后调用。
    */
   ngAfterViewChecked() {
-    // console.log('ngAfterViewChecked');
+    // //console.log('ngAfterViewChecked');
   }
   ngOnDestroy(): void {
-    console.log('ngOnDestroy')
+    //console.log('ngOnDestroy')
   }
 
 }

@@ -7,7 +7,6 @@ import {
   UpdateHostClassService
 } from './services';
 import {
-  PaneDirective,
   HostDirective
 } from './directives';
 import {
@@ -18,7 +17,6 @@ const SHARED_COMPONENTS = [
   DynamicComponentItemComponent
 ]
 const SHARED_DIRECTIVES = [
-  PaneDirective,
   HostDirective
 ]
 const SHARED_PIPES = [

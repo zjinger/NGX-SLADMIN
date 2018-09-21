@@ -114,7 +114,7 @@ export class LeafletComponent implements OnInit {
    * @param element 
    */
   markerBindPopup2(latlng, element: TemplateRef<any>) {
-    console.log(element);
+    //console.log(element);
     return L.marker(latlng, {
       icon: this.createCustomIcon()
     }).addTo(this.mymap).bindPopup(element.elementRef.nativeElement).openPopup();

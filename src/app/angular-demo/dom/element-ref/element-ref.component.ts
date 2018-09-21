@@ -12,11 +12,11 @@ export class EelementRefComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log(this.viewDiv);
-    console.log(this.viewDiv.nativeElement);
-    console.log(this.viewDiv.nativeElement.style.width = '100px');
-    console.log(this.viewDiv.nativeElement.style.height = '100px');
-    console.log(this.viewDiv.nativeElement.style.border = "1px solid red")
+    //console.log(this.viewDiv);
+    //console.log(this.viewDiv.nativeElement);
+    //console.log(this.viewDiv.nativeElement.style.width = '100px');
+    //console.log(this.viewDiv.nativeElement.style.height = '100px');
+    //console.log(this.viewDiv.nativeElement.style.border = "1px solid red")
   }
 
 }

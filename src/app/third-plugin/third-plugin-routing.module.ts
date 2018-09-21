@@ -10,23 +10,28 @@ import {
 const routes: Routes = [
   {
     path: 'leaflet-test',
-    component: LeafletComponent
+    component: LeafletComponent,
+    data: { title: 'LeafletTest', reuseTitle: 'LeafletTest' }
   },
   {
     path: 'leaflet',
-    component: LeafjsComponent
+    component: LeafjsComponent,
+    data: { title: 'Leaflet', reuseTitle: 'Leaflet' }
   },
   {
     path: 'ckeditor',
-    component: CkeditorComponent
+    component: CkeditorComponent,
+    data: { title: 'CKEditor', reuseTitle: 'CKEditor' }
   },
   {
     path: 'treeview',
-    component: TreeviewComponent
+    component: TreeviewComponent,
+    data: { title: 'Treeviwe', reuseTitle: 'Treeviwe' }
   },
   {
     path: 'select2',
-    component: InputSelect2Component
+    component: InputSelect2Component,
+    data: { title: 'Select2', reuseTitle: 'Select2' }
   }
 ];
 

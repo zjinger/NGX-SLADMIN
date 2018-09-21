@@ -47,7 +47,7 @@ export class LayoutComponent implements OnInit {
 
         if (jQuery('body').hasClass(this.ClassName.fixed)) {
             jQuery(this.Selector.contentWrapper).css('min-height', windowHeight - footerHeight);
-            // console.log(windowHeight - footerHeight);
+            // //console.log(windowHeight - footerHeight);
             setTimeout(() => {
                 this.contentHeight = windowHeight - neg - contentHeigth;
             })

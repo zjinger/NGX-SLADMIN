@@ -88,7 +88,7 @@ export class LeafjsComponent implements OnInit, OnDestroy {
    */
   getAllLight(mymap) {
     this.leafService.getAllMarkLights().subscribe((list: any[]) => {
-      console.log(list);
+      //console.log(list);
       list.forEach(element => {
         this.markerList.push(
           L.marker(

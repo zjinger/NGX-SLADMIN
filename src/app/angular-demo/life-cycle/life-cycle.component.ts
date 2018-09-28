@@ -16,7 +16,6 @@ export class LifeCycleComponent implements OnInit, DoCheck, OnChanges, AfterCont
    * @param changes 
    */
   ngOnChanges(changes: SimpleChanges): void {
-    debugger
     //console.log('ngOnChanges');
   }
 

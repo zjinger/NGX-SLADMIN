@@ -1,19 +1,29 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Router, Routes } from '@angular/router';
 import * as _ from 'lodash';
+import { tap, map } from 'rxjs/operators';
+import { TabComponent } from '../models';
 
 @Injectable({ providedIn: 'root' })
 export class MenuService {
+
+  private menuUrl = 'api/menus';
+
   menuItems = new BehaviorSubject<any[]>([]);
   private data: any[] = [];
   protected _currentMenuItem = {};
 
-  constructor(private _router: Router) { }
+  constructor(private _router: Router, private http: HttpClient) { }
 
   public updateMenuByRoutes(routes: Routes) {
     let items = _.cloneDeep(routes);
     this.menuItems.next(items);
+  }
+
+  getMenus(): Observable<TabComponent[]> {
+    return this.http.get<TabComponent[]>(this.menuUrl);
   }
 
   /**

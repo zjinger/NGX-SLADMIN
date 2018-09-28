@@ -11,7 +11,13 @@ import { ReuseTabService } from '../../../services';
 @Component({
   selector: 'reuse-tab',
   template: `
-  <header-tabset [selectedIndex]="pos" [tabList]="tabList" (tabClick)="to($event)"></header-tabset>
+  <header-tabset 
+    [selectedIndex]="pos" 
+    [tabList]="tabList"  
+    (tabClick)="to($event)"
+    (tabClose)="close($event)"
+  >
+  </header-tabset>
   `
 })
 export class ReuseTabComponent implements OnInit, OnChanges, OnDestroy {
@@ -30,10 +36,7 @@ export class ReuseTabComponent implements OnInit, OnChanges, OnDestroy {
   }
   /** tab切换时回调 */
   @Output() change: EventEmitter<TabComponent> = new EventEmitter<TabComponent>();
-  
-  /** 关闭回调 */
-  @Output() close: EventEmitter<TabComponent> = new EventEmitter<TabComponent>();
- 
+
   constructor(
     private reuseService: ReuseTabService,
     private cd: ChangeDetectorRef,
@@ -55,9 +58,7 @@ export class ReuseTabComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   private genList(notify?: ReuseTabNotify) {
-
-    console.log('notify', notify);
-
+    // console.log('notify', notify);
     const isClosed = notify && notify.active === 'close';//是否是关闭tab 操作
 
     const beforeClosePos = isClosed
@@ -120,13 +121,35 @@ export class ReuseTabComponent implements OnInit, OnChanges, OnDestroy {
     );
   }
 
-  to($event: any, index?) {
+  /**
+   * 关闭tab
+   * @param $event 
+   */
+  close($event) {
     console.log($event);
-    let e: Event = $event.e;
-    if (!index) {
-      index = $event.index;
-    }
+    let e = $event.e;
+    let index = $event.index;
+    //是否有不可关闭的tab，比如工作台、主页
+    let includeNonCloseable = $event.closeable;
     if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    const item = this.tabList[index];
+    this.reuseService.close(item.url, includeNonCloseable);
+    this.cd.detectChanges();
+    return false;
+  }
+
+  /**
+   *  跳转
+   * @param $event
+   * @param index 
+   */
+  to($event: any, index?) {
+    if ($event) {
+      let e = $event.e;
+      index = $event.index;
       e.preventDefault();
       e.stopPropagation();
     }
@@ -140,6 +163,7 @@ export class ReuseTabComponent implements OnInit, OnChanges, OnDestroy {
       this.change.emit(item);
     });
   }
+
   refStatus(dc = true) {
     if (this.tabList.length) {
       this.tabList[this.tabList.length - 1].last = true;

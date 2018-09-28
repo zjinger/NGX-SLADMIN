@@ -14,44 +14,33 @@ export class TabChangeEvent {
   selector: 'header-tabset',
   templateUrl: './tabset.component.html',
   styleUrls: ['./tabset.component.less'],
-  host: {
-    '(scroll)': 'onScroll($event)'
-  },
+  // host: {
+  //   '(scroll)': 'onScroll($event)'
+  // },
 })
 export class TabsetComponent implements OnInit, AfterContentChecked, OnDestroy {
-
   @Input() tabList: Array<TabComponent>;//tab list
-
   @Input() selectedIndex: number = 0;//当前选中的tab 下标
-
   el: HTMLElement;//el 
-
   tabSourceSubscription: Subscription;//订阅tab 操作
-
   //订阅下标变化
   @Output()
   get selectedIndexChange(): Observable<number> {
     return this.selectChange.pipe(map(event => event.index));
   }
-
   @Output() selectChange: EventEmitter<any> = new EventEmitter<any>(true);
-
+  //tab click 事件
   @Output() tabClick: EventEmitter<any> = new EventEmitter<any>();
+  //tab 关闭事件
+  @Output() tabClose: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(
-    private tabsetService: TabsetService,
     private updateHostClassService: UpdateHostClassService,
     private elementRef: ElementRef,
 
   ) {
     this.el = this.elementRef.nativeElement;
-    this.tabSourceSubscription = this.tabsetService.clickTab$.subscribe(tab => {
-      if (tab) {
-        this.addTab(tab);
-      }
-    })
   }
-
   ngOnInit() {
     this.setClassMap();
     // this.tabsetService.getTabs().subscribe(tabs => {
@@ -64,33 +53,8 @@ export class TabsetComponent implements OnInit, AfterContentChecked, OnDestroy {
     //Add 'implements AfterContentChecked' to the class.
 
   }
-
-  /**
-   * 点击tab 事件
-   * @param $event 
-   * @param index 
-   */
-  to($event, index) {
-    this.tabClick.emit({ event: $event, index: index });
-  }
-
-  createChangeEvent(index: number): TabChangeEvent {
-    const event = new TabChangeEvent();
-    event.index = index;
-    if (this.tabList && this.tabList.length) {
-      event.tab = this.tabList[index];
-      this.tabList.forEach((item, i) => {
-        if (i !== index) {
-          item.nzDeselect.emit();
-        }
-      });
-      event.tab.nzSelect.emit();
-    }
-    return event;
-  }
-
   clickLabel($event, index: number, disabled: boolean): void {
-    console.log('click');
+    console.log('click')
     if (!disabled) {
       this.selectedIndex = index;
       this.tabClick.emit({ e: $event, index: index });
@@ -102,9 +66,6 @@ export class TabsetComponent implements OnInit, AfterContentChecked, OnDestroy {
       ['test']: true
     };
     this.updateHostClassService.updateHostClass(this.el, classMap);
-  }
-  onScroll($event) {
-    console.log('scroll');
   }
 
   /**
@@ -120,11 +81,13 @@ export class TabsetComponent implements OnInit, AfterContentChecked, OnDestroy {
     console.log('左滑动');
   }
 
-  addTab(value: TabComponent): void {
-    this.tabList.push(value);
-  }
-  removeTab(value: TabComponent): void {
-    this.tabList.splice(this.tabList.indexOf(value), 1);
+  /**
+   * 移除 tab
+   * @param value 
+   */
+  removeTab(e: Event, index: number, includeNonCloseable: boolean): void {
+    console.log('close');
+    this.tabClose.emit({ e, index, closeable: includeNonCloseable });
   }
 
   ngOnDestroy(): void {

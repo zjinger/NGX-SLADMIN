@@ -3,7 +3,7 @@ import { InMemoryDbService } from "angular-in-memory-web-api";
 
 export class InMemoryDataService implements InMemoryDbService {
     createDb() {
-        const tabs: TabComponent[] = [
+        const menus: TabComponent[] = [
             {
                 title: 'tab1',
                 active: true
@@ -42,6 +42,6 @@ export class InMemoryDataService implements InMemoryDbService {
                 title: 'tab12'
             }
         ];
-        return { tabs };
+        return { menus };
     }
 }

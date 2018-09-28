@@ -1,0 +1,33 @@
+{
+    "app": {
+        "name": "Alain",
+        "description": "Ng-zorro admin panel front-end framework"
+    },
+    "user": {
+        "name": "Admin",
+        "avatar": "./assets/img/zorro.svg",
+        "email": "cipchk@qq.com"
+    },
+    "menu": [
+        {
+            "header": true,
+            "title": "COMPONENTS",
+            "items": [
+                {
+                    "title": "Dashboard",
+                    "icon": "fa fa-dashboard",
+                    "expanded": true,
+                    "selected": true,
+                    "children": [
+                        {
+                            "title": "Dashboard",
+                            "icon": "fa fa-circle-o",
+                            "selected": true,
+                            "link": "dashboard"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

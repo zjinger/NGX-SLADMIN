@@ -1,9 +1,6 @@
 <header-tab-nav [selectedIndex]="selectedIndex" (onNextClick)="nextClick()" (onPrevClick)="prevClick()">
-  <div nav-tab-label
-   [disabled]="tab.disabled"
-   [class.tabs-tab-active]="(selectedIndex == i)"
-   *ngFor="let tab of tabList;index as i">
+  <div nav-tab-label [disabled]="tab.disabled" [class.tabs-tab-active]="(selectedIndex == i)" *ngFor="let tab of tabList;index as i">
     <span (click)="clickLabel($event,i,tab.disabled)" class="name">{{tab.title}}</span>
-    <i class="fa fa-times-circle close-icon" (click)="removeTab(tab)"></i>
+    <i *ngIf="tab.closable" class="app-icon-sm delete-icon" title="关闭" (click)="removeTab($event,i,false)"></i>
   </div>
 </header-tab-nav>

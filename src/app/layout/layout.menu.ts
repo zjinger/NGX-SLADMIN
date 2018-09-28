@@ -15,22 +15,8 @@ export const SYSTEM_MENU: any[] = [
                         icon: 'fa fa-circle-o',
                         selected: true,
                         link: 'dashboard'
-                    },
-                    {
-                        title: 'Dashboard2',
-                        icon: 'fa fa-circle-o',
                     }
                 ]
-            },
-            {
-                title: 'Forms',
-                label: 'forms',
-                icon: 'fa fa-book'
-            },
-            {
-                title: 'Box',
-                label: 'box',
-                icon: 'fa fa-archive'
             }
         ]
     },
@@ -42,16 +28,16 @@ export const SYSTEM_MENU: any[] = [
                 title: '第三方扩展',
                 icon: 'fa fa-dashboard',
                 children: [
-                    {
-                        title: 'leafletjs',
-                        icon: 'fa fa-circle-o',
-                        link: '/third/leaflet'
-                    },
-                    {
-                        title: 'leafletjs-test',
-                        icon: 'fa fa-circle-o',
-                        link: '/third/leaflet-test'
-                    },
+                    // {
+                    //     title: 'leafletjs',
+                    //     icon: 'fa fa-circle-o',
+                    //     link: '/third/leaflet'
+                    // },
+                    // {
+                    //     title: 'leafletjs-test',
+                    //     icon: 'fa fa-circle-o',
+                    //     link: '/third/leaflet-test'
+                    // },
                     {
                         title: 'treeview',
                         icon: 'fa fa-circle-o',

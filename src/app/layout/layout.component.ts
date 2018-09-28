@@ -12,9 +12,11 @@ import { SYSTEM_MENU } from './layout.menu';
 export class LayoutComponent implements OnInit {
     public isDestroy: boolean;
     public contentHeight: number;
-
+    
     constructor(private menuService: MenuService) {
-
+        // this.menuService.getMenus().subscribe(res => {
+        //     console.log(res);
+        // })
     }
     Default = {
         slimscroll: true,

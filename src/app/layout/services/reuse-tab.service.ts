@@ -1,8 +1,7 @@
-import { Injectable, OnInit, OnDestroy, Injector, Optional } from '@angular/core';
-import { DetachedRouteHandle, ActivatedRouteSnapshot, ActivatedRoute, Router } from '@angular/router';
+import { Injectable, OnDestroy, Injector } from '@angular/core';
+import { ActivatedRouteSnapshot, ActivatedRoute } from '@angular/router';
 import { ReuseTabCached, ReuseTabNotify } from '../models/reuse-tab';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { MenuService } from './menu.service';
 import { filter } from 'rxjs/operators';
 
 @Injectable()
@@ -11,7 +10,7 @@ export class ReuseTabService implements OnDestroy {
     /**缓存路由列表 */
     private _reuseTabCachedList: ReuseTabCached[] = [];
     private _titleCached: { [url: string]: string } = {};
-    // private removeUrlBuffer: string;
+    private removeUrlBuffer: string;
     /** 当前路由地址 */
     get curUrl() {
         return this.getUrl(this.injector.get(ActivatedRoute).snapshot);
@@ -29,96 +28,22 @@ export class ReuseTabService implements OnDestroy {
         return this._cachedChange.asObservable()
             .pipe(filter(w => w !== null));
     }
-    /** 获取指定路径缓存所在位置，`-1` 表示无缓存 */
-    index(url: string): number {
-        return this._reuseTabCachedList.findIndex(w => w.url === url);
-    }
-    /** 获取指定路径缓存是否存在 */
-    exists(url: string): boolean {
-        return this.index(url) !== -1;
-    }
-    /** 获取指定路径缓存 */
-    getReuseTabCached(url: string): ReuseTabCached {
-        return url ? this._reuseTabCachedList.find(w => w.url === url) || null : null;
-    }
+    constructor(private injector: Injector) { }
+
 
     /**
-     * 获取标题，顺序如下：
-     *
-     * 1. 组件内使用 `ReuseTabService.title = 'new title'` 重新指定文本
-     * 2. 路由配置中 data 属性中包含 titleI18n > title
-     * 3. 菜单数据中 text 属性
-     *
-     * @param url 指定URL
-     * @param route 指定路由快照
+     * 关闭tab
+     * @param url 路由url
+     * @param includeNonCloseable 是否包含强制不可关闭
      */
-    getTitle(url: string, route?: ActivatedRouteSnapshot): string {
-        if (this._titleCached[url]) return this._titleCached[url];
-        if (route && route.data && route.data.title)
-            return route.data.title;
-    }
-    /**
-     * 清除标题缓存
-     */
-    clearTitleCached() {
-        this._titleCached = {};
-    }
-
-    getTruthRoute(route: ActivatedRouteSnapshot) {
-        let next = route;
-        while (next.firstChild) next = next.firstChild;
-        return next;
-    }
-    /**
-     * 根据快照获取URL地址
-     */
-    getUrl(route: ActivatedRouteSnapshot): string {
-        let next = this.getTruthRoute(route);
-        const segments = [];
-        while (next) {
-            segments.push(next.url.join('/'));
-            next = next.parent;
-        }
-        const url =
-            '/' +
-            segments
-                .filter(i => i)
-                .reverse()
-                .join('/');
-        return url;
-    }
-    /**
-     * 检查快照是否允许被复用
-     */
-    can(route: ActivatedRouteSnapshot): boolean {
-        // const url = this.getUrl(route);
-        // if (url === this.removeUrlBuffer) return false;
-        if (route.data && typeof route.data.reuse === 'boolean')
-            return route.data.reuse;
+    close(url: string, includeNonCloseable = false): any {
+        this.removeUrlBuffer = url;
+        this.remove(url, includeNonCloseable);
+        this._cachedChange.next({ active: 'close', url, list: this._reuseTabCachedList });
+        this.di('close tag', url);
         return true;
     }
 
-    private di(...args) {
-        // tslint:disable-next-line:no-console
-        console.warn(...args);
-    }
-    // endregion
-
-    constructor(
-        private injector: Injector,
-    ) { }
-
-    private runHook(method: string, url: string, comp: any) {
-        if (comp.instance && typeof comp.instance[method] === 'function')
-            comp.instance[method]();
-    }
-    private hasInValidRoute(route: ActivatedRouteSnapshot) {
-        return (
-            !route.routeConfig ||
-            route.routeConfig.loadChildren ||
-            route.routeConfig.children
-        );
-    }
     /**
      * 决定是否允许路由复用，若 `true` 会触发 `store`
      */
@@ -147,14 +72,13 @@ export class ReuseTabService implements OnDestroy {
         } else {
             this._reuseTabCachedList[index] = item;
         }
-        // this.removeUrlBuffer = null;
+        this.removeUrlBuffer = null;
         this.di('#store', index === -1 ? '[new]' : '[override]', url);
         // if (_handle && _handle.componentRef) {
         //     this.runHook('_onReuseDestroy', url, _handle.componentRef);
         // }
         this._cachedChange.next({ active: 'add', item, list: this._reuseTabCachedList });
     }
-
     /**
      * 决定是否允许应用缓存数据
      */
@@ -169,7 +93,6 @@ export class ReuseTabService implements OnDestroy {
         // }
         return ret;
     }
-
     /**
      * 提取复用数据
      */
@@ -201,6 +124,122 @@ export class ReuseTabService implements OnDestroy {
         this.di('=====================');
         this.di('#shouldReuseRoute', ret, `${this.getUrl(curr)}=>${this.getUrl(future)}`, future, curr);
         return ret;
+    }
+
+    /** 获取指定路径缓存所在位置，`-1` 表示无缓存 */
+    index(url: string): number {
+        return this._reuseTabCachedList.findIndex(w => w.url === url);
+    }
+    /** 获取指定路径缓存是否存在 */
+    exists(url: string): boolean {
+        return this.index(url) !== -1;
+    }
+    /** 获取指定路径缓存 */
+    getReuseTabCached(url: string): ReuseTabCached {
+        return url ? this._reuseTabCachedList.find(w => w.url === url) || null : null;
+    }
+    /**
+     * 获取标题
+     * @param url 指定URL
+     * @param route 指定路由快照
+     */
+    getTitle(url: string, route?: ActivatedRouteSnapshot): string {
+        if (this._titleCached[url]) return this._titleCached[url];
+        if (route && route.data && route.data.title)
+            return route.data.title;
+    }
+    /**
+     * 清除标题缓存
+     */
+    clearTitleCached() {
+        this._titleCached = {};
+    }
+    getTruthRoute(route: ActivatedRouteSnapshot) {
+        let next = route;
+        while (next.firstChild) next = next.firstChild;
+        return next;
+    }
+    /**
+     * 根据快照获取URL地址
+     */
+    getUrl(route: ActivatedRouteSnapshot): string {
+        let next = this.getTruthRoute(route);
+        const segments = [];
+        while (next) {
+            segments.push(next.url.join('/'));
+            next = next.parent;
+        }
+        const url =
+            '/' +
+            segments
+                .filter(i => i)
+                .reverse()
+                .join('/');
+        return url;
+    }
+
+
+    /**
+     * 运行生命周期钩子
+     * @param method 
+     * @param url 
+     * @param comp 
+     */
+    private runHook(method: string, url: string, comp: any) {
+        if (comp.instance && typeof comp.instance[method] === 'function')
+            comp.instance[method]();
+    }
+
+    /**
+     * 组件销毁
+     * @param _handle 
+     */
+    private destroy(_handle: any) {
+        if (_handle && _handle.componentRef && _handle.componentRef.destroy)
+            _handle.componentRef.destroy();
+    }
+    /**
+     * 移除url
+     * @param url 
+     * @param includeNonCloseable 
+     */
+    private remove(url: string | number, includeNonCloseable: boolean): boolean {
+        const idx = typeof url === 'string' ? this.index(url) : url;
+        const item = idx !== -1 ? this._reuseTabCachedList[idx] : null;
+        if (!item || (!includeNonCloseable && !item.closable)) return false;
+
+        this.destroy(item._handle);
+
+        this._reuseTabCachedList.splice(idx, 1);
+        delete this._titleCached[url];
+        return true;
+    }
+
+    /**
+     * 去掉loadChildren，以及children
+     * 得到纯路由
+     * @param route 
+     */
+    private hasInValidRoute(route: ActivatedRouteSnapshot) {
+        return (
+            !route.routeConfig ||
+            route.routeConfig.loadChildren ||
+            route.routeConfig.children
+        );
+    }
+    /**
+     * 检查快照是否允许被复用
+     */
+    private can(route: ActivatedRouteSnapshot): boolean {
+        const url = this.getUrl(route);
+        if (url === this.removeUrlBuffer) return false;
+        if (route.data && typeof route.data.reuse === 'boolean')
+            return route.data.reuse;
+        return true;
+    }
+    private di(...args) {
+        // tslint:disable-next-line:no-console
+        // console.warn(...args);
     }
     ngOnDestroy(): void {
         this._reuseTabCachedList = [];

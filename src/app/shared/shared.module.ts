@@ -7,17 +7,20 @@ import {
   UpdateHostClassService
 } from './services';
 import {
-  HostDirective
+  HostDirective,
+  SlSlimScrollDirective
 } from './directives';
 import {
   DynamicComponentItemComponent
 } from './components';
+import { AppTranslationModule } from '../app.translation.module';
 
 const SHARED_COMPONENTS = [
   DynamicComponentItemComponent
 ]
 const SHARED_DIRECTIVES = [
-  HostDirective
+  HostDirective,
+  SlSlimScrollDirective
 ]
 const SHARED_PIPES = [
   AppPicturePipe

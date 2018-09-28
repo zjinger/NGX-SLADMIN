@@ -1,0 +1,59 @@
+//设置icon 的width 和 height
+.custom-icon-set(@size) {
+    width: @size;
+    height: @size;
+    display: inline-block;
+    vertical-align: middle;
+    font-size: inherit;
+    text-rendering: auto;
+}
+
+//icon的背景图片路径和size
+.custom-icon-image(@url) {
+    background: url(@url) no-repeat left center;
+    background-size: 100% 100%; //等比例缩小
+}
+
+//图标后面的按钮文字
+.app-icon-span(@height) {
+    height: @height;
+    line-height: @height;
+    margin-left: 2px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-bottom: 1px;
+}
+
+.app-icon-xs {
+    .custom-icon-set(14px);
+    &+span {
+        .app-icon-span(14px);
+    }
+}
+
+.app-icon-sm {
+    .custom-icon-set(16px);
+    &+span {
+        .app-icon-span(16px);
+    }
+}
+
+.app-icon {
+    .custom-icon-set(18px);
+    &+span {
+        .app-icon-span(18px);
+    }
+}
+
+.app-icon-large {
+    .custom-icon-set(24px);
+}
+
+i.delete-icon,
+i.delete-btn-icon {
+    margin-bottom: 2px;
+    .custom-icon-image("../../assets/img/app-icon/delete-default.png");
+    &:hover {
+        .custom-icon-image("../../assets/img/app-icon/delete-click.png");
+    }
+}

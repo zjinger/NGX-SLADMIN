@@ -25,7 +25,6 @@ import {
   ReuseTabContextMenuComponent
 } from './components';
 import {
-  SlSlimScrollDirective,
   TabLabelDirective,
   ReuseTabContextDirective
 } from './directives';
@@ -59,14 +58,10 @@ const COMPONENTS = [
   ReuseTabContextMenuComponent,
 ]
 const DIRECTIVES = [
-  SlSlimScrollDirective,
   TabLabelDirective,
   ReuseTabContextDirective,
 ]
 const SERVICES = [
-  TabsetService,
-  MenuService,
-  ReuseTabContextService,
   ReuseTabService
 ]
 @NgModule({
@@ -84,7 +79,7 @@ const SERVICES = [
     ...DIRECTIVES,
   ],
   providers: [
-    ReuseTabService,
+    ...SERVICES,
     {
       provide: RouteReuseStrategy,
       useClass: CustomeRouteReuseStrategy,

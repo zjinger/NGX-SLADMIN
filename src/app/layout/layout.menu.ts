@@ -41,16 +41,16 @@ export const SYSTEM_MENU: any[] = [
                     {
                         title: 'treeview',
                         icon: 'fa fa-circle-o',
-                        link: '/third/treeview'
+                        link: '/admin/third/treeview'
                     },
                     {
                         title: 'ckeditor',
                         icon: 'fa fa-circle-o',
-                        link: '/third/ckeditor'
+                        link: '/admin/third/ckeditor'
                     }, {
                         title: 'select2',
                         icon: 'fa fa-circle-o',
-                        link: '/third/select2'
+                        link: '/admin/third/select2'
                     }
                 ]
             }
@@ -67,7 +67,7 @@ export const SYSTEM_MENU: any[] = [
                     {
                         title: 'demo',
                         icon: 'fa fa-circle-o',
-                        link: '/demo/common'
+                        link: '/admin/demo/common'
                     },
                     {
                         title: 'dom',
@@ -76,22 +76,22 @@ export const SYSTEM_MENU: any[] = [
                             {
                                 title: 'TemplateRef',
                                 icon: 'fa fa-circle-o',
-                                link: '/demo/dom/template',
+                                link: '/admin/demo/dom/template',
                             },
                             {
                                 title: 'ElementRef',
                                 icon: 'fa fa-circle-o',
-                                link: '/demo/dom/element',
+                                link: '/admin/demo/dom/element',
                             },
                             {
                                 title: 'ViewContainerRef',
                                 icon: 'fa fa-circle-o',
-                                link: '/demo/dom/container',
+                                link: '/admin/demo/dom/container',
                             },
                             {
                                 title: 'DynamicComponent',
                                 icon: 'fa fa-circle-o',
-                                link: '/demo/dom/dynamic',
+                                link: '/admin/demo/dom/dynamic',
                             }
                         ]
                     },
@@ -102,18 +102,18 @@ export const SYSTEM_MENU: any[] = [
                             {
                                 title: '@ContentChild&ContentChildren',
                                 icon: 'fa fa-circle-o',
-                                link: '/demo/decorator/contentc'
+                                link: '/admin/demo/decorator/contentc'
                             },
                             {
                                 title: '@ViewChild&ViewChildren',
                                 icon: 'fa fa-circle-o',
-                                link: '/demo/decorator/viewc'
+                                link: '/admin/demo/decorator/viewc'
                             }
                         ]
                     }, {
                         title: 'LifeCycle',
                         icon: 'fa fa-circle-o',
-                        link: '/demo/lifecycle',
+                        link: '/admin/demo/lifecycle',
                     }
                 ]
             }

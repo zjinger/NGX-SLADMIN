@@ -1,0 +1,50 @@
+.homepage-banner {
+    padding: 10em 0 0;
+    text-align: center;
+    background: url('../../assets/img/banner.jpg') no-repeat 0px 0px;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -o-background-size: cover;
+    -ms-background-size: cover;
+    -moz-background-size: cover;
+    min-height: 600px;
+    h2 {
+        font-size: 2.5em;
+        font-weight: 600;
+        color: #fff;
+    }
+    p {
+        font-size: 1.2em;
+        color: rgba(255, 255, 255, 0.46);
+        font-weight: 400;
+        line-height: 1.8em;
+        margin: 1em auto 2em;
+        width: 70%;
+    }
+    a {
+        font-size: 1em;
+        color: #fff;
+        font-weight: 600;
+        padding: 0.8em 2em;
+        background: #fa4b2a;
+        margin-bottom: 20px;
+        &:hover {
+            color: #fff;
+            background: #000;
+        }
+    }
+}
+
+//手机端隐藏banner
+//后期做一个幻灯片轮播展示
+@media screen and (max-width: @screen-xs-max) {
+    .homepage-banner {
+        p {
+            display: none;
+        }
+        a {
+            display: inline-block;
+            margin-top: 3em;
+        }
+    }
+}

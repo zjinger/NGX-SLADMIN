@@ -71,7 +71,7 @@ const SERVICES = [
     HttpClientModule,
     OverlayModule,
     HttpClientInMemoryWebApiModule.forRoot(
-      InMemoryDataService, { dataEncapsulation: false }
+      InMemoryDataService, { dataEncapsulation: false, passThruUnknownUrl: true }
     )
   ],
   declarations: [

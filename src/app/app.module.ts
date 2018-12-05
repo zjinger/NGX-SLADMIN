@@ -1,3 +1,4 @@
+import { BlogModule } from './blog/blog.module';
 import { AppTranslationModule } from './app.translation.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, APP_INITIALIZER } from '@angular/core';
@@ -18,8 +19,9 @@ export function StartupServiceFactory(startupService: StartupService): Function 
   ],
   imports: [
     BrowserModule,
-    LayoutModule,
     CoreModule,
+    LayoutModule,
+    BlogModule,
     HttpClientModule,
     SharedModule.forRoot(),
     AppTranslationModule,

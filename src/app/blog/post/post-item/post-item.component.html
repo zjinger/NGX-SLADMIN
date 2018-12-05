@@ -1,0 +1,39 @@
+<div class="homepage-post">
+  <div class="tc-ch">
+    <div class="tch-img">
+      <a [routerLink]="['/blog/detail',post.id]" routerLinkActive="active">
+        <img src="{{post.surfaceImg}}" class="img-responsive" alt="">
+      </a>
+    </div>
+    <h3>
+      <a [routerLink]="['/blog/detail',post.id]" routerLinkActive="active">{{post.postTitle}}</a>
+    </h3>
+    <h6>文
+      <a href="javascript:void(0)">{{post.userName}} </a>{{post.createTime | date:'yyyy年MM月dd日 HH:mm'}}</h6>
+    <div class="postContent" id="introduction"></div>
+    <div class="bht1">
+      <a routerLink="/blog/detail/{{post.id}}">{{'btn.continue_read' | translate}}</a>
+    </div>
+    <!--分享链接-->
+    <div class="soci">
+      <ul>
+        <li class="hvr-rectangle-out">
+          <a class="pin" href="javascript:void(0)">
+            <i aria-hidden="true" class="fa fa-qq"></i>
+          </a>
+        </li>
+        <li class="hvr-rectangle-out">
+          <a class="in" href="javascript:void(0)">
+            <i aria-hidden="true" class="fa fa-weibo"></i>
+          </a>
+        </li>
+        <li class="hvr-rectangle-out">
+          <a class="be" href="javascript:void(0)">
+            <i aria-hidden="true" class="fa fa-weixin"></i>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+</div>

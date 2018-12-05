@@ -1,0 +1,85 @@
+<div class="homepage-header" baScrollPosition [maxHeight]="50" (scrollChange)="scrolledChanged($event)" [ngClass]="{scrolled: isScrolled}">
+  <div class="container">
+    <nav class="navbar navbar-default homepage-nav">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+          aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" routerLink="/blog/index">
+          <img alt="Zbear" src="{{'logo' | appPicture:'png'}}">
+        </a>
+      </div>
+
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li class="active">
+            <a routerLink="/blog/article">{{'nav.post' | translate}}
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <li>
+            <a routerLink="/blog/instagram" routerLinkActive="active">{{'nav.picture' | translate}}</a>
+          </li>
+          <!-- <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">快捷导航
+              <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+              <li>
+                <a href="#">电影</a>
+              </li>
+              <li role="separator" class="divider"></li>
+              <li>
+                <a href="#">音乐</a>
+              </li>
+              <li role="separator" class="divider"></li>
+              <li >
+                <a href="#">旅行</a>
+              </li>
+            </ul>
+          </li> -->
+        </ul>
+        <!-- <form class="navbar-form navbar-left">
+          <div class="form-group">
+            <input type="text" class="form-control" placeholder="Search">
+          </div>
+          <button type="submit" class="btn btn-default">Submit</button>
+        </form> -->
+        <ul class="nav navbar-nav navbar-right">
+          <!--隐藏登录按钮-->
+          <!-- <li>
+            <a href="login">{{'login.sign_in' | translate}}</a>
+          </li> -->
+          <!-- <li>
+            <a href="#"> </a>
+          </li>
+          <li>
+            <a href="#" class="pin">
+              <i class="fa fa-qq" aria-hidden="true"></i>
+            </a>
+          </li>
+          <li>
+            <a href="#" class="in">
+              <i class="fa fa-weibo" aria-hidden="true"></i>
+            </a>
+          </li>
+          <li>
+            <a href="#" class="be">
+              <i class="fa fa-weixin" aria-hidden="true"></i>
+            </a>
+          </li>
+
+          <li>
+            <a href="#" class="vimeo">
+              <i class="fa fa-envelope-o" aria-hidden="true"></i>
+            </a>
+          </li> -->
+        </ul>
+      </div>
+    </nav>
+  </div>
+</div>

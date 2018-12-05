@@ -3,8 +3,10 @@ import { Routes, RouterModule } from '@angular/router';
 import { LayoutComponent } from './layout.component';
 
 const routes: Routes = [
+    { path: 'login', loadChildren: '../workspace/login/login.module#LoginModule' },
+    { path: 'register', loadChildren: '../workspace/register/register.module#RegisterModule' },
     {
-        path: '',
+        path: 'admin',
         component: LayoutComponent,
         children: [
             { path: '', redirectTo: 'dashboard', pathMatch: 'full' },

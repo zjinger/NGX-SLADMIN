@@ -1,0 +1,16 @@
+<div class="container">
+  <div class="pagehome-image">
+    <tabset [justified]="true">
+      <tab [heading]="tab.title" *ngFor="let tab of imageTabList;index as i;" (select)="onSelect(tab)">
+        <div class="fade" [ngClass]="{'in': tab.selected}">
+          <div *ngFor="let pic of tab.picList;index as j;">
+            <div class="col-md-4 col-sm-4 col-xs-4 tab-image">
+              <img src="{{pic.path | appPicture :pic.format}}" class="img-responsive" alt="{{pic.name}}">
+            </div>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+      </tab>
+    </tabset>
+  </div>
+</div>

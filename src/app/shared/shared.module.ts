@@ -1,3 +1,4 @@
+import { BaScrollPosition } from './directives/baScrollPosition.directive';
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
@@ -13,14 +14,14 @@ import {
 import {
   DynamicComponentItemComponent
 } from './components';
-import { AppTranslationModule } from '../app.translation.module';
 
 const SHARED_COMPONENTS = [
   DynamicComponentItemComponent
 ]
 const SHARED_DIRECTIVES = [
   HostDirective,
-  SlSlimScrollDirective
+  SlSlimScrollDirective,
+  BaScrollPosition
 ]
 const SHARED_PIPES = [
   AppPicturePipe

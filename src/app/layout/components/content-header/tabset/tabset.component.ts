@@ -22,7 +22,7 @@ export class TabsetComponent implements OnInit, AfterContentChecked, OnDestroy {
   @Input() tabList: Array<TabComponent>;//tab list
   @Input() selectedIndex: number = 0;//当前选中的tab 下标
   el: HTMLElement;//el 
-  tabSourceSubscription: Subscription;//订阅tab 操作
+  // tabSourceSubscription: Subscription;//订阅tab 操作
   //订阅下标变化
   @Output()
   get selectedIndexChange(): Observable<number> {
@@ -91,7 +91,7 @@ export class TabsetComponent implements OnInit, AfterContentChecked, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.tabSourceSubscription.unsubscribe();
+    // this.tabSourceSubscription.unsubscribe();
   }
 
 }

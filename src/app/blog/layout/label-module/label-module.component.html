@@ -1,0 +1,42 @@
+<div class="homepage-right-nav">
+  <div class="tech-btm">
+    <div class="search-form wow fadeInDown animated" data-wow-duration=".8s" data-wow-delay=".2s" style="visibility: visible; animation-duration: 0.8s; animation-delay: 0.2s; animation-name: fadeInDown;">
+      <form class="form-inline" #postSearchForm>
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Search">
+          <span class="input-group-btn">
+            <button class="btn btn-default" type="button">
+              <i class="fa fa-search"></i>
+            </button>
+          </span>
+        </div>
+      </form>
+    </div>
+    <h4>{{'label.popular' | translate }} </h4>
+    <div *ngFor="let label of labelList;index as i;" class="blog-grids wow fadeInDown animated" data-wow-duration=".8s"
+      data-wow-delay=".2s" style="visibility: visible; animation-duration: 0.8s; animation-delay: 0.2s; animation-name: fadeInDown;">
+      <div class="blog-grid-left">
+        <a routerLink="{{label.url}}">
+          <img src="{{label.pic.path | appPicture:label.pic.format}}" class="img-responsive" alt="">
+        </a>
+      </div>
+      <div class="blog-grid-right">
+        <h5>
+          <a routerLink="{{label.url}}">{{label.title}}</a>
+        </h5>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+    <div class="insta wow fadeInDown animated" data-wow-duration=".8s" data-wow-delay=".2s" style="visibility: visible; animation-duration: 0.8s; animation-delay: 0.2s; animation-name: fadeInDown;">
+      <h4>{{'label.instagram' | translate}}</h4>
+      <ul>
+        <li *ngFor="let pic of pictureList">
+          <a routerLink="{{pic.url}}">
+            <img src="{{pic.path | appPicture:pic.format}}" class="img-responsive" alt="">
+          </a>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+</div>

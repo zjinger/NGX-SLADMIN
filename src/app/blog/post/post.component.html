@@ -1,0 +1,7 @@
+<app-content>
+  <app-post-item *ngFor="let item of postList;index as i" [post]="item">
+  </app-post-item>
+  <div style="margin:20px;text-align: center">
+    <button class="btn btn-default">加载更多</button>
+  </div>
+</app-content>

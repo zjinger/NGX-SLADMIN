@@ -6,8 +6,8 @@ import { layoutPaths } from '../shared.constants';
 })
 export class AppPicturePipe implements PipeTransform {
 
-  transform(value: any): any {
-    return layoutPaths.images.root + value;
+  transform(value: any, ext = 'png', dir = ''): any {
+    return layoutPaths.images.root + dir + value + '.' + ext;
   }
 
 }

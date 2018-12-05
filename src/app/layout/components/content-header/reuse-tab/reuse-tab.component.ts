@@ -68,7 +68,7 @@ export class ReuseTabComponent implements OnInit, OnChanges, OnDestroy {
       return {
         url: item.url,
         title: item.title,
-        closable: true,
+        closable: item.url == '/admin/dashboard' ? false : true,
         index: index,
         active: false,
         last: false,

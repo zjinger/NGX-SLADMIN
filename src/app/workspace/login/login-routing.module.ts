@@ -3,7 +3,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './login.component';
 
 const routes: Routes = [
-  { path: '', component: LoginComponent }
+  //reuse = false 代表不复用路由
+  { path: '', component: LoginComponent, data: { reuse: false } }
 ];
 
 @NgModule({

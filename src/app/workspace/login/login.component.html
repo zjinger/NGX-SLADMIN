@@ -1,3 +1,68 @@
-<p>
-  login works!
-</p>
+<div class="login-container">
+  <div class="login-content">
+    <div class="login-header clearfix">
+      <a href="javascript:void(0)" class="logo">
+        <!-- <img src="../../../assets/img/logo.png"> -->
+      </a>
+      <ul class="entry clearfix">
+        <li>
+          <a href="">ZBEAR</a>
+        </li>
+        <!-- <li class="register">
+          <a href="register" class="bg_btn">注册</a>
+        </li> -->
+      </ul>
+    </div>
+    <div class="flip-container" style="margin-top:98px;">
+      <div class="flipper">
+        <div class="login_wrap">
+          <form class="login-form" #loginForm="ngForm">
+            <div class="cloud-logo"></div>
+            <div id="tip-box" class="tip-box" [ngClass]="{'visiblility-hidden': tip==''}">
+              <i class="err-ico"></i>
+              <span class="tip-font">{{tip}}</span>
+              <span class="close-ico" (click)="tip=''"></span>
+            </div>
+            <div class="normalInput">
+              <input required class="ipt-account" [(ngModel)]="user.username" name="account" id="account" maxlength="50"
+                placeholder="用户名" value="" autocomplete="off">
+            </div>
+            <div class="normalInput">
+              <input required type="password" [(ngModel)]="user.password" value="" name="password" id="password"
+                maxlength="16" placeholder="密码" autocomplete="off">
+            </div>
+
+            <div class="operate clearfix">
+              <!-- <a id="forgetpwd" href="https://i.flyme.cn/forgetpwd" class="linkABlue fg_password">忘记密码?</a> -->
+              <!-- <a href="http://app.flyme.cn/apps/public/detail?package_name=com.meizu.flyme.find" id="j_syn" class="o-syn" target="_blank">查找手机</a> -->
+            </div>
+            <button [disabled]="loginForm.invalid" style="border-width: 0;" class="login_btn" type="sbumit" (click)="login()">{{loginText}}</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="flymeFooter" class="footerWrap">
+    <div class="footerInner">
+      <div class="footer-layer1">
+        <div class="footer-innerLink">
+
+        </div>
+        <div class="footer-service">
+
+        </div>
+        <div class="footer-outerLink">
+
+        </div>
+
+      </div>
+      <div class="clear"></div>
+      <div id="flymeCopyright" class="copyrightWrap">
+        <div class="copyrightInner">
+          <span>©2018 ZBEAR. All rights reserved.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

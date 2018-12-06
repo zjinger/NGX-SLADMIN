@@ -6,20 +6,15 @@ import { AppComponent } from './app.component';
 import { routing } from './app.routing';
 import { LayoutModule } from './layout/layout.module';
 import { SharedModule } from './shared/shared.module';
-import { StartupService } from './core/startup.service';
-import { CoreModule } from './core/core.module';
 import { HttpClientModule } from '@angular/common/http';
-
-export function StartupServiceFactory(startupService: StartupService): Function {
-  return () => startupService.load();
-}
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 @NgModule({
   declarations: [
     AppComponent,
   ],
   imports: [
     BrowserModule,
-    CoreModule,
+    BrowserAnimationsModule,
     LayoutModule,
     BlogModule,
     HttpClientModule,
@@ -28,13 +23,7 @@ export function StartupServiceFactory(startupService: StartupService): Function 
     routing
   ],
   providers: [
-    StartupService,
-    {
-      provide: APP_INITIALIZER,
-      useFactory: StartupServiceFactory,
-      deps: [StartupService],
-      multi: true
-    }
+
   ],
   bootstrap: [AppComponent]
 })

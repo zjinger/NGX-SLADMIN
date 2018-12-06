@@ -5,7 +5,7 @@
   </a>
 </li>
 <li *ngIf="menuItem.children" class="treeview" [ngClass]="{'active':menuItem.selected,'menu-open':menuItem.expanded}">
-  <a (click)="onToggleSubMenu($event, menuItem)">
+  <a href="javascript:void(0)" (click)="onToggleSubMenu($event, menuItem)">
     <i *ngIf="menuItem.icon" class="{{menuItem.icon}}"></i>
     <span>{{menuItem.title}}</span>
     <span class="pull-right-container">
@@ -19,7 +19,8 @@
       </ng-container>
     </span>
   </a>
-  <ul class="treeview-menu">
-    <menu-item [menuItem]="item" (toggleSubMenu)="onToggleSubMenu($event, item)" *ngFor="let item of menuItem.children"></menu-item>
+  <!-- <ul class="treeview-menu" [@treeviewState]="menuItem.expanded ? 'treeview-menu-open' : 'treeview-menu-close'" > -->
+  <ul class="treeview-menu" [ngClass]="{'menu-open':menuItem.expanded}">
+    <menu-item class="sub-treeview" [menuItem]="item" (toggleSubMenu)="onToggleSubMenu($event, item)" *ngFor="let item of menuItem.children"></menu-item>
   </ul>
 </li>

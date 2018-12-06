@@ -13,7 +13,6 @@ export class MenuComponent implements OnInit, OnDestroy {
   //导航栏展示的菜单列表
   public menuItems: any[];
   protected _menuItemsSub: Subscription;
-
   constructor(private _service: MenuService) { }
 
   public Default = {
@@ -37,27 +36,32 @@ export class MenuComponent implements OnInit, OnDestroy {
   }
   ngOnInit() {
     this._menuItemsSub = this._service.menuItems.subscribe((items) => {
-      // //console.log(items);
+      //console.log(items);
       this.menuItems = items;
     });
   }
-  public ngOnDestroy(): void {
-    this._menuItemsSub.unsubscribe();
+
+  toggleSubMenu1(event: any) {
+    console.log('event:', event)
+    let menuItem = event.item;
+    console.log('menuItem', menuItem);
+    menuItem.expanded = !menuItem.expanded;
+    console.log(menuItem.expanded);
+
   }
 
-  public toggleSubMenu($event: any): boolean {
-    // //console.log($event);
-    let link = jQuery($event.currentTarget);
-    $event.item.expanded = !$event.item.expanded;
+  toggleSubMenu(event: any): boolean {
+    console.log('event', event);
+    let link = jQuery(event.currentTarget);
+    event.item.expanded = !event.item.expanded;
 
     let treeviewMenu = link.next(this.Selector.treeviewMenu);
     var parentLi = link.parent();
     let isOpen = parentLi.hasClass(this.ClassName.open);
-    
+
     if (!parentLi.is(this.Selector.treeview)) {
       return
     }
-
     if (isOpen) {
       this.collapse(treeviewMenu, parentLi);
     } else {
@@ -65,13 +69,17 @@ export class MenuComponent implements OnInit, OnDestroy {
     }
   }
 
-  expand(tree, parent) {
+  private expand(tree, parent) {
     parent.addClass(this.ClassName.open);
     tree.slideDown(this.Default.animationSpeed);
   }
-  collapse(tree, parentLi) {
+  private collapse(tree, parentLi) {
     tree.find(this.Selector.open).removeClass(this.ClassName.open);
     parentLi.removeClass(this.ClassName.open);
     tree.slideUp(this.Default.animationSpeed);
+  }
+
+  public ngOnDestroy(): void {
+    this._menuItemsSub.unsubscribe();
   }
 }

@@ -3,6 +3,7 @@
     <layout-header></layout-header>
     <layout-sidebar></layout-sidebar>
     <div class="content-wrapper">
+        <!--reuse tabset-->
         <layout-content-header></layout-content-header>
         <section class="content" slSlimScroll [isDestroy]="isDestroy" [slimScrollOptions]="{height:contentHeight}">
             <router-outlet></router-outlet>

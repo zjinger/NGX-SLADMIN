@@ -1,31 +1,28 @@
 @import 'src/styles/bootstrap-less/bootstrap';
+@import 'src/styles/conf/conf';
+// Sidebar menu
 .sidebar-menu {
     list-style: none;
     margin: 0;
-    padding: 0; //First Level
-    >li {
+    padding: 0; //First Level 
+    li {
         position: relative;
         margin: 0;
         padding: 0;
-        >a {
-            padding: 12px 5px 12px 15px;
-            display: block;
-            >.fa,
-            >.glyphicon,
-            >.ion {
-                width: 20px;
-            }
-        }
-        .label,
-        .badge {
-            margin-right: 5px;
-        }
-        .badge {
-            margin-top: 3px;
-        }
     }
     li.header {
         padding: 10px 25px 10px 15px;
         font-size: 12px;
     }
+}
+
+.sidebar-menu>li.header {
+    overflow: hidden;
+    text-overflow: clip;
+}
+
+//skin blue
+.header {
+    color: lighten(@sidebar-dark-bg, 20%);
+    background: darken(@sidebar-dark-bg, 4%);
 }

@@ -1,17 +1,11 @@
+@import 'src/styles/bootstrap-less/bootstrap';
+@import 'src/styles/conf/conf';
+@import 'src/styles/skins/skin-blue2.less';
 li {
     position: relative;
     margin: 0;
     padding: 0;
     >a {
-        word-break: keep-all;
-        /* 不换行 */
-        white-space: nowrap;
-        /* 不换行 */
-        overflow: hidden;
-        /* 内容超出宽度时隐藏超出部分的内容 */
-        text-overflow: ellipsis;
-        /* 当对象内文本溢出时显示省略标记(...) ；需与overflow:hidden;一起使用。*/
-        cursor: pointer;
         padding: 12px 5px 12px 15px;
         display: block;
         >.fa,
@@ -27,12 +21,6 @@ li {
     .badge {
         margin-top: 3px;
     }
-}
-
-@import 'src/styles/bootstrap-less/bootstrap';
-li.header {
-    padding: 10px 25px 10px 15px;
-    font-size: 12px;
 }
 
 li>a>.fa-angle-left,
@@ -56,6 +44,9 @@ li>a>.fa-angle-left {
     >a>.pull-right-container>.fa-angle-left {
         .rotate(-90deg);
     }
+    .treeview-menu.treeview-menu-open {
+        display: block;
+    }
 }
 
 .active>.treeview-menu {
@@ -78,7 +69,6 @@ li>a>.fa-angle-left {
             padding: 5px 5px 5px 15px;
             display: block;
             font-size: 14px;
-            cursor: pointer;
             >.fa,
             >.glyphicon,
             >.ion {
@@ -93,3 +83,44 @@ li>a>.fa-angle-left {
         }
     }
 }
+
+//skin blue
+li.treeview> {
+    a {
+        border-left: 3px solid transparent;
+    }
+    &:hover>a,
+    &.active>a,
+    &.menu-open>a {
+        color: @sidebar-dark-hover-color;
+        background: @sidebar-dark-hover-bg;
+    }
+    &.active>a {
+        border-left-color: @link-hover-border-color;
+    }
+    >.treeview-menu {
+        margin: 0 1px;
+        background: @sidebar-dark-submenu-bg;
+    }
+}
+
+a {
+    color: @sidebar-dark-color;
+    &:hover {
+        text-decoration: none;
+    }
+}
+
+// .treeview-menu {
+// >
+li:not(.treeview) {
+    >a {
+        color: @sidebar-dark-submenu-color;
+    }
+    &.active>a,
+    >a:hover {
+        color: @sidebar-dark-submenu-hover-color;
+    }
+}
+
+// }

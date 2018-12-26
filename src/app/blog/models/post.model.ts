@@ -1,6 +1,6 @@
 import { BaseModel } from "./base.model";
 export class Post extends BaseModel {
-    postTitle?: string;//标题
+    title?: string;//标题
 
     isOriginal?: number;//是否原创 0：原创，1：转载
 
@@ -34,13 +34,9 @@ export class Post extends BaseModel {
 
     postURL?: string;//转载地址
 
-    isFamous?: string;//是否热门（精华）
-
     classifyName?: string;//分类名称
 
     synopsis?: string;//概要
 
     postContent?: string;//内容
-
-    isDdrafts?: number;//是否是草稿
 }

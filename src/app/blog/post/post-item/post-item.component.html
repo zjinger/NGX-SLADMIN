@@ -6,7 +6,7 @@
       </a>
     </div>
     <h3>
-      <a [routerLink]="['/blog/detail',post.id]" routerLinkActive="active">{{post.postTitle}}</a>
+      <a [routerLink]="['/blog/detail',post.id]" routerLinkActive="active">{{post.title}}</a>
     </h3>
     <h6>文
       <a href="javascript:void(0)">{{post.userName}} </a>{{post.createTime | date:'yyyy年MM月dd日 HH:mm'}}</h6>

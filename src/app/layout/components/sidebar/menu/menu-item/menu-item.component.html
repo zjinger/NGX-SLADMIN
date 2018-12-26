@@ -1,10 +1,11 @@
-<li *ngIf="!menuItem.children" [ngClass]="{'active':menuItem.selected}">
-  <a [routerLink]="menuItem.link" [title]="menuItem.title">
+<li *ngIf="!menuItem.children" [class.active]="menuItem.selected" [class.menu-collapsed]="isMenuCollapsed">
+  <a (click)="openLink($event,menuItem)" [routerLink]="menuItem.link" [title]="menuItem.title">
     <i *ngIf="menuItem.icon" class="{{menuItem.icon}}"></i>
     <span>{{menuItem.title}}</span>
   </a>
 </li>
-<li *ngIf="menuItem.children" class="treeview" [ngClass]="{'active':menuItem.selected,'menu-open':menuItem.expanded}">
+<li *ngIf="menuItem.children" class="treeview" [ngClass]="{'active':menuItem.selected,'menu-open':menuItem.expanded}"
+  [class.menu-collapsed]="isMenuCollapsed">
   <a href="javascript:void(0)" (click)="onToggleSubMenu($event, menuItem)">
     <i *ngIf="menuItem.icon" class="{{menuItem.icon}}"></i>
     <span>{{menuItem.title}}</span>
@@ -20,7 +21,9 @@
     </span>
   </a>
   <!-- <ul class="treeview-menu" [@treeviewState]="menuItem.expanded ? 'treeview-menu-open' : 'treeview-menu-close'" > -->
-  <ul class="treeview-menu" [ngClass]="{'menu-open':menuItem.expanded}">
-    <menu-item class="sub-treeview" [menuItem]="item" (toggleSubMenu)="onToggleSubMenu($event, item)" *ngFor="let item of menuItem.children"></menu-item>
+  <ul class="treeview-menu">
+    <!--[ngClass]="{'menu-open':menuItem.expanded}"-->
+    <menu-item class="sub-treeview" (onSelectMenuItem)="openLink($event,item)" [isMenuCollapsed]="isMenuCollapsed"
+      [menuItem]="item" (toggleSubMenu)="onToggleSubMenu($event, item)" *ngFor="let item of menuItem.children"></menu-item>
   </ul>
 </li>

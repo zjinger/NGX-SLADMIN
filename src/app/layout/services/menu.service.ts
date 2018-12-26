@@ -5,6 +5,7 @@ import { Router, Routes } from '@angular/router';
 import * as _ from 'lodash';
 import { tap, map } from 'rxjs/operators';
 import { TabComponent } from '../models';
+import { TabHeadingDirective } from 'ngx-bootstrap/tabs/public_api';
 
 @Injectable({ providedIn: 'root' })
 export class MenuService {
@@ -62,6 +63,52 @@ export class MenuService {
     };
 
     inFn(this.data, null, 0);
+  }
+  public selectMenuItem(menuItems: any[]): void {
+    menuItems.forEach((header) => {
+      if (header.items && header.items.length > 0) {
+        this._selectSubMenuItem(header.items)
+      }
+    });
+  }
+
+  /**
+   * 第一层级菜单
+   * @param menuItems 
+   */
+  protected _selectSubMenuItem(menuItems: any[]) {
+    menuItems.forEach(item => {
+      if (item.children && item.children.length > 0) {// 有子路由
+        this._selectSubMenuItem(item.children)
+      }
+      this._selectItem(item);
+      if (item.selected) {
+        this._currentMenuItem = item;
+      }
+    })
+  }
+  protected _selectItem(object: any, parent?: any): any {
+    if (object.link) {
+      object.selected = this._router.isActive(object.link, true);
+    }
+
+    return object;
+  }
+
+  activeMenuByUrl(url, menuItems: any[]) {
+    menuItems.forEach(ele => {
+      this.activeSubMenu(ele.items)
+    })
+    console.log(menuItems)
+  }
+
+  activeSubMenu(menus: any[]) {
+    let arr = [];
+    menus.forEach(ele => {
+      if (ele.children && ele.children.length > 0) {
+        this.activeSubMenu(ele.children);
+      }
+    })
   }
 
 }

@@ -5,7 +5,8 @@ import { ReuseTabContextService } from '../../../services/reuse-tab-context.serv
 
 @Component({
   selector: 'reuse-tab-context',
-  template: ``
+  template: ``,
+  preserveWhitespaces: false,
 })
 export class ReuseTabContextComponent implements OnInit, OnDestroy {
   private sub$: Subscription = new Subscription();

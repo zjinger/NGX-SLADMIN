@@ -13,7 +13,8 @@ const routes: Routes = [
             { path: 'dashboard', loadChildren: '../workspace/dashboard/dashboard.module#DashboardModule' },
             { path: 'sys', loadChildren: '../workspace/system/system.module#SystemModule' },
             { path: 'third', loadChildren: '../third-plugin/third-plugin.module#ThirdPluginModule' },
-            { path: 'demo', loadChildren: '../angular-demo/angular-demo.module#AngularDemoModule' }
+            { path: 'demo', loadChildren: '../angular-demo/angular-demo.module#AngularDemoModule' },
+            { path: 'manager', loadChildren: '../workspace/blog-admin/blog-admin.module#BlogAdminModule' },
         ]
     }
 ];

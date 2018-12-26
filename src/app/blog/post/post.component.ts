@@ -21,7 +21,7 @@ export class PostComponent implements OnInit {
     this.postList = [
       {
         id: '123',
-        postTitle: 'test',
+        title: 'test',
         userName: 'ZhangJing'
       }
     ]

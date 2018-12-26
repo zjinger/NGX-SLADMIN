@@ -16,6 +16,6 @@ export class ContentHeaderComponent implements OnInit {
   }
 
   tabChange($event) {
-    console.log($event);
+    // console.log('点击tab',$event);
   }
 }

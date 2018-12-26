@@ -6,18 +6,27 @@ export const SYSTEM_MENU: any[] = [
             {
                 title: 'Dashboard',
                 icon: 'fa fa-dashboard',
-                // selectedIcon: 'task-menu',
                 expanded: true,
                 selected: true,
-                children: [
-                    {
-                        title: 'Dashboard',
-                        icon: 'fa fa-circle-o',
-                        selected: true,
-                        link: 'dashboard'
-                    }
-                ]
+                link: '/admin/dashboard'
             }
+        ]
+    },
+    {
+        header: true,
+        title: '博客后台',
+        items: [
+            {
+                title: '文章列表',
+                icon: 'fa fa-align-justify',
+                link: '/admin/manager/post'
+            },
+            {
+                title: '评论中心',
+                icon: 'fa fa-weixin',
+                link: '/admin/manager/comment'
+            },
+
         ]
     },
     {
@@ -25,6 +34,7 @@ export const SYSTEM_MENU: any[] = [
         title: 'THIRD PLUGIN',
         items: [
             {
+
                 title: '第三方扩展',
                 icon: 'fa fa-dashboard',
                 children: [
@@ -61,6 +71,7 @@ export const SYSTEM_MENU: any[] = [
         title: 'ANGULAR-DEMO',
         items: [
             {
+
                 title: 'DEMO',
                 icon: 'fa fa-dashboard',
                 children: [

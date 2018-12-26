@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewEncapsulation, Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { UpdateHostClassService } from './../../../shared/services/update-host-class.service';
+import { GlobalState } from 'src/app/global.state';
 
 @Component({
   selector: 'layout-header',
@@ -11,7 +12,11 @@ import { UpdateHostClassService } from './../../../shared/services/update-host-c
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private updateClass: UpdateHostClassService, @Inject(DOCUMENT) private document: Document) {
+  constructor(
+    private updateClass: UpdateHostClassService,
+    @Inject(DOCUMENT) private document: Document,
+    private _state: GlobalState
+  ) {
   }
 
   ngOnInit() {
@@ -30,5 +35,7 @@ export class HeaderComponent implements OnInit {
     } else {
       bodyClasList.add('sidebar-collapse')
     }
+    this._state.notifyDataChanged('menu.isCollapsed', !isCollspsed);
+    return false;
   }
 }

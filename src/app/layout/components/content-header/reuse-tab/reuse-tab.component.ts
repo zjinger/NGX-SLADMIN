@@ -1,4 +1,5 @@
-import { ReuseTabCached } from './../../../models/reuse-tab';
+import { TabService } from './../../../services/tab.service';
+import { ReuseTabCached, ReuseContextCloseEvent } from './../../../models/reuse-tab';
 import { Component, OnInit, OnChanges, OnDestroy, SimpleChanges, Input, SimpleChange, ChangeDetectorRef, Renderer2, ElementRef, Output, EventEmitter } from '@angular/core';
 import { Subscription, combineLatest } from 'rxjs';
 import { TabComponent } from '../../../models';
@@ -18,6 +19,7 @@ import { ReuseTabService } from '../../../services';
     (tabClose)="close($event)"
   >
   </header-tabset>
+  <reuse-tab-context (change)="cmChange($event)"></reuse-tab-context>
   `
 })
 export class ReuseTabComponent implements OnInit, OnChanges, OnDestroy {
@@ -39,6 +41,7 @@ export class ReuseTabComponent implements OnInit, OnChanges, OnDestroy {
 
   constructor(
     private reuseService: ReuseTabService,
+    private tabService: TabService,
     private cd: ChangeDetectorRef,
     private route: ActivatedRoute,
     private render: Renderer2,
@@ -48,8 +51,9 @@ export class ReuseTabComponent implements OnInit, OnChanges, OnDestroy {
     const route$ = this.router.events.pipe(
       filter(evt => evt instanceof NavigationEnd),
     );
-    this.sub$ = combineLatest(this.reuseService.change, route$).subscribe(([res, e]) =>
-      this.genList(res as any)
+    this.sub$ = combineLatest(this.reuseService.change, route$).subscribe(([res, e]) => {
+      return this.genList(res as any)
+    }
     );
   }
 
@@ -58,50 +62,59 @@ export class ReuseTabComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   private genList(notify?: ReuseTabNotify) {
-    // console.log('notify', notify);
+    console.log('notify', notify);
     const isClosed = notify && notify.active === 'close';//是否是关闭tab 操作
-
     const beforeClosePos = isClosed
       ? this.tabList.findIndex(w => w.url === notify.url)
       : -1;
+    console.log('beforeClosePos', beforeClosePos);
     const ls = this.reuseService.reuseTabList.map((item: ReuseTabCached, index: number) => {
       return {
         url: item.url,
         title: item.title,
-        closable: item.url == '/admin/dashboard' ? false : true,
+        closable: item.closable ? true : false,
         index: index,
         active: false,
         last: false,
       };
     });
-
-    if (this.showCurrent) {
-      const snapshot = this.route.snapshot;
-      const url = this.reuseService.getUrl(snapshot);
-      const idx = ls.findIndex(w => w.url === url);
-      // jump directly when the current exists in the list
-      // or create a new current item and jump
-      if (idx !== -1 || (isClosed && notify.url === url)) {
-        this.pos = isClosed
-          ? idx >= beforeClosePos
-            ? this.pos - 1
-            : this.pos
-          : idx;
-      } else {
-        const snapshotTrue = this.reuseService.getTruthRoute(snapshot);
-        ls.push({
-          url: url,
-          title: this.reuseService.getTitle(url, snapshotTrue),
-          closable: true,
-          index: ls.length,
-          active: false,
-          last: false,
-        });
-        this.pos = ls.length - 1;
-      }
-      // 只剩最后一个tab 时不能关闭
-      if (ls.length <= 1) ls[0].closable = false;
+    // if (ls.findIndex(w => w.url === '/admin/dashboard') == -1) {
+    //   ls.unshift({
+    //     index: 0,
+    //     title: '工作台',
+    //     active: false,
+    //     closable: false,
+    //     url: '/admin/dashboard',
+    //     last: false
+    //   })
+    // }
+    // if (this.showCurrent) {
+    const snapshot = this.route.snapshot;
+    const url = this.reuseService.getUrl(snapshot);
+    const idx = ls.findIndex(w => w.url === url);
+    // jump directly when the current exists in the list
+    // or create a new current item and jump
+    if (idx !== -1 || (isClosed && notify.url === url)) {
+      this.pos = isClosed
+        ? idx >= beforeClosePos
+          ? this.pos - 1
+          : this.pos
+        : idx;
+    } else {
+      const snapshotTrue = this.reuseService.getTruthRoute(snapshot);
+      ls.push({
+        url: url,
+        title: this.reuseService.getTitle(url, snapshotTrue),
+        closable: true,
+        index: ls.length,
+        active: false,
+        last: false,
+      });
+      this.pos = ls.length - 1;
     }
+    // 只剩最后一个tab 时不能关闭
+    if (ls.length <= 1) ls[0].closable = false;
+    // }
     this.tabList = ls;
     if (ls.length && isClosed) {
       this.to(null, this.pos);
@@ -109,7 +122,9 @@ export class ReuseTabComponent implements OnInit, OnChanges, OnDestroy {
     this.refStatus(false);
     this.visibility();
     this.cd.detectChanges();
-    console.log(this.tabList);
+    // this.tabService.set(this.tabList);
+
+    console.log('tabList', this.tabList);
   }
 
   private visibility() {
@@ -171,7 +186,35 @@ export class ReuseTabComponent implements OnInit, OnChanges, OnDestroy {
     }
     if (dc) this.cd.detectChanges();
   }
+  cmChange(res: ReuseContextCloseEvent) {
+    console.log('cmChange:', res);
+    switch (res.type) {
+      case 'close':
+        this._close(null, res.item.index, res.includeNonCloseable);
+        break;
+      case 'closeRight':
+        this.reuseService.closeRight(res.item.url, res.includeNonCloseable);
+        this.close(null);
+        break;
+      case 'clear':
+      case 'closeOther':
+        this.reuseService.clear(res.includeNonCloseable);
+        this.close(null);
+        break;
+    }
+  }
 
+  _close(e: Event, idx: number, includeNonCloseable: boolean) {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    const item = this.tabList[idx];
+    this.reuseService.close(item.url, includeNonCloseable);
+    this.close(item);
+    this.cd.detectChanges();
+    return false;
+  }
   ngOnChanges(changes: { [P in keyof this]?: SimpleChange } & SimpleChanges, ): void {
     this.cd.detectChanges();
   }

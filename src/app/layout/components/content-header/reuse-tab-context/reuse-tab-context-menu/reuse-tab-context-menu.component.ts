@@ -5,10 +5,11 @@ import { ReuseContextCloseEvent, CloseType } from '../../../../models/reuse-tab'
 @Component({
   selector: 'reuse-tab-context-menu',
   templateUrl: './reuse-tab-context-menu.component.html',
-  styleUrls: ['./reuse-tab-context-menu.component.less']
+  styleUrls: ['./reuse-tab-context-menu.component.less'],
+  preserveWhitespaces: false
 })
 export class ReuseTabContextMenuComponent implements OnInit {
-  
+
   @Input() item: TabComponent;
 
   @Input() event: MouseEvent;

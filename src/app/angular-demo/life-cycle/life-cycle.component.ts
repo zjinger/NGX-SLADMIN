@@ -25,7 +25,7 @@ export class LifeCycleComponent implements OnInit, DoCheck, OnChanges, AfterCont
    * 第一轮 ngOnChanges() 完成之后调用，只调用一次。
    */
   ngOnInit() {
-    //console.log('ngOnInit');
+    console.log('ngOnInit');
   }
   /**
    * 
@@ -67,7 +67,7 @@ export class LifeCycleComponent implements OnInit, DoCheck, OnChanges, AfterCont
     // //console.log('ngAfterViewChecked');
   }
   ngOnDestroy(): void {
-    //console.log('ngOnDestroy')
+    console.log('ngOnDestroy')
   }
 
 }

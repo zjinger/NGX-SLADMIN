@@ -15,7 +15,7 @@ export class ReuseTabContextService {
   private ref: OverlayRef;
   show: Subject<ReuseContextEvent> = new Subject<ReuseContextEvent>();
   close: Subject<ReuseContextCloseEvent> = new Subject<ReuseContextCloseEvent>();
-  
+
   constructor(private overlay: Overlay) { }
 
   remove() {

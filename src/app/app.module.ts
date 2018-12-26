@@ -8,6 +8,7 @@ import { LayoutModule } from './layout/layout.module';
 import { SharedModule } from './shared/shared.module';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { GlobalState } from './global.state';
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,7 +24,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     routing
   ],
   providers: [
-
+    GlobalState
   ],
   bootstrap: [AppComponent]
 })

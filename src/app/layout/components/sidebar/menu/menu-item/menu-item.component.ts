@@ -6,6 +6,7 @@ import {
   animate,
   transition,
 } from '@angular/animations';
+import { Router } from '@angular/router';
 @Component({
   selector: 'menu-item',
   templateUrl: './menu-item.component.html',
@@ -31,14 +32,26 @@ import {
 export class MenuItemComponent implements OnInit {
 
   @Input() menuItem: any
-  @Input() child: boolean = false;
+  @Input() isMenuCollapsed: boolean = false;
   @Output() toggleSubMenu = new EventEmitter<any>();
-  constructor() { }
+  @Output() onSelectMenuItem = new EventEmitter<any>();
+  constructor(private router: Router) { }
 
   ngOnInit() {
   }
   onToggleSubMenu(event: any, item: any) {
     event.item = item;
     this.toggleSubMenu.emit(event);
+
+  }
+
+  /**
+   * a标签打开链接
+   * @param $event 
+   * @param menuItem 
+   */
+  openLink(event, menuItem) {
+    event.item = menuItem;
+    this.onSelectMenuItem.emit(event);
   }
 }

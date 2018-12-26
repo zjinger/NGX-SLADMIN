@@ -74,9 +74,9 @@ export class ReuseTabService implements OnDestroy {
         }
         this.removeUrlBuffer = null;
         this.di('#store', index === -1 ? '[new]' : '[override]', url);
-        // if (_handle && _handle.componentRef) {
-        //     this.runHook('_onReuseDestroy', url, _handle.componentRef);
-        // }
+        if (_handle && _handle.componentRef) {
+            this.runHook('_onReuseDestroy', url, _handle.componentRef);
+        }
         this._cachedChange.next({ active: 'add', item, list: this._reuseTabCachedList });
     }
     /**
@@ -88,9 +88,9 @@ export class ReuseTabService implements OnDestroy {
         const data = this.getReuseTabCached(url);
         const ret = !!(data && data._handle);
         this.di('#shouldAttach', ret, url);
-        // if (ret && data._handle.componentRef) {
-        //     this.runHook('_onReuseInit', url, data._handle.componentRef);
-        // }
+        if (ret && data._handle.componentRef) {
+            this.runHook('_onReuseInit', url, data._handle.componentRef);
+        }
         return ret;
     }
     /**
@@ -236,6 +236,44 @@ export class ReuseTabService implements OnDestroy {
         if (route.data && typeof route.data.reuse === 'boolean')
             return route.data.reuse;
         return true;
+    }
+
+    /**
+   * 清除右边tab 标签页
+   *
+   * @param [includeNonCloseable=false] 是否强制包含不可关闭
+   */
+    closeRight(url: string, includeNonCloseable = false) {
+        const start = this.index(url);
+        for (let i = this.count - 1; i > start; i--) {
+            this.remove(i, includeNonCloseable);
+        }
+
+        this.removeUrlBuffer = null;
+
+        this._cachedChange.next({ active: 'closeRight', url, list: this._reuseTabCachedList });
+
+        this.di('close right tages', url);
+        return true;
+    }
+    /**
+   * 清除所有缓存（清除所有tab）
+   *
+   * @param [includeNonCloseable=false] 是否强制包含不可关闭
+   */
+    clear(includeNonCloseable = false) {
+        this._reuseTabCachedList.forEach(w => {
+            if (!includeNonCloseable && w.closable) this.destroy(w._handle);
+        });
+        this._reuseTabCachedList = this._reuseTabCachedList.filter(
+            w => !includeNonCloseable && !w.closable,
+        );
+
+        this.removeUrlBuffer = null;
+
+        this._cachedChange.next({ active: 'clear', list: this._reuseTabCachedList });
+
+        this.di('clear all catch');
     }
     private di(...args) {
         // tslint:disable-next-line:no-console

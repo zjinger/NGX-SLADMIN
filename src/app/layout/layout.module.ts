@@ -36,6 +36,7 @@ import {
 } from './services';
 import { RouteReuseStrategy } from '@angular/router';
 import { CustomeRouteReuseStrategy } from './route-reuse-strategy';
+import { TabService } from './services/tab.service';
 
 const COMPONENTS = [
   HeaderComponent,
@@ -62,7 +63,8 @@ const DIRECTIVES = [
   ReuseTabContextDirective,
 ]
 const SERVICES = [
-  ReuseTabService
+  ReuseTabService,
+  TabService
 ]
 @NgModule({
   imports: [

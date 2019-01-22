@@ -1,13 +1,12 @@
 import { Component, OnInit, Input, Output, EventEmitter, HostListener, AfterViewInit } from '@angular/core';
-import { Subscription } from 'rxjs';
-
+import * as jQuery from 'jquery';
 @Component({
   selector: 'layout-sidebar',
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.less']
 })
 export class SidebarComponent implements OnInit, AfterViewInit {
-  
+
   //导航栏是否折叠
   @Input() sidebarCollapsed: boolean = false;
   //左侧导航栏滚动高度
@@ -24,7 +23,7 @@ export class SidebarComponent implements OnInit, AfterViewInit {
     sidebarMenu: '.sidebar-menu',
     logo: '.main-header .logo'
   }
-  
+
   constructor() { }
 
   ngOnInit() {
@@ -36,7 +35,7 @@ export class SidebarComponent implements OnInit, AfterViewInit {
   }
 
   public updateSidebarHeight(): void {
-    this.menuHeight = $(window).height() - $(this.Selector.mainHeader).height()
+    this.menuHeight = jQuery(window).height() - jQuery(this.Selector.mainHeader).height()
     // //console.log(this.menuHeight)
   }
   ngAfterViewInit() {

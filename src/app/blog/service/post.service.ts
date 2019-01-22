@@ -1,12 +1,12 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
 import { BaseService } from 'src/app/shared/services/base-service';
 
 @Injectable()
 export class PostService extends BaseService {
-    constructor(http: Http) {
+    protected baseUrl = "api/post"
+    constructor(http: HttpClient) {
         super(http);
-        this.baseUrl = "api/post"
     }
     getAllTask() {
         // this.http.get(`api/Tasks`).subscribe(res => {

@@ -1,1 +1,9 @@
-<p>Ckeditor works!</p>
+<ckeditor 
+[(ngModel)]="editorData" 
+(change)="onChange($event)" 
+[editor]="Editor" 
+[config]="config"
+id="classic-editor"
+name="classic-editor">
+</ckeditor>
+

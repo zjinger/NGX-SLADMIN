@@ -6,7 +6,7 @@ import { MenuService } from '../../../services/menu.service';
 import { TabService } from './../../../services/tab.service';
 import { TabComponent } from 'src/app/layout/models';
 import { GlobalState } from 'src/app/global.state';
-
+import * as jQuery from 'jquery';
 @Component({
   selector: 'sidebar-menu',
   templateUrl: './menu.component.html',
@@ -22,6 +22,8 @@ export class MenuComponent implements OnInit, OnDestroy {
   public tabItems: Array<TabComponent> = []
   protected _menuItemsSub: Subscription;
   protected _tabItemListSub: Subscription;
+  
+  //菜单栏是否收缩
   public isMenuCollapsed: boolean = false;
 
   constructor(
@@ -32,7 +34,7 @@ export class MenuComponent implements OnInit, OnDestroy {
   ) {
     this._state.subscribe('menu.isCollapsed', (isCollapsed) => {
       this.isMenuCollapsed = isCollapsed;
-      console.log('isCollapsed', isCollapsed)
+      // console.log('isCollapsed', isCollapsed)
     })
   }
 

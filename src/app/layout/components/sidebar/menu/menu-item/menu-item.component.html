@@ -1,9 +1,11 @@
+<!-- 没有子级菜单 -->
 <li *ngIf="!menuItem.children" [class.active]="menuItem.selected" [class.menu-collapsed]="isMenuCollapsed">
   <a (click)="openLink($event,menuItem)" [routerLink]="menuItem.link" [title]="menuItem.title">
     <i *ngIf="menuItem.icon" class="{{menuItem.icon}}"></i>
     <span>{{menuItem.title}}</span>
   </a>
 </li>
+
 <li *ngIf="menuItem.children" class="treeview" [ngClass]="{'active':menuItem.selected,'menu-open':menuItem.expanded}"
   [class.menu-collapsed]="isMenuCollapsed">
   <a href="javascript:void(0)" (click)="onToggleSubMenu($event, menuItem)">

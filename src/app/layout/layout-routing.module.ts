@@ -15,6 +15,7 @@ const routes: Routes = [
             { path: 'third', loadChildren: '../third-plugin/third-plugin.module#ThirdPluginModule' },
             { path: 'demo', loadChildren: '../angular-demo/angular-demo.module#AngularDemoModule' },
             { path: 'manager', loadChildren: '../workspace/blog-admin/blog-admin.module#BlogAdminModule' },
+            { path: 'custom', loadChildren: '../custom-plugin/custom-plugin.module#CustomPluginModule' },
         ]
     }
 ];

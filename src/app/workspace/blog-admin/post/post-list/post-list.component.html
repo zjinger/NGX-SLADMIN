@@ -1,3 +1,30 @@
-<p>
-  post-list works!
-</p>
+<div style="padding:10px 0;overflow: auto;">
+  <a class="btn btn-primary btn-group-sm pull-right" [routerLink]="['add']">新增</a>
+</div>
+<table class="table table-bordered table-condensed">
+  <tr>
+    <th class="text-center">序号</th>
+    <th class="text-center">标题</th>
+    <th class="text-center">作者</th>
+    <th class="text-center">评论数</th>
+    <th class="text-center">收藏数</th>
+    <th class="text-center">阅读数</th>
+    <th class="text-center">创建日期</th>
+    <th class="text-center">最后修改日期</th>
+    <th class="text-center">操作</th>
+  </tr>
+  <tr *ngFor="let item of postList;index as idx">
+    <td>{{idx+1}}</td>
+    <td>{{item.title}}</td>
+    <td>{{item.userName}}</td>
+    <td>{{item.commentTimes}}</td>
+    <td>{{item.collectTimes}}</td>
+    <td>{{item.readTimes}}</td>
+    <td>{{item.createTime | date:'yyyy-MM-dd HH:mm'}}</td>
+    <td>{{item.lastModifyTime | date:'yyyy-MM-dd HH:mm'}}</td>
+    <td class="text-center">
+      <button class="btn btn-primary btn-xs">修改</button>
+      <button class="btn btn-danger btn-xs">删除</button>
+    </td>
+  </tr>
+</table>

@@ -1,19 +1,5 @@
 export const SYSTEM_MENU: any[] = [
     {
-        header: true,
-        title: 'COMPONENTS',
-        items: [
-            {
-                title: 'Dashboard',
-                icon: 'fa fa-dashboard',
-                expanded: true,
-                selected: true,
-                link: '/admin/dashboard'
-            }
-        ]
-    },
-    {
-        header: true,
         title: '博客后台',
         items: [
             {
@@ -30,11 +16,21 @@ export const SYSTEM_MENU: any[] = [
         ]
     },
     {
-        header: true,
+        title: '组件',
+        items: [
+            {
+                title: 'Dashboard',
+                icon: 'fa fa-dashboard',
+                expanded: false,
+                selected: false,
+                link: '/admin/dashboard'
+            }
+        ]
+    },
+    {
         title: 'THIRD PLUGIN',
         items: [
             {
-
                 title: '第三方扩展',
                 icon: 'fa fa-dashboard',
                 children: [
@@ -67,7 +63,7 @@ export const SYSTEM_MENU: any[] = [
         ]
     },
     {
-        header: true,
+
         title: 'ANGULAR-DEMO',
         items: [
             {
@@ -125,6 +121,22 @@ export const SYSTEM_MENU: any[] = [
                         title: 'LifeCycle',
                         icon: 'fa fa-circle-o',
                         link: '/admin/demo/lifecycle',
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        title: 'CUSTOM PLUGIN',
+        items: [
+            {
+                title: '自定义Angular组件',
+                icon: 'fa fa-dashboard',
+                children: [
+                    {
+                        title: 'custom-plugin',
+                        icon: 'fa fa-circle-o',
+                        link: '/admin/custom/custom-plugin'
                     }
                 ]
             }

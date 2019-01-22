@@ -1,8 +1,14 @@
 <ul class="sidebar-menu" data-widget="tree">
   <ng-container *ngFor="let item of menuItems">
-    <li *ngIf="item.header" class="header">
+    <li *ngIf="item.title" class="header">
       {{item.title}}
     </li>
-    <menu-item (toggleSubMenu)="toggleSubMenu($event)" (onSelectMenuItem)="selectMenuItem($event)" [isMenuCollapsed]="isMenuCollapsed" [menuItem]="subItem" *ngFor="let subItem of item.items;"></menu-item>
+    <menu-item 
+      (toggleSubMenu)="toggleSubMenu($event)" 
+      (onSelectMenuItem)="selectMenuItem($event)" 
+      [isMenuCollapsed]="isMenuCollapsed" 
+      [menuItem]="subItem" 
+      *ngFor="let subItem of item.items;">
+    </menu-item>
   </ng-container>
 </ul>

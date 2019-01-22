@@ -1,5 +1,6 @@
 // import { InMemoryDataService } from './leafjs/in-memory-data.service';
 import { NgModule } from '@angular/core';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { ThirdPluginRoutingModule } from './third-plugin-routing.module';
 import {
   CkeditorComponent,
@@ -24,6 +25,7 @@ const COMPONENTS = [
     SharedModule.forRoot(),
     ThirdPluginRoutingModule,
     HttpClientModule,
+    CKEditorModule
     // HttpClientInMemoryWebApiModule.forRoot(
     //   InMemoryDataService, { dataEncapsulation: false }
     // )

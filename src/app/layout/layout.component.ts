@@ -2,7 +2,7 @@ import { Component, OnInit, ViewEncapsulation, HostListener } from '@angular/cor
 import { MenuService } from './services/menu.service';
 import { Routes } from '@angular/router';
 import { SYSTEM_MENU } from './layout.menu';
-
+import * as jQuery from 'jquery';
 @Component({
     selector: 'app-layout',
     templateUrl: './layout.component.html',
@@ -12,7 +12,7 @@ import { SYSTEM_MENU } from './layout.menu';
 export class LayoutComponent implements OnInit {
     public isDestroy: boolean;
     public contentHeight: number;
-    
+
     constructor(private menuService: MenuService) {
         // this.menuService.getMenus().subscribe(res => {
         //     console.log(res);

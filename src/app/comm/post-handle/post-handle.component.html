@@ -1,0 +1,20 @@
+<form class="">
+  <div class="title-content">
+    <div style="display: inline-block;width:90%;">
+      <input
+        style="width:92%;padding:8px;font-size:18px;line-height:24px;border-radius: 5px;background-image: none;
+      border: 0;border-radius: 4px;height: 36px;color: inherit;background-color: #fff;font-variant-ligatures: no-common-ligatures;"
+        type="text" maxlength="100" id="title" placeholder="请输入文章标题">
+      <span class="article-bar__number"><span class="">0</span>/100</span>
+    </div>
+    <div style="display: inline-block">
+      <button class="btn btn-publish">发布文章</button>
+    </div>
+  </div>
+  <div id="md" appEditorMd [editormdConfig]="conf" (onEditorChange)="syncModel($event)">
+    <textarea name="test" style="display: block;" [(ngModel)]="markdown"></textarea>
+  </div>
+  <hr>
+  <h2>Markdown内容:</h2>
+  <span>{{markdown}}</span>
+</form>

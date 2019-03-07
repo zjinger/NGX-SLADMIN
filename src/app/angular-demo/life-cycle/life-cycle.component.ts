@@ -1,4 +1,6 @@
-import { Component, OnInit, SimpleChanges, OnChanges, AfterContentInit, AfterViewInit, DoCheck, AfterContentChecked, AfterViewChecked, OnDestroy } from '@angular/core';
+import { AfterContentParentComponent } from './after-content/after-content.component';
+import { AfterViewComponent } from './after-view/after-view.component';
+import { Component, OnInit, SimpleChanges, OnChanges, AfterContentInit, AfterViewInit, DoCheck, AfterContentChecked, AfterViewChecked, OnDestroy, ViewChild, ViewContainerRef, Type, ComponentFactoryResolver } from '@angular/core';
 
 @Component({
   selector: 'app-life-cycle',
@@ -7,13 +9,15 @@ import { Component, OnInit, SimpleChanges, OnChanges, AfterContentInit, AfterVie
 })
 export class LifeCycleComponent implements OnInit, DoCheck, OnChanges, AfterContentInit, AfterContentChecked, AfterViewInit, AfterViewChecked, OnDestroy {
   name: string;
-  constructor() { }
+  @ViewChild('containerHost', { read: ViewContainerRef }) containerHost: ViewContainerRef;
+
+  constructor(private componentFactoryResolver: ComponentFactoryResolver) { }
 
   /**
    * 当 Angular（重新）设置数据绑定输入属性时响应
    * 当被绑定的输入属性的值发生变化时调用
    * 首次调用一定会发生在 ngOnInit() 之前
-   * @param changes 
+   * @param changes
    */
   ngOnChanges(changes: SimpleChanges): void {
     //console.log('ngOnChanges');
@@ -28,7 +32,7 @@ export class LifeCycleComponent implements OnInit, DoCheck, OnChanges, AfterCont
     console.log('ngOnInit');
   }
   /**
-   * 
+   *
    */
   ngDoCheck() {
     // //console.log('ngDoCheck');
@@ -70,4 +74,19 @@ export class LifeCycleComponent implements OnInit, DoCheck, OnChanges, AfterCont
     console.log('ngOnDestroy')
   }
 
+  loadComponent(type) {
+    let component = this.getComponent(type);
+    let componentFactory = this.componentFactoryResolver.resolveComponentFactory(component)
+    // let viewContainerRef = this.comHost.viewContainerRef;
+    this.containerHost.clear();
+    let componentRef = this.containerHost.createComponent(componentFactory);
+  }
+
+  getComponent(type: string): Type<{}> {
+    if (type == 'view') {
+      return AfterViewComponent
+    } else if (type == 'content') {
+      return AfterContentParentComponent
+    }
+  }
 }

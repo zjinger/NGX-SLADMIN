@@ -1,0 +1,12 @@
+<div class="modal-body finished-box">
+  <div class="text-center title">{{title}}</div>
+  <div class="status-box text-center">
+    <i class="app-icon app-icon-large check-success"></i>发布成功
+  </div>
+  <div class="opt-box text-center">
+    <button type="button" class="btn btn-danger" (click)="successBsModalRef.hide()">写新文章</button>
+    <a [routerLink]="['/admin/manager/post/info',id]" class="btn btn-success"
+      (click)="successBsModalRef.hide()">查看文章</a>
+    <a [routerLink]="['/admin/manager/post']" class="btn btn-info" (click)="successBsModalRef.hide()">管理博客</a>
+  </div>
+</div>

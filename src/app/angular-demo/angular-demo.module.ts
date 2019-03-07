@@ -18,13 +18,19 @@ import {
 } from './decorator';
 
 import {
-  LifeCycleComponent
+  LifeCycleComponent,
+  AfterViewComponent,
+  ChildViewComponent,
+  AfterContentComponent,
+  ChildComponent,
+  AfterContentParentComponent
 } from './life-cycle';
 
 import {
   CenterHVComponent,
   CommonDemoComponent
 } from './common-demo';
+import { ObservableComponent } from './observable/observable.component';
 
 @NgModule({
   imports: [
@@ -45,6 +51,12 @@ import {
     CenterHVComponent,
     SubComponentComponent,
     ContentChildrenComponent,
+    ObservableComponent,
+    ChildViewComponent,
+    AfterViewComponent,
+    AfterContentComponent,
+    ChildComponent,
+    AfterContentParentComponent
   ],
   entryComponents: [
     TemplateRefComponent,
@@ -53,7 +65,9 @@ import {
     CenterHVComponent,
     ContentChildComponent,
     ViewChildComponent,
-    ContentChildrenComponent
+    ContentChildrenComponent,
+    AfterViewComponent,
+    AfterContentParentComponent
   ]
 })
 export class AngularDemoModule { }

@@ -133,3 +133,45 @@ a:focus {
         margin-top: 5px;
     }
 }
+
+input {
+    overflow: visible;
+}
+
+:focus {
+    outline: none;
+}
+
+button:focus {
+    outline: none;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    outline-offset: -2px;
+}
+
+user agent stylesheet:focus {
+    outline: -webkit-focus-ring-color auto 5px;
+}
+
+/*bootstrap 垂直居中*/
+.modal {
+    text-align: center;
+    padding: 0 !important;
+}
+
+.modal:before {
+    content: '';
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+    margin-right: -4px;
+}
+
+.modal-dialog {
+    display: inline-block;
+    text-align: left;
+    vertical-align: middle;
+}

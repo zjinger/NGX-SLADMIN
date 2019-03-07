@@ -1,0 +1,76 @@
+<div class="modal-header">
+  <h4 class="modal-title pull-left">发布文章</h4>
+  <button type="button" class="close pull-right" aria-label="Close" (click)="hide()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <div class="item-box">
+    <label for="" class="form-entry-label">文章标签：</label>
+    <div class="tab-box">
+      <div class="tag-item-list">
+        <ng-container *ngFor="let tag of tags;index as idx">
+          <div class="tag-item-box" *ngIf="tag.active">
+            <span contenteditable="true" class="tag-name tag_{{idx}}" (keyup)="getTagValue($event,idx)"></span>
+            <button class="btn-tag-delete" (click)="removeTag(idx)">
+              <i class="fa fa-times"></i>
+            </button>
+          </div>
+        </ng-container>
+        <button *ngIf="canAddTag" class="btn-tag" (click)="addTags()">
+          <i class="fa fa-plus-circle"></i> 添加标签
+        </button>
+      </div>
+      <p>最多5个标签</p>
+    </div>
+  </div>
+  <div class="item-box">
+    <label for="" class="form-entry-label">个人分类：</label>
+    <div class="tab-box">
+      <div class="tag-item-list">
+        <ng-container *ngFor="let item of selectedClassifys;index as idx">
+          <div class="tag-item-box" *ngIf="item.checked">
+            <span *ngIf="item.id!=0;else newClassify" class="tag-name" [innerText]="item.value"></span>
+            <ng-template #newClassify>
+              <span [contentEditable]="true" class="tag-name" (keyup)="getClassifyValue($event,item)"></span>
+            </ng-template>
+
+            <button class="btn-tag-delete" (click)="removeClassify(item)">
+              <i class="fa fa-times"></i>
+            </button>
+          </div>
+        </ng-container>
+        <button class="btn-tag" (click)="addClassify()">
+          <i class="fa fa-plus-circle"></i> 添加新分类
+        </button>
+      </div>
+      <div class="tag-options-list">
+        <div class="tag-option-box" *ngFor="let item of classifys;index as idx">
+          <label class="tag-option-label">
+            <input type="checkbox" [checked]="item.checked" class="tag-option-chk" value="{{item.value}}"
+              (change)="classifyChange(item)">
+            <span class="spanIsAgree">{{item.value}}</span>
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="item-box">
+    <label for="" class="form-entry-label">文章类型：</label>
+    <div class="tab-box" style="display: flex;align-items: center;">
+      <div class="tag-item-list">
+        <select name="" id="" style="width:100px;margin-right: 10px" name="" [(ngModel)]="post.isOriginal">
+          <option value="0">原创</option>
+          <option value="1">转载</option>
+          <option value="2">翻译</option>
+        </select>
+      </div>
+      <span class="required">*必填项</span>
+    </div>
+  </div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-warning" (click)="hide()">取消</button>
+  <button type="button" class="btn btn-info" (click)="publish(3)">保存为草稿</button>
+  <button type="button" class="btn btn-success" (click)="publish(0)">发布文章</button>
+</div>

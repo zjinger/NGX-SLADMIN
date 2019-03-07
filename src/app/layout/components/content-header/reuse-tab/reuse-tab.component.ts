@@ -67,7 +67,7 @@ export class ReuseTabComponent implements OnInit, OnChanges, OnDestroy {
     const beforeClosePos = isClosed
       ? this.tabList.findIndex(w => w.url === notify.url)
       : -1;
-    console.log('beforeClosePos', beforeClosePos);
+    // console.log('beforeClosePos', beforeClosePos);
     const ls = this.reuseService.reuseTabList.map((item: ReuseTabCached, index: number) => {
       return {
         url: item.url,
@@ -124,7 +124,7 @@ export class ReuseTabComponent implements OnInit, OnChanges, OnDestroy {
     this.cd.detectChanges();
     // this.tabService.set(this.tabList);
 
-    console.log('tabList', this.tabList);
+    // console.log('tabList', this.tabList);
   }
 
   private visibility() {

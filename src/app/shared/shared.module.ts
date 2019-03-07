@@ -1,3 +1,4 @@
+import { AuthService } from './services/auth.service';
 import { BaScrollPosition } from './directives/baScrollPosition.directive';
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -5,29 +6,42 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { AppPicturePipe } from './pipes/app-picture.pipe';
 import {
-  UpdateHostClassService
+  UpdateHostClassService,
+  HttpErrorHandler,
+  MessageService,
+  BaseService
 } from './services';
 import {
   HostDirective,
-  SlSlimScrollDirective
+  SlSlimScrollDirective,
+  LightGalleryDirective,
+  OnControlsDirective
 } from './directives';
 import {
-  DynamicComponentItemComponent
+  DynamicComponentItemComponent,
 } from './components';
 
+
 const SHARED_COMPONENTS = [
-  DynamicComponentItemComponent
+  DynamicComponentItemComponent,
+
 ]
 const SHARED_DIRECTIVES = [
   HostDirective,
   SlSlimScrollDirective,
-  BaScrollPosition
+  BaScrollPosition,
+  LightGalleryDirective,
+  OnControlsDirective
 ]
 const SHARED_PIPES = [
   AppPicturePipe
 ]
 const SHARED_SERVICES = [
-  UpdateHostClassService
+  UpdateHostClassService,
+  MessageService,
+  HttpErrorHandler,
+  BaseService,
+  AuthService
 ]
 @NgModule({
   imports: [
@@ -36,7 +50,7 @@ const SHARED_SERVICES = [
   declarations: [
     ...SHARED_PIPES,
     ...SHARED_DIRECTIVES,
-    ...SHARED_COMPONENTS
+    ...SHARED_COMPONENTS,
   ],
   exports: [
     CommonModule,

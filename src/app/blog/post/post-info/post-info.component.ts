@@ -2,7 +2,7 @@ import { Component, OnInit, SimpleChanges, AfterViewChecked } from '@angular/cor
 import { ActivatedRoute } from '@angular/router';
 import { Base64 } from 'js-base64';
 import { PostService } from '../../service/post.service';
-import { Post } from '../../models/post.model';
+import { Post } from 'src/app/shared/models/post.model';
 @Component({
   selector: 'app-post-info',
   templateUrl: './post-info.component.html',

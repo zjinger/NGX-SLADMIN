@@ -1,15 +1,16 @@
 <!-- <main class="hold-transition skin-blue fixed sidebar-mini" [class.sidebar-collapse]="false"> -->
-<div class="wrapper">
-    <layout-header></layout-header>
-    <layout-sidebar></layout-sidebar>
-    <div class="content-wrapper">
-        <!--reuse tabset-->
-        <layout-content-header></layout-content-header>
-        <section class="content" slSlimScroll [isDestroy]="isDestroy" [slimScrollOptions]="{height:contentHeight}">
-            <router-outlet></router-outlet>
-        </section>
-    </div>
-    <layout-footer></layout-footer>
-    <layout-control-sidebar></layout-control-sidebar>
+<div class="wrapper" *ngIf="!mdEdit">
+  <layout-header></layout-header>
+  <layout-sidebar></layout-sidebar>
+  <div class="content-wrapper">
+    <!--reuse tabset-->
+    <layout-content-header></layout-content-header>
+    <section class="content" slSlimScroll [isDestroy]="isDestroy" [slimScrollOptions]="{height:contentHeight}">
+      <router-outlet></router-outlet>
+    </section>
+  </div>
+  <layout-footer></layout-footer>
+  <layout-control-sidebar></layout-control-sidebar>
 </div>
 <!-- </main> -->
+<router-outlet *ngIf="mdEdit"></router-outlet>

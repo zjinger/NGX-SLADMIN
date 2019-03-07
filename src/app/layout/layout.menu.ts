@@ -121,6 +121,10 @@ export const SYSTEM_MENU: any[] = [
                         title: 'LifeCycle',
                         icon: 'fa fa-circle-o',
                         link: '/admin/demo/lifecycle',
+                    }, {
+                        title: 'Observable',
+                        icon: 'fa fa-circle-o',
+                        link: '/admin/demo/observable',
                     }
                 ]
             }

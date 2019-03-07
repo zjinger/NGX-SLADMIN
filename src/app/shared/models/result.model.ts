@@ -1,5 +1,5 @@
 export class Result {
-    rlt?: number;
-    msg?: string;
-    datas?: any;
+  code?: number;
+  msg?: string;
+  data?: any;
 }

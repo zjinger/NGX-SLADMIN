@@ -14,6 +14,7 @@ import {
 } from './decorator';
 import { CommonDemoComponent } from './common-demo';
 import { LifeCycleComponent } from './life-cycle';
+import { ObservableComponent } from './observable/observable.component';
 
 const routes: Routes = [
   {
@@ -35,6 +36,8 @@ const routes: Routes = [
     ]
   }, {
     path: 'lifecycle', component: LifeCycleComponent, data: { title: '生命周期', reuseTitle: '生命周期' }
+  }, {
+    path: 'observable', component: ObservableComponent, data: { title: 'Observable', reuseTitle: 'Observable' }
   }
 ];
 

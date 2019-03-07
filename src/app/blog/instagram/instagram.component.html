@@ -1,3 +1,16 @@
-<p>
-  instagram works!
-</p>
+<div class="container homepage">
+  <div class="demo-gallery">
+    <ul id="lightgallery" class="list-unstyled row">
+      <li *ngFor="let item of photoList" (click)="init1()">
+        <a href="javascript:void(0)">
+          <img class="img-responsive" src="{{item.thumb | appPicture:'jpg' }}">
+        </a>
+      </li>
+    </ul>
+  </div>
+  <!-- <div id="aniimated-thumbnials">
+    <a (click)="init()" href="javascript:void(0)" *ngFor="let item of photoList;index as idx;">
+      <img src="{{item.thumb | appPicture:'jpg' }}" />
+    </a>
+  </div> -->
+</div>

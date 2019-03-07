@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { PostService } from '../service/post.service';
 import { PostSearch } from '../models/search';
-import { Post } from '../models/post.model';
+import { Post } from 'src/app/shared/models/post.model';
 
 @Component({
   selector: 'blog-post',
-  templateUrl: './post.component.html', 
+  templateUrl: './post.component.html',
   styleUrls: ['./post.component.less']
 })
 export class PostComponent implements OnInit {
@@ -19,11 +19,11 @@ export class PostComponent implements OnInit {
   ngOnInit() {
     // this.postService.getAllTask()
     this.postList = [
-      {
-        id: '123',
-        title: 'test',
-        userName: 'ZhangJing'
-      }
+      // {
+      //   id: '123',
+      //   title: 'test',
+      //   userName: 'ZhangJing'
+      // }
     ]
     // this.postService.getList(this.postSearch).subscribe(res => {
     //   if (res && res.rlt == 0) {

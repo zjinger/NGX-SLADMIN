@@ -23,13 +23,12 @@ export class PostListComponent implements OnInit {
   }
 
   getList() {
-    this.service.getListWithOutDatas()
-      .then((res: Post[]) => {
-        console.log(res)
-        this.postList = res;
+    this.service.baseService.getListWithPromise()
+      .then(data => {
+        console.log(data)
+        this.postList = data;
       }).catch(err => {
         console.log(err)
-      })
+      });
   }
-
 }

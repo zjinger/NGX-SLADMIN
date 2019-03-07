@@ -9,6 +9,7 @@ import { SharedModule } from './shared/shared.module';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { GlobalState } from './global.state';
+import { httpInterceptorProviders } from './http-interceptors';
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,7 +25,8 @@ import { GlobalState } from './global.state';
     routing
   ],
   providers: [
-    GlobalState
+    GlobalState,
+    httpInterceptorProviders
   ],
   bootstrap: [AppComponent]
 })

@@ -24,7 +24,8 @@
               "src/assets/i18n"
             ],
             "styles": [
-              "src/styles.less"
+              "src/styles.less",
+              "src/assets/editor.md/css/editormd.css"
             ],
             "scripts": [
               "./node_modules/jquery/dist/jquery.min.js",
@@ -33,7 +34,9 @@
               "./node_modules/leaflet/dist/leaflet.js",
               "./node_modules/leaflet.label/dist/leaflet.label.js",
               "./node_modules/leaflet-mouse-position/src/L.Control.MousePosition.js",
-              "./node_modules/@ckeditor/ckeditor5-build-classic/build/translations/zh-cn.js"
+              "./node_modules/@ckeditor/ckeditor5-build-classic/build/translations/zh-cn.js",
+              "./node_modules/lightgallery/dist/js/lightgallery-all.min.js",
+              "src/assets/editor.md/editormd.min.js"
             ]
           },
           "configurations": {

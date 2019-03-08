@@ -10,6 +10,7 @@ import { EditorMdDirective } from './post/editor/editor-md.directive';
 import { ModalModule } from 'ngx-bootstrap';
 import { PostConfirmComponent } from './post/post-confirm-modal/post-confirm.component';
 import { PostSaveSuccessComponent } from './post/post-save-success/post-save-success.component';
+import { EditorPreviewHtmlComponent } from './post/editor/editor-preview-html/editor-preview-html.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -23,7 +24,8 @@ import { PostSaveSuccessComponent } from './post/post-save-success/post-save-suc
     CommentComponent,
     EditorMdDirective,
     PostConfirmComponent,
-    PostSaveSuccessComponent
+    PostSaveSuccessComponent,
+    EditorPreviewHtmlComponent
   ],
   providers: [
     PostService

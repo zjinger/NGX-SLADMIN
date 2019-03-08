@@ -17,7 +17,7 @@ export class PostHandleComponent implements OnInit {
   public post = new Post();
   conf = new EditorConfig();
 
-  z_index = 9999;
+  z_index = 0;
   constructor(
     private modalService: BsModalService,
     private service: PostService,

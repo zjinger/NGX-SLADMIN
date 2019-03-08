@@ -16,6 +16,15 @@ export class EditorMdDirective implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
+    editormd.emoji = {
+      path: "http://www.emoji-cheat-sheet.com/graphics/emojis/",
+      ext: ".png"
+    };
+    // Twitter Emoji (Twemoji)  graphics files url path
+    editormd.twemoji = {
+      path: "http://twemoji.maxcdn.com/72x72/",
+      ext: ".png"
+    };
     this.editor = editormd(this.id, this.editormdConfig); // 创建编辑器
 
     const out = this.onEditorChange;

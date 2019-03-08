@@ -1,3 +1,4 @@
 export class BaseModel {
-    id?: string;
+  id?: string;
+  _id?: string; // ObjectId
 }

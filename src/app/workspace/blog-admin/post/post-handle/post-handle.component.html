@@ -15,7 +15,6 @@
     <textarea name="test" style="display: block;" [(ngModel)]="post.postContent"></textarea>
   </div>
 </form>
-<button type="button" (click)="success()">成功</button>
 <ng-template #confrimModal>
   <app-post-confirm (onPublish)="publish($event)" (onHide)="confirmBsModalRef.hide()"></app-post-confirm>
 </ng-template>

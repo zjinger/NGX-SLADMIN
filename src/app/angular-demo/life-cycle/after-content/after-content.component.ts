@@ -79,7 +79,7 @@ export class AfterContentComponent implements AfterContentChecked, AfterContentI
   styles: ['.parent {background: burlywood}'],
 })
 export class AfterContentParentComponent {
-  constructor(private logger: LoggerService) { }
+  constructor(public logger: LoggerService) { }
   show = true;
   reset() {
     this.logger.clear();

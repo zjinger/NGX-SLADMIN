@@ -80,7 +80,7 @@ export class BaseService {
    * @param id
    */
   getInfo(id): Observable<Result> {
-    return this.get<Result>(`${this.baseUrl}/getInfo${id}`, `${this.serviceName}/getInfo`);
+    return this.get<Result>(`${this.baseUrl}/getInfo/${id}`, `${this.serviceName}/getInfo`);
   }
 
   /**

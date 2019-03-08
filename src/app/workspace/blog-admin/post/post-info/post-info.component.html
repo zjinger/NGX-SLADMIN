@@ -1,3 +1,31 @@
-<p>
-  post-info works!
-</p>
+<div class="blog-content-box">
+  <div class="article-header-box">
+    <div class="article-header">
+      <div class="article-title-box">
+        <span class="article-type pull-left">{{post.isOriginal==1?'原':'转'}}</span>
+        <h1 class="title-article">{{post.title}}</h1>
+      </div>
+      <div class="article-info-box">
+        <div class="article-bar-top" style="height: 24px;">
+          <span class="time">{{post.createTime | date:'yyyy年MM月dd日 HH:mm:ss'}}</span>
+          <a class="follow-nickName" href="javascript:void(0)" target="_blank">{{post.nickName}}</a>
+          <span class="read-count">阅读数：{{post.readTimes}}</span><span class="article_info_click"
+            style="position: static;">更多</span>
+        </div>
+        <app-editor-preview-html [postContent]="post.postContent"></app-editor-preview-html>
+        <!-- <div class="operating">
+              </div> -->
+      </div>
+    </div>
+  </div>
+  <article>
+    <div id="article_content" class="article_content clearfix">
+      <div class="article-copyright">
+        版权声明：本文为博主原创文章，未经博主允许不得转载。 </div>
+      <div class="postContent htmledit_views" id="introduction" appRichTextAutoImage>
+      </div>
+    </div>
+  </article>
+</div>
+<a id="commentBox"></a>
+<!--评论区域-->

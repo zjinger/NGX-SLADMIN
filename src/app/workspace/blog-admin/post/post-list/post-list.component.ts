@@ -31,4 +31,8 @@ export class PostListComponent implements OnInit {
         console.log(err)
       });
   }
+
+  delete(item) {
+
+  }
 }

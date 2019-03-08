@@ -27,8 +27,8 @@
     <td>{{item.createTime | date:'yyyy-MM-dd HH:mm'}}</td>
     <td>{{item.lastModifyTime | date:'yyyy-MM-dd HH:mm'}}</td>
     <td class="text-center">
-      <button class="btn btn-primary btn-xs">修改</button>
-      <button class="btn btn-danger btn-xs">删除</button>
+      <a class="btn btn-primary btn-xs" [routerLink]="['edit',item.id]">修改</a>
+      <button class="btn btn-danger btn-xs" (click)="delete(item)">删除</button>
     </td>
   </tr>
 </table>

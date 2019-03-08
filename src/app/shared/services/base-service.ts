@@ -16,7 +16,7 @@ export class BaseService {
 
   }
   @Input()
-  set(serviceName, baseUrl) {
+  set(serviceName: string, baseUrl: string) {
     this.serviceName = serviceName;
     this.baseUrl = baseUrl;
     this.handleError = this.httpErrorHandler.createHandleError(this.serviceName);
@@ -99,12 +99,24 @@ export class BaseService {
    */
   getListWithPromise(data?): Promise<any[]> {
     return new Promise((resolve, reject) => {
-      this.get<Result>(`${this.baseUrl}/getList`, `${this.serviceName}/getListWithPromise`).subscribe(
-        this.respond(resolve, reject), this.respondError(reject)
-      )
+      if (data) {
+        this.post<Result>(`${this.baseUrl}/getList`, `${this.serviceName}/getListWithPromise`).subscribe(
+          this.respond(resolve, reject), this.respondError(reject)
+        )
+      } else {
+        this.get<Result>(`${this.baseUrl}/getList`, `${this.serviceName}/getListWithPromise`).subscribe(
+          this.respond(resolve, reject), this.respondError(reject)
+        )
+      }
     })
   }
 
+  /**
+   *成功响应
+   *
+   * @private
+   * @memberof BaseService
+   */
   private respond = (resolve, reject): (res: Result) => void => {
     return (res: Result) => {
       if (res.code == 0) {
@@ -115,6 +127,12 @@ export class BaseService {
     }
   }
 
+  /**
+   *错误处理
+   *
+   * @private
+   * @memberof BaseService
+   */
   private respondError = (reject): (error) => void => {
     return (error) => { reject(error) }
   }

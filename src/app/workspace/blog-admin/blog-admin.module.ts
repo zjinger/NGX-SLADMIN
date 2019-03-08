@@ -11,6 +11,8 @@ import { ModalModule } from 'ngx-bootstrap';
 import { PostConfirmComponent } from './post/post-confirm-modal/post-confirm.component';
 import { PostSaveSuccessComponent } from './post/post-save-success/post-save-success.component';
 import { EditorPreviewHtmlComponent } from './post/editor/editor-preview-html/editor-preview-html.component';
+import { ClassifyComponent } from './classify/classify.component';
+import { ClassifyService } from './classify/classify.service';
 @NgModule({
   imports: [
     CommonModule,
@@ -25,10 +27,12 @@ import { EditorPreviewHtmlComponent } from './post/editor/editor-preview-html/ed
     EditorMdDirective,
     PostConfirmComponent,
     PostSaveSuccessComponent,
-    EditorPreviewHtmlComponent
+    EditorPreviewHtmlComponent,
+    ClassifyComponent
   ],
   providers: [
-    PostService
+    PostService,
+    ClassifyService
   ],
   entryComponents: [
     PostConfirmComponent,

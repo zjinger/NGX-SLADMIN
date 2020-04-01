@@ -1,6 +1,6 @@
 import { ActivatedRoute } from '@angular/router';
 import { PostService } from './../post.service';
-import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { EditorConfig } from '../editor/model/editor-config';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap';
 import { Post } from 'src/app/shared/models/post.model';

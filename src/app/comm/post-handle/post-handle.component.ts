@@ -13,7 +13,7 @@ export class PostHandleComponent implements OnInit {
   ngOnInit() {
   }
   conf = new EditorConfig();
-  markdown = '测试语句';
+  markdown = '';
 
   // 同步属性内容
   syncModel(str): void {
